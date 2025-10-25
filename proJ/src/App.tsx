@@ -17,11 +17,11 @@
 //   );
 // }
 
-// export default App;
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Models from "./pages/Models";
 import CustomCar from "./pages/CustomCar";
+import About from "./pages/About";  // เพิ่มบรรทัดนี้
 import Navbar from "./components/Navbar";
 
 function App() {
@@ -32,9 +32,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/models" element={<Models />} />
         <Route path="/custom-car" element={<CustomCar />} />
+        <Route path="/about" element={<About />} /> {/* เพิ่มบรรทัดนี้ */}
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+
