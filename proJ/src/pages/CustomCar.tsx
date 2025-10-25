@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import carsData from "../assets/data.json"; // import JSON
 import type { Car } from "../types/Car";
 import Button from "../components/Button";
@@ -9,12 +10,16 @@ interface OverlayOption {
 }
 
 const CustomCar = () => {
-  const car: Car = carsData[0]; // สมมติเลือก car ตัวแรก
+  const location = useLocation();
+  const car: Car =
+    location.state?.car || carsData[0]; // fallback ถ้าเข้าหน้าโดยตรง
+
   const colors: OverlayOption[] = [
     { name: "Red", publicId: "car-red" },
     { name: "Blue", publicId: "car-blue" },
     { name: "Black", publicId: "car-black" },
   ];
+
   const wheels: OverlayOption[] = [
     { name: "Standard", publicId: "wheels-standard" },
     { name: "Sport", publicId: "wheels-sport" },
@@ -29,7 +34,11 @@ const CustomCar = () => {
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="flex flex-col md:flex-row p-6">
         <div className="flex-1 flex justify-center items-center">
-          <img src={finalImageUrl} alt={car.name} className="w-[80vw] md:w-[40vw]" />
+          <img
+            src={finalImageUrl}
+            alt={car.name}
+            className="w-[80vw] md:w-[40vw]"
+          />
         </div>
 
         <div className="w-full md:w-[35%] bg-white shadow-md p-6 rounded-t-2xl md:rounded-none md:rounded-l-2xl">
@@ -43,7 +52,9 @@ const CustomCar = () => {
                   key={c.name}
                   label={c.name}
                   onClick={() => setSelectedColor(c)}
-                  variant={selectedColor.name === c.name ? "primary" : "outline"}
+                  variant={
+                    selectedColor.name === c.name ? "primary" : "outline"
+                  }
                 />
               ))}
             </div>
@@ -57,7 +68,9 @@ const CustomCar = () => {
                   key={w.name}
                   label={w.name}
                   onClick={() => setSelectedWheel(w)}
-                  variant={selectedWheel.name === w.name ? "primary" : "outline"}
+                  variant={
+                    selectedWheel.name === w.name ? "primary" : "outline"
+                  }
                 />
               ))}
             </div>
