@@ -8,7 +8,7 @@ interface CarSliderProps {
 }
 
 const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
-  const [index, setIndex] = useState<number>(0);
+  const [index, setIndex] = useState(0);
   const car = cars[index];
   const navigate = useNavigate();
 
@@ -16,7 +16,7 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   const prev = () => setIndex((i) => (i - 1 + cars.length) % cars.length);
 
   useEffect(() => {
-    const interval = setInterval(next, 12000);
+    const interval = setInterval(next, 10000);
     return () => clearInterval(interval);
   }, [cars]);
 
@@ -50,10 +50,6 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
             onClick={() => navigate("/custom-car", { state: { car } })}
           />
         </div>
-
-        <p className="text-xs text-gray-700 mt-10 max-w-4xl mx-auto px-4">
-          {car.specs}
-        </p>
       </div>
 
       <button

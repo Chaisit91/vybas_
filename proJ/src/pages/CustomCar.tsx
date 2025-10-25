@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import carsData from "../assets/data.json";
 import type { Car } from "../types/Car";
 import Button from "../components/Button";
 
@@ -11,44 +10,46 @@ interface OverlayOption {
 
 const CustomCar = () => {
   const location = useLocation();
-  const car: Car = location.state?.car || carsData[0];
+  const car: Car = location.state?.car;
 
-  // 🎨 ตัวเลือกต่าง ๆ
+  if (!car) return <div className="p-10 text-center">Car not found</div>;
+
+  // 🎨 ตัวเลือกเหมือนกันทุกคัน
   const colors: OverlayOption[] = [
-    { name: "Red", publicId: "Orange-colored-cat-yawns-displaying-teeth_htbjz2" },
-    { name: "Blue", publicId: "car-blue" },
-    { name: "Black", publicId: "car-black" },
+    { name: "Red", publicId: `${car.publicId}-color-red` },
+    { name: "Blue", publicId: `${car.publicId}-color-blue` },
+    { name: "Black", publicId: `${car.publicId}-color-black` },
   ];
 
   const wheels: OverlayOption[] = [
-    { name: "Standard", publicId: "wheels-standard" },
-    { name: "Sport", publicId: "wheels-sport" },
+    { name: "Standard", publicId: `${car.publicId}-wheel-standard` },
+    { name: "Sport", publicId: `${car.publicId}-wheel-sport` },
   ];
 
   const exhausts: OverlayOption[] = [
-    { name: "Standard", publicId: "exhaust-standard" },
-    { name: "Performance", publicId: "exhaust-performance" },
+    { name: "Standard", publicId: `${car.publicId}-exhaust-standard` },
+    { name: "Performance", publicId: `${car.publicId}-exhaust-performance` },
   ];
 
   const windows: OverlayOption[] = [
-    { name: "Tinted", publicId: "window-tinted" },
-    { name: "Clear", publicId: "window-clear" },
+    { name: "Tinted", publicId: `${car.publicId}-window-tinted` },
+    { name: "Clear", publicId: `${car.publicId}-window-clear` },
   ];
 
   const spoilers: OverlayOption[] = [
     { name: "None", publicId: "" },
-    { name: "Sport", publicId: "spoiler-sport" },
-    { name: "GT", publicId: "spoiler-gt" },
+    { name: "Sport", publicId: `${car.publicId}-spoiler-sport` },
+    { name: "GT", publicId: `${car.publicId}-spoiler-gt` },
   ];
 
-  // ✅ เริ่มต้นยังไม่เลือก
+  // ✅ state สำหรับคันนี้โดยเฉพาะ
   const [selectedColor, setSelectedColor] = useState<OverlayOption | null>(null);
   const [selectedWheel, setSelectedWheel] = useState<OverlayOption | null>(null);
   const [selectedExhaust, setSelectedExhaust] = useState<OverlayOption | null>(null);
   const [selectedWindow, setSelectedWindow] = useState<OverlayOption | null>(null);
   const [selectedSpoiler, setSelectedSpoiler] = useState<OverlayOption | null>(null);
 
-  // ✅ รวมเฉพาะ publicId ที่เลือกจริง
+  // ✅ รวม overlay ที่เลือก
   const overlayParts = [
     selectedColor?.publicId,
     selectedWheel?.publicId,
@@ -57,21 +58,18 @@ const CustomCar = () => {
     selectedSpoiler?.publicId,
   ].filter(Boolean);
 
-  // ✅ base image ที่ Cloudinary (ใส่เวอร์ชันด้วย)
-  const baseImagePublicId = "v1761406230/lewis-clark-animal-shelter-lewiston-idaho-cat_gkrxcp";
-
-  // ✅ สร้างลิงก์ภาพสุดท้าย
+  // ✅ สร้าง URL ภาพ Cloudinary สำหรับคันนั้น
   const finalImageUrl =
     overlayParts.length > 0
-      ? `https://res.cloudinary.com/dvurvdamd/image/upload/${overlayParts
+      ? `https://res.cloudinary.com/dlp0q39ua/image/upload/${overlayParts
           .map((id) => `l_${id}`)
-          .join(",")}/${baseImagePublicId}.png?${Date.now()}`
-      : `https://res.cloudinary.com/dvurvdamd/image/upload/${baseImagePublicId}.png`;
+          .join(",")}/${car.publicId}.png`
+      : car.image;
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="flex flex-col md:flex-row p-6">
-        {/* 🔹 รูปภาพหลัก */}
+        {/* 🔹 รูปรถ */}
         <div className="flex-1 flex justify-center items-center">
           <img
             src={finalImageUrl}
@@ -80,7 +78,7 @@ const CustomCar = () => {
           />
         </div>
 
-        {/* 🔹 ตัวเลือก */}
+        {/* 🔹 ตัวเลือกแต่ง */}
         <div className="w-full md:w-[35%] bg-white shadow-md p-6 rounded-t-2xl md:rounded-none md:rounded-l-2xl">
           <h1 className="text-2xl font-bold mb-6">Customize {car.name}</h1>
 
