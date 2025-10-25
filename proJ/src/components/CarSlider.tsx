@@ -17,7 +17,7 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   const prev = () => setIndex((i: number) => (i - 1 + cars.length) % cars.length);
 
   useEffect(() => {
-    const interval = setInterval(next, 6000);
+    const interval = setInterval(next, 12000);
     return () => clearInterval(interval);
   }, [cars]);
 

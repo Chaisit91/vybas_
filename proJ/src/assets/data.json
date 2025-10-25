@@ -3,18 +3,27 @@
     "id": 1,
     "name": "TEMERARIO",
     "tagline": "YOU CAN'T HIDE WHO YOU ARE",
-    "image": "https://res.cloudinary.com/demo/image/upload/v1721234567/lamborghini-temerario-blue.png",
-    "sideLeft": "https://res.cloudinary.com/demo/image/upload/v1721234567/lamborghini-huracan.png",
-    "sideRight": "https://res.cloudinary.com/demo/image/upload/v1721234567/lamborghini-urus.png",
+    "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395835/x34ypvkld6aiohybzn3d.png",
+    "sideLeft": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395957/ilvtm6oam4hzqib0p3gh.png",
+    "sideRight": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395752/v5154th8rt4zdoalubuc.png",
     "specs": "Combined energy consumption: 26.8 kWh/100 Km plus 11.2 l/100km; Combined CO2 emissions: 272 g/km; Combined CO2 efficiency class: G"
   },
   {
     "id": 2,
     "name": "REVUELTO",
     "tagline": "THE FUTURE OF SUPERCARS",
-    "image": "https://res.cloudinary.com/demo/image/upload/v1721234567/lamborghini-revuelto.png",
-    "sideLeft": "https://res.cloudinary.com/demo/image/upload/v1721234567/lamborghini-aventador.png",
-    "sideRight": "https://res.cloudinary.com/demo/image/upload/v1721234567/lamborghini-urus-yellow.png",
+    "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395752/v5154th8rt4zdoalubuc.png",
+    "sideLeft": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395957/ilvtm6oam4hzqib0p3gh.png",
+    "sideRight": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395835/x34ypvkld6aiohybzn3d.png",
+    "specs": "Combined power: 1015 CV; 0–100 km/h: 2.5s; Combined CO2 emissions: 235 g/km"
+  },
+  {
+    "id": 3,
+    "name": "REs",
+    "tagline": "THE FUTURE OF SUPERCARS",
+    "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395957/ilvtm6oam4hzqib0p3gh.png",
+    "sideLeft": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395752/v5154th8rt4zdoalubuc.png",
+    "sideRight": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395835/x34ypvkld6aiohybzn3d.png",
     "specs": "Combined power: 1015 CV; 0–100 km/h: 2.5s; Combined CO2 emissions: 235 g/km"
   }
 ]
