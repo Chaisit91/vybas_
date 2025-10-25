@@ -1,5 +1,6 @@
 export interface Car {
   id: number;
+  publicId?: string; // <-- ทำให้ optional
   name: string;
   tagline: string;
   image: string;
