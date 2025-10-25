@@ -83,7 +83,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Car } from "../types/Car";
 import Button from "./Button";
-import Navbar from "./Navbar";
+// import type Navbar from "./Navbar";
 
 interface CarSliderProps {
   cars: Car[];
@@ -131,7 +131,6 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
             variant="primary"
             onClick={() => navigate("/custom-car", { state: { car } })}
           />
-          <Button label="DOWNLOAD BROCHURE ↓" variant="outline" />
         </div>
 
         <p className="text-xs text-gray-700 mt-10 max-w-4xl mx-auto px-4">
