@@ -1,4 +1,5 @@
-import { useState } from "react";
+// src/pages/CustomCar.tsx
+import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { Car } from "../types/Car";
 import Button from "../components/Button";
@@ -8,6 +9,8 @@ interface OverlayOption {
   name: string;
   image: string;
 }
+
+const CLOUDINARY_BASE = "https://res.cloudinary.com/dzhxwdlwb/image/upload/";
 
 const CustomCar = () => {
   const location = useLocation();
@@ -42,10 +45,31 @@ const CustomCar = () => {
       </div>
     );
 
-  // สร้าง state แบบไดนามิกตาม category
+  // state สำหรับตัวเลือกแต่ละหมวด
   const initialSelected: Record<string, OverlayOption | null> = {};
   Object.keys(options).forEach((key) => (initialSelected[key] = null));
   const [selected, setSelected] = useState(initialSelected);
+
+  // state สำหรับรูปที่จับคู่กัน
+  const [comboImage, setComboImage] = useState<string | null>(null);
+
+  // เมื่อเลือก option ใด ๆ ให้ลองตรวจสอบรูป combo
+  useEffect(() => {
+    const chosenNames = Object.values(selected)
+      .filter(Boolean)
+      .map((opt) => opt!.name.toLowerCase().replace(/\s+/g, ""));
+
+    if (chosenNames.length >= 2) {
+      const comboUrl = `${CLOUDINARY_BASE}${car.publicId}-${chosenNames.join("-")}.png`;
+
+      const img = new Image();
+      img.src = comboUrl;
+      img.onload = () => setComboImage(comboUrl);
+      img.onerror = () => setComboImage(null);
+    } else {
+      setComboImage(null);
+    }
+  }, [selected, car.publicId]);
 
   const handleSelect = (category: string, option: OverlayOption) => {
     setSelected((prev) => ({
@@ -54,26 +78,36 @@ const CustomCar = () => {
     }));
   };
 
-  // รวม overlay image ทั้งหมด
-  const overlayParts = Object.values(selected)
-    .filter(Boolean)
-    .map((opt) => opt!.image);
-
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="flex flex-col md:flex-row p-6 gap-6">
         {/* 🚗 รูปรถ + overlay */}
         <div className="flex-1 flex justify-center items-center">
           <div className="relative w-[80vw] md:w-[40vw] mx-auto">
-            <img src={car.image} alt={car.name} className="w-full rounded-xl shadow-lg" />
-            {overlayParts.map((img, i) => (
+            <img
+              src={car.image}
+              alt={car.name}
+              className="w-full rounded-xl shadow-lg"
+            />
+
+            {comboImage ? (
               <img
-                key={i}
-                src={img}
-                alt=""
+                src={comboImage}
+                alt="Combined customization"
                 className="absolute top-0 left-0 w-full h-full rounded-xl"
               />
-            ))}
+            ) : (
+              Object.entries(selected).map(([category, opt]) =>
+                opt?.image ? (
+                  <img
+                    key={category}
+                    src={opt.image}
+                    alt={category}
+                    className="absolute top-0 left-0 w-full h-full rounded-xl"
+                  />
+                ) : null
+              )
+            )}
           </div>
         </div>
 
@@ -92,7 +126,11 @@ const CustomCar = () => {
                       key={opt.name}
                       label={opt.name}
                       onClick={() => handleSelect(category, opt)}
-                      variant={selected[category]?.name === opt.name ? "primary" : "outline"}
+                      variant={
+                        selected[category]?.name === opt.name
+                          ? "primary"
+                          : "outline"
+                      }
                     />
                   ))}
                 </div>
@@ -100,7 +138,7 @@ const CustomCar = () => {
             );
           })}
 
-          {/* สรุป */}
+          {/* 🧾 สรุป */}
           <div className="mt-10 border-t pt-4">
             <p className="text-gray-500 text-sm">Selected:</p>
             <p className="font-semibold text-gray-800">

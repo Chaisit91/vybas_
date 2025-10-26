@@ -1,13 +1,13 @@
 {
   "temerario": {
     "colors": [
-      { "name": "Crimson Red", "image": "" },
-      { "name": "Shadow Black", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-color-black.png" },
-      { "name": "Arctic Blue", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-color-blue.png" }
+      { "name": "Crimson Red", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487352/familyChooser-Sian_Roadster_cws4lb.png" },
+      { "name": "Shadow Black", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487351/familyChooser-Fenomeno_zmv51n.png" },
+      { "name": "Arctic Blue", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487350/familyChooser-Countach_gepbro.png" }
     ],
     "wheels": [
-      { "name": "Vortex", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-wheel-vortex.png" },
-      { "name": "Carbon X", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-wheel-carbonx.png" }
+      { "name": "Vortex", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487350/familyChooser-Countach_gepbro.png" },
+      { "name": "Carbon X", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487350/familyChooser-Sian_hibnmu.png" }
     ],
     "exhausts": [
       { "name": "Standard", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-exhaust-standard.png" },
