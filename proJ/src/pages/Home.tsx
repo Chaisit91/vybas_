@@ -8,7 +8,7 @@ const Home: React.FC = () => {
         Discover the future of performance and design.
       </p>
       <Link
-        to="/models"
+        to="/Models"
         className="bg-yellow-500 text-black px-6 py-3 rounded font-semibold hover:bg-yellow-600 transition"
       >
         View Models →

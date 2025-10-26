@@ -14,7 +14,7 @@ const Login = () => {
     const correctPassword = "1234";
 
     if (username === correctUsername && password === correctPassword) {
-      navigate("/admin");
+      navigate("/Admin");
     } else {
       alert("Invalid username or password");
     }
