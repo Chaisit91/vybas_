@@ -16,5 +16,11 @@
     "title": "Test Drive Event Coming Soon",
     "content": "Join us for an exclusive test drive event and experience the thrill first-hand.",
     "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1690000000/car-news3.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Exclusive Customization Options",
+    "content": "Now you can fully customize your Lamborghini with new color and wheel options.",
+    "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1690000000/car-news2.jpg"
   }
 ]
