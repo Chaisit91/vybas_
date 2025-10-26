@@ -2,20 +2,19 @@ import React from "react";
 
 interface ButtonProps {
   label: string;
-  onClick?: () => void;
   variant?: "primary" | "outline";
+  onClick?: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, variant = "primary" }) => {
-  const base =
-    "font-semibold py-3 px-8 rounded transition-all duration-300 text-sm md:text-base";
+const Button: React.FC<ButtonProps> = ({ label, variant = "outline", onClick }) => {
+  const base = "px-4 py-2 rounded font-semibold transition-colors duration-200";
   const styles =
     variant === "primary"
-      ? "bg-yellow-500 hover:bg-yellow-600 text-black"
-      : "border border-black hover:bg-black hover:text-white";
+      ? "bg-blue-600 text-white hover:bg-blue-700"
+      : "border border-gray-700 text-gray-700 hover:bg-gray-200";
 
   return (
-    <button onClick={onClick} className={`${base} ${styles}`}>
+    <button className={`${base} ${styles}`} onClick={onClick}>
       {label}
     </button>
   );

@@ -1,42 +1,32 @@
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Home from "./pages/Home";
-// import Models from "./pages/Models";
-// import CustomCar from "./pages/CustomCar"; // ถ้ามีหน้าปรับแต่งรถ
-// import Navbar from "./components/Navbar"; // สมมติว่ามี Navbar
-
-// function App() {
-//   return (
-//     <Router>
-//       <Navbar /> {/* ✅ ให้ Navbar แสดงในทุกหน้า */}
-//       <Routes>
-//         <Route path="/" element={<Home />} />           {/* หน้า Welcome */}
-//         <Route path="/models" element={<Models />} />   {/* หน้า CarSlider */}
-//         <Route path="/custom-car" element={<CustomCar />} /> {/* หน้า Explore */}
-//       </Routes>
-//     </Router>
-//   );
-// }
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Models from "./pages/Models";
 import CustomCar from "./pages/CustomCar";
-import About from "./pages/About";  // เพิ่มบรรทัดนี้
-import Navbar from "./components/Navbar";
+import About from "./pages/About"; // หน้า About ใหม่
+import Navbar from "./components/Navbar"; // Navbar แสดงทุกหน้า
 
 function App() {
   return (
     <BrowserRouter>
-      <Navbar /> {/* Navbar แสดงทุกหน้า */}
+      {/* Navbar แสดงในทุกหน้า */}
+      <Navbar />
+
+      {/* กำหนด Routes ของแต่ละหน้า */}
       <Routes>
+        {/* หน้าแรก Welcome */}
         <Route path="/" element={<Home />} />
+
+        {/* หน้าแสดง Models / CarSlider */}
         <Route path="/models" element={<Models />} />
+
+        {/* หน้า CustomCar สำหรับปรับแต่งรถ */}
         <Route path="/custom-car" element={<CustomCar />} />
-        <Route path="/about" element={<About />} /> {/* เพิ่มบรรทัดนี้ */}
+
+        {/* หน้า About */}
+        <Route path="/about" element={<About />} />
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
-
