@@ -1,4 +1,3 @@
-// src/pages/CustomCar.tsx
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { Car } from "../types/Car";
@@ -10,14 +9,59 @@ interface OverlayOption {
   image: string;
 }
 
-const CLOUDINARY_BASE = "https://res.cloudinary.com/dzhxwdlwb/image/upload/";
-
 const CustomCar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const car: Car = location.state?.car;
+  const car: Car | undefined = location.state?.car;
 
-  if (!car)
+  // ดึง options จากไฟล์ JSON ตาม publicId ของรถ
+  const options: Record<string, OverlayOption[]> | undefined = car
+    ? (carOptions as Record<string, Record<string, OverlayOption[]>>)[car.publicId]
+    : undefined;
+
+  const [selected, setSelected] = useState<Record<string, OverlayOption | null>>({});
+  const [displayImage, setDisplayImage] = useState<string | null>(null);
+  const [fadeKey, setFadeKey] = useState(0);
+  const [lastSelected, setLastSelected] = useState<OverlayOption | null>(null);
+
+  // ตั้งค่า state เริ่มต้น
+  useEffect(() => {
+    if (!options) return;
+    const initialSelected: Record<string, OverlayOption | null> = {};
+    Object.keys(options).forEach((key) => (initialSelected[key] = null));
+    setSelected(initialSelected);
+    setDisplayImage(car?.image || null);
+  }, [options, car]);
+
+  // อัปเดตภาพเมื่อเลือกออปชันใหม่ (ไม่ overlay)
+  useEffect(() => {
+    if (!car) return;
+
+    const finalImage = lastSelected?.image || car.image;
+
+    const img = new Image();
+    img.src = finalImage || "";
+    img.onload = () => {
+      setDisplayImage(finalImage || null);
+      setFadeKey((prev) => prev + 1);
+    };
+  }, [lastSelected, car]);
+
+  // เปลี่ยนตัวเลือก
+  const handleSelect = (category: string, option: OverlayOption) => {
+    setSelected((prev) => {
+      const isSame = prev[category]?.name === option.name;
+      const updated = {
+        ...prev,
+        [category]: isSame ? null : option,
+      };
+      setLastSelected(isSame ? null : option); // บันทึกออปชันล่าสุด
+      return updated;
+    });
+  };
+
+  // ถ้าไม่มี car
+  if (!car) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
         <h1 className="text-2xl font-bold mb-4">Car not found</h1>
@@ -29,10 +73,10 @@ const CustomCar = () => {
         </button>
       </div>
     );
+  }
 
-  const options: Record<string, OverlayOption[]> = (carOptions as any)[car.publicId];
-
-  if (!options)
+  // ถ้าไม่มี options
+  if (!options) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
         <h1 className="text-2xl font-bold mb-4">No customization options found</h1>
@@ -44,70 +88,23 @@ const CustomCar = () => {
         </button>
       </div>
     );
-
-  // state สำหรับตัวเลือกแต่ละหมวด
-  const initialSelected: Record<string, OverlayOption | null> = {};
-  Object.keys(options).forEach((key) => (initialSelected[key] = null));
-  const [selected, setSelected] = useState(initialSelected);
-
-  // state สำหรับรูปที่จับคู่กัน
-  const [comboImage, setComboImage] = useState<string | null>(null);
-
-  // เมื่อเลือก option ใด ๆ ให้ลองตรวจสอบรูป combo
-  useEffect(() => {
-    const chosenNames = Object.values(selected)
-      .filter(Boolean)
-      .map((opt) => opt!.name.toLowerCase().replace(/\s+/g, ""));
-
-    if (chosenNames.length >= 2) {
-      const comboUrl = `${CLOUDINARY_BASE}${car.publicId}-${chosenNames.join("-")}.png`;
-
-      const img = new Image();
-      img.src = comboUrl;
-      img.onload = () => setComboImage(comboUrl);
-      img.onerror = () => setComboImage(null);
-    } else {
-      setComboImage(null);
-    }
-  }, [selected, car.publicId]);
-
-  const handleSelect = (category: string, option: OverlayOption) => {
-    setSelected((prev) => ({
-      ...prev,
-      [category]: prev[category]?.name === option.name ? null : option,
-    }));
-  };
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="flex flex-col md:flex-row p-6 gap-6">
-        {/* 🚗 รูปรถ + overlay */}
+        {/* 🚗 รูปรถ */}
         <div className="flex-1 flex justify-center items-center">
           <div className="relative w-[80vw] md:w-[40vw] mx-auto">
             <img
-              src={car.image}
+              key={fadeKey}
+              src={displayImage || car.image}
               alt={car.name}
-              className="w-full rounded-xl shadow-lg"
+              className="w-full rounded-xl shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn"
+              onLoad={(e) => {
+                (e.currentTarget as HTMLImageElement).style.opacity = "1";
+              }}
             />
-
-            {comboImage ? (
-              <img
-                src={comboImage}
-                alt="Combined customization"
-                className="absolute top-0 left-0 w-full h-full rounded-xl"
-              />
-            ) : (
-              Object.entries(selected).map(([category, opt]) =>
-                opt?.image ? (
-                  <img
-                    key={category}
-                    src={opt.image}
-                    alt={category}
-                    className="absolute top-0 left-0 w-full h-full rounded-xl"
-                  />
-                ) : null
-              )
-            )}
           </div>
         </div>
 
@@ -121,7 +118,7 @@ const CustomCar = () => {
               <div key={category} className="mb-8">
                 <h2 className="text-lg font-semibold mb-3">Choose {label}</h2>
                 <div className="flex gap-3 flex-wrap">
-                  {(opts as OverlayOption[]).map((opt) => (
+                  {opts.map((opt) => (
                     <Button
                       key={opt.name}
                       label={opt.name}
