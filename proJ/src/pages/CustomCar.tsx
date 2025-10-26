@@ -1,12 +1,26 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import type { Car } from "../types/Car";
 import Button from "../components/Button";
 import carOptions from "../assets/carOptions.json";
+import type { Car } from "../types/Car";
 
+// Define OverlayOption type
 interface OverlayOption {
   name: string;
   image: string;
+}
+
+// Define categories explicitly
+type Category = "colors" | "wheels" | "exhausts" | "windows" | "spoilers";
+
+// Define CarOptions type
+interface CarOptions {
+  colors: OverlayOption[];
+  wheels: OverlayOption[];
+  exhausts: OverlayOption[];
+  windows: OverlayOption[];
+  spoilers: OverlayOption[];
+  combos: { selected: Record<Category, string>; image: string }[];
 }
 
 const CustomCar = () => {
@@ -14,53 +28,58 @@ const CustomCar = () => {
   const navigate = useNavigate();
   const car: Car | undefined = location.state?.car;
 
-  // ดึง options จากไฟล์ JSON ตาม publicId ของรถ
-  const options: Record<string, OverlayOption[]> | undefined = car
-    ? (carOptions as Record<string, Record<string, OverlayOption[]>>)[car.publicId]
+  // Get options from JSON, typed as CarOptions
+  const options: CarOptions | undefined = car
+    ? (carOptions as Record<string, CarOptions>)[car.publicId]
     : undefined;
 
-  const [selected, setSelected] = useState<Record<string, OverlayOption | null>>({});
-  const [displayImage, setDisplayImage] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Record<Category, OverlayOption | null>>({
+    colors: null,
+    wheels: null,
+    exhausts: null,
+    windows: null,
+    spoilers: null,
+  });
+
+  const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
   const [fadeKey, setFadeKey] = useState(0);
   const [lastSelected, setLastSelected] = useState<OverlayOption | null>(null);
 
-  // ตั้งค่า state เริ่มต้น
+  // Initialize selection on options change
   useEffect(() => {
     if (!options) return;
-    const initialSelected: Record<string, OverlayOption | null> = {};
-    Object.keys(options).forEach((key) => (initialSelected[key] = null));
+    const initialSelected: Record<Category, OverlayOption | null> = {
+      colors: null,
+      wheels: null,
+      exhausts: null,
+      windows: null,
+      spoilers: null,
+    };
     setSelected(initialSelected);
-    setDisplayImage(car?.image || null);
+    setDisplayImage(car?.image || "");
   }, [options, car]);
 
-  // อัปเดตภาพเมื่อเลือกออปชันใหม่ (ไม่ overlay)
+  // Update displayed image when selection changes
   useEffect(() => {
     if (!car) return;
-
-    const finalImage = lastSelected?.image || car.image;
-
+    const finalImage: string = lastSelected?.image || car.image || "";
     const img = new Image();
-    img.src = finalImage || "";
+    img.src = finalImage;
     img.onload = () => {
-      setDisplayImage(finalImage || null);
+      setDisplayImage(finalImage);
       setFadeKey((prev) => prev + 1);
     };
   }, [lastSelected, car]);
 
-  // เปลี่ยนตัวเลือก
-  const handleSelect = (category: string, option: OverlayOption) => {
+  const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {
       const isSame = prev[category]?.name === option.name;
-      const updated = {
-        ...prev,
-        [category]: isSame ? null : option,
-      };
-      setLastSelected(isSame ? null : option); // บันทึกออปชันล่าสุด
+      const updated = { ...prev, [category]: isSame ? null : option };
+      setLastSelected(isSame ? null : option);
       return updated;
     });
   };
 
-  // ถ้าไม่มี car
   if (!car) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
@@ -75,7 +94,6 @@ const CustomCar = () => {
     );
   }
 
-  // ถ้าไม่มี options
   if (!options) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
@@ -90,15 +108,16 @@ const CustomCar = () => {
     );
   }
 
+  const categories: Category[] = ["colors", "wheels", "exhausts", "windows", "spoilers"];
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       <div className="flex flex-col md:flex-row p-6 gap-6">
-        {/* 🚗 รูปรถ */}
         <div className="flex-1 flex justify-center items-center">
           <div className="relative w-[80vw] md:w-[40vw] mx-auto">
             <img
               key={fadeKey}
-              src={displayImage || car.image}
+              src={displayImage}
               alt={car.name}
               className="w-full rounded-xl shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn"
               onLoad={(e) => {
@@ -108,34 +127,27 @@ const CustomCar = () => {
           </div>
         </div>
 
-        {/* 🛠 ตัวเลือกแต่ง */}
         <div className="w-full md:w-[35%] bg-white shadow-md p-6 rounded-t-2xl md:rounded-none md:rounded-l-2xl">
           <h1 className="text-2xl font-bold mb-6">Customize {car.name}</h1>
 
-          {Object.entries(options).map(([category, opts]) => {
-            const label = category.charAt(0).toUpperCase() + category.slice(1);
-            return (
-              <div key={category} className="mb-8">
-                <h2 className="text-lg font-semibold mb-3">Choose {label}</h2>
-                <div className="flex gap-3 flex-wrap">
-                  {opts.map((opt) => (
-                    <Button
-                      key={opt.name}
-                      label={opt.name}
-                      onClick={() => handleSelect(category, opt)}
-                      variant={
-                        selected[category]?.name === opt.name
-                          ? "primary"
-                          : "outline"
-                      }
-                    />
-                  ))}
-                </div>
+          {categories.map((category) => (
+            <div key={category} className="mb-8">
+              <h2 className="text-lg font-semibold mb-3">
+                Choose {category.charAt(0).toUpperCase() + category.slice(1)}
+              </h2>
+              <div className="flex gap-3 flex-wrap">
+                {(options[category] as OverlayOption[]).map((opt: OverlayOption) => (
+                  <Button
+                    key={opt.name}
+                    label={opt.name}
+                    onClick={() => handleSelect(category, opt)}
+                    variant={selected[category]?.name === opt.name ? "primary" : "outline"}
+                  />
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
 
-          {/* 🧾 สรุป */}
           <div className="mt-10 border-t pt-4">
             <p className="text-gray-500 text-sm">Selected:</p>
             <p className="font-semibold text-gray-800">

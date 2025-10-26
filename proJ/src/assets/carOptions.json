@@ -21,52 +21,60 @@
       { "name": "Sport", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-spoiler-sport.png" },
       { "name": "GT", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-spoiler-gt.png" },
       { "name": "None", "image": "" }
+    ],
+    "combos": [
+      { "selected": { "colors": "Crimson Red", "wheels": "Vortex", "exhausts": "Standard", "windows": "Dark Tint", "spoilers": "Sport" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-combo-1.png" },
+      { "selected": { "colors": "Crimson Red", "wheels": "Vortex", "exhausts": "Standard", "windows": "Dark Tint", "spoilers": "GT" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-combo-2.png" }
     ]
   },
-
   "revuelto": {
     "colors": [
-      { "name": "Lime Green", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-color-green.png" },
-      { "name": "Pearl White", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-color-white.png" }
+      { "name": "Jet Black", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-color-black.png" },
+      { "name": "Solar Yellow", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-color-yellow.png" },
+      { "name": "Ice White", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-color-white.png" }
     ],
     "wheels": [
-      { "name": "Aero", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-wheel-aero.png" },
-      { "name": "Stealth", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-wheel-stealth.png" }
+      { "name": "Razor", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-wheels-razor.png" },
+      { "name": "Quantum", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-wheels-quantum.png" }
     ],
     "exhausts": [
-      { "name": "Dual", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-exhaust-dual.png" },
-      { "name": "Quad", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-exhaust-quad.png" }
+      { "name": "Standard", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-exhaust-standard.png" },
+      { "name": "Sport", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-exhaust-sport.png" }
     ],
     "windows": [
-      { "name": "Smoked", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-window-smoked.png" },
+      { "name": "Tinted", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-window-tinted.png" },
       { "name": "Clear", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-window-clear.png" }
     ],
     "spoilers": [
-      { "name": "Active", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-spoiler-active.png" },
-      { "name": "Track", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-spoiler-track.png" }
-    ]
+      { "name": "Sport", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-spoiler-sport.png" },
+      { "name": "GT", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/revuelto-spoiler-gt.png" },
+      { "name": "None", "image": "" }
+    ],
+    "combos": []
   },
-
   "res": {
     "colors": [
-      { "name": "Copper", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-color-copper.png" },
-      { "name": "Steel Silver", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-color-silver.png" }
+      { "name": "Crimson Red", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-color-red.png" },
+      { "name": "Obsidian Black", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-color-black.png" },
+      { "name": "Sky Blue", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-color-blue.png" }
     ],
     "wheels": [
-      { "name": "Classic", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-wheel-classic.png" },
-      { "name": "Performance", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-wheel-performance.png" }
+      { "name": "Falcon", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-wheels-falcon.png" },
+      { "name": "Nova", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-wheels-nova.png" }
     ],
     "exhausts": [
-      { "name": "Chrome", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-exhaust-chrome.png" },
-      { "name": "Matte Black", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-exhaust-black.png" }
+      { "name": "Standard", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-exhaust-standard.png" },
+      { "name": "Sport", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-exhaust-sport.png" }
     ],
     "windows": [
-      { "name": "Blue Tint", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-window-blue.png" },
-      { "name": "Dark Tint", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-window-dark.png" }
+      { "name": "Tinted", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-window-tinted.png" },
+      { "name": "Clear", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-window-clear.png" }
     ],
     "spoilers": [
-      { "name": "None", "image": "" },
-      { "name": "Street", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-spoiler-street.png" }
-    ]
+      { "name": "Sport", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-spoiler-sport.png" },
+      { "name": "GT", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/res-spoiler-gt.png" },
+      { "name": "None", "image": "" }
+    ],
+    "combos": []
   }
 }
