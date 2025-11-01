@@ -2,23 +2,33 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import type { Car } from "../types/Car";
+import defaultCars from "../assets/data.json";
 
 interface CarSliderProps {
-  cars: Car[];
+  cars?: Car[];
 }
 
 const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
-  const [index, setIndex] = useState(0);
-  const car = cars[index];
   const navigate = useNavigate();
-
-  const next = () => setIndex((i) => (i + 1) % cars.length);
-  const prev = () => setIndex((i) => (i - 1 + cars.length) % cars.length);
+  const [carList, setCarList] = useState<Car[]>(cars || []);
+  const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(next, 10000);
-    return () => clearInterval(interval);
-  }, [cars]);
+    // ✅ โหลดข้อมูลจาก localStorage
+    const saved = localStorage.getItem("car_list_data");
+    if (saved) {
+      setCarList(JSON.parse(saved));
+    } else {
+      setCarList(defaultCars);
+    }
+  }, []);
+
+  const next = () => setIndex((i) => (i + 1) % carList.length);
+  const prev = () => setIndex((i) => (i - 1 + carList.length) % carList.length);
+
+  const car = carList[index];
+
+  if (!car) return null;
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-white text-center pt-24 relative overflow-hidden">
