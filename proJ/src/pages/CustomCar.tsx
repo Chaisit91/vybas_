@@ -4,16 +4,13 @@ import Button from "../components/Button";
 import carOptions from "../assets/carOptions.json";
 import type { Car } from "../types/Car";
 
-// Define OverlayOption type
 interface OverlayOption {
   name: string;
   image: string;
 }
 
-// Define categories explicitly
 type Category = "colors" | "wheels" | "spoilers";
 
-// Define CarOptions type
 interface CarOptions {
   colors: OverlayOption[];
   wheels: OverlayOption[];
@@ -26,7 +23,6 @@ const CustomCar = () => {
   const navigate = useNavigate();
   const car: Car | undefined = location.state?.car;
 
-  // Get options from JSON, typed as CarOptions
   const options: CarOptions | undefined = car
     ? (carOptions as Record<string, CarOptions>)[car.publicId]
     : undefined;
@@ -41,22 +37,15 @@ const CustomCar = () => {
   const [fadeKey, setFadeKey] = useState(0);
   const [lastSelected, setLastSelected] = useState<OverlayOption | null>(null);
 
-  // Initialize selection on options change
   useEffect(() => {
     if (!options) return;
-    const initialSelected: Record<Category, OverlayOption | null> = {
-      colors: null,
-      wheels: null,
-      spoilers: null,
-    };
-    setSelected(initialSelected);
+    setSelected({ colors: null, wheels: null, spoilers: null });
     setDisplayImage(car?.image || "");
   }, [options, car]);
 
-  // Update displayed image when selection changes
   useEffect(() => {
     if (!car) return;
-    const finalImage: string = lastSelected?.image || car.image || "";
+    const finalImage = lastSelected?.image || car.image || "";
     const img = new Image();
     img.src = finalImage;
     img.onload = () => {
@@ -79,7 +68,7 @@ const CustomCar = () => {
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
         <h1 className="text-2xl font-bold mb-4">Car not found</h1>
         <button
-          className="bg-yellow-500 text-black px-6 py-3 rounded"
+          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg shadow-md transition"
           onClick={() => navigate("/models")}
         >
           Back to Models
@@ -93,7 +82,7 @@ const CustomCar = () => {
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
         <h1 className="text-2xl font-bold mb-4">No customization options found</h1>
         <button
-          className="bg-yellow-500 text-black px-6 py-3 rounded"
+          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg shadow-md transition"
           onClick={() => navigate("/models")}
         >
           Back to Models
@@ -105,15 +94,17 @@ const CustomCar = () => {
   const categories: Category[] = ["colors", "wheels", "spoilers"];
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="flex flex-col md:flex-row p-6 gap-6">
-        <div className="flex-1 flex justify-center items-center">
-          <div className="relative w-[80vw] md:w-[40vw] mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 pt-20 font-sans">
+      <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
+
+        {/* Car Display Section */}
+        <div className="flex-1 flex justify-center items-center w-full">
+          <div className="relative w-full max-w-7xl bg-white/70 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden backdrop-blur-md">
             <img
               key={fadeKey}
               src={displayImage}
               alt={car.name}
-              className="w-full rounded-xl shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn"
+              className="w-full h-[80vh] object-contain transition-transform duration-700 ease-in-out opacity-0 animate-fadeIn hover:scale-[1.03]"
               onLoad={(e) => {
                 (e.currentTarget as HTMLImageElement).style.opacity = "1";
               }}
@@ -121,16 +112,19 @@ const CustomCar = () => {
           </div>
         </div>
 
-        <div className="w-full md:w-[35%] bg-white shadow-md p-6 rounded-t-2xl md:rounded-none md:rounded-l-2xl">
-          <h1 className="text-2xl font-bold mb-6">Customize {car.name}</h1>
+        {/* Control Panel */}
+        <div className="w-full lg:w-[32rem] bg-white/95 shadow-2xl border border-gray-100 p-8 rounded-3xl backdrop-blur-md lg:ml-auto">
+          <h1 className="text-4xl font-extrabold mb-6 text-gray-800 border-b pb-3 tracking-tight">
+            Customize <span className="text-indigo-600">{car.name}</span>
+          </h1>
 
           {categories.map((category) => (
             <div key={category} className="mb-8">
-              <h2 className="text-lg font-semibold mb-3">
+              <h2 className="text-xl font-semibold mb-3 text-gray-700">
                 Choose {category.charAt(0).toUpperCase() + category.slice(1)}
               </h2>
               <div className="flex gap-3 flex-wrap">
-                {(options[category] as OverlayOption[]).map((opt: OverlayOption) => (
+                {(options[category] as OverlayOption[]).map((opt) => (
                   <Button
                     key={opt.name}
                     label={opt.name}
@@ -142,14 +136,23 @@ const CustomCar = () => {
             </div>
           ))}
 
-          <div className="mt-10 border-t pt-4">
+          <div className="mt-10 border-t pt-5">
             <p className="text-gray-500 text-sm">Selected:</p>
-            <p className="font-semibold text-gray-800">
+            <p className="font-semibold text-gray-800 text-lg mt-1">
               {Object.values(selected)
                 .filter(Boolean)
                 .map((item) => item!.name)
                 .join(" · ") || "None"}
             </p>
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <button
+              onClick={() => navigate("/cart", { state: { car, selected } })}
+              className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
@@ -158,3 +161,5 @@ const CustomCar = () => {
 };
 
 export default CustomCar;
+
+
