@@ -15,7 +15,6 @@ interface CarOptions {
   colors: OverlayOption[];
   wheels: OverlayOption[];
   spoilers: OverlayOption[];
-  combos?: { selected: Record<Category, string>; image: string }[];
 }
 
 const CustomCar = () => {
@@ -33,31 +32,20 @@ const CustomCar = () => {
   });
 
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
-  const [fadeKey, setFadeKey] = useState(0);
 
-  // ✅ รีเซ็ตเมื่อเปลี่ยนรถ
   useEffect(() => {
-    if (!options) return;
-    setSelected({ colors: null, wheels: null, spoilers: null });
-    setDisplayImage(car?.image || "");
-  }, [options, car]);
+    if (car) setDisplayImage(car.image);
+  }, [car]);
 
-  // ✅ เมื่อเลือกตัวเลือกใดๆ → เปลี่ยนภาพตามนั้น
   const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {
       const isSame = prev[category]?.name === option.name;
       const updated = { ...prev, [category]: isSame ? null : option };
 
-      // ✅ ถ้ามีการเลือก option ใหม่ → แสดงภาพของมันเลย
-      const finalImage =
-        updated.spoilers?.image ||
-        updated.wheels?.image ||
-        updated.colors?.image ||
-        car?.image ||
-        "";
-
-      setDisplayImage(finalImage);
-      setFadeKey((k) => k + 1);
+      // ✅ อัปเดตรูปจาก option ล่าสุดที่เลือก
+      const newImage = updated[category]?.image || car?.image || "";
+      console.log("🔹 Selected image:", newImage);
+      setDisplayImage(newImage);
 
       return updated;
     });
@@ -65,13 +53,13 @@ const CustomCar = () => {
 
   if (!car) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
-        <h1 className="text-2xl font-bold mb-4">Car not found</h1>
+      <div className="min-h-screen flex flex-col justify-center items-center">
+        <h1 className="text-xl font-bold">Car not found</h1>
         <button
-          className="bg-yellow-500 text-black px-6 py-3 rounded"
           onClick={() => navigate("/models")}
+          className="bg-yellow-500 px-4 py-2 rounded mt-4"
         >
-          Back to Models
+          Back
         </button>
       </div>
     );
@@ -79,12 +67,14 @@ const CustomCar = () => {
 
   if (!options) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
-        <h1 className="text-2xl font-bold mb-4">No customization options found</h1>
-        <p className="text-gray-600 mb-6">รถคันนี้ยังไม่มีตัวเลือกการแต่งในระบบ admin</p>
+      <div className="min-h-screen flex flex-col justify-center items-center text-center">
+        <h1 className="text-2xl font-bold mb-2">No customization options</h1>
+        <p className="text-gray-500 mb-4">
+          รถคันนี้ยังไม่มีตัวเลือกของแต่งในระบบ admin
+        </p>
         <button
-          className="bg-yellow-500 text-black px-6 py-3 rounded"
           onClick={() => navigate("/models")}
+          className="bg-yellow-500 text-black px-6 py-3 rounded"
         >
           Back to Models
         </button>
@@ -95,18 +85,20 @@ const CustomCar = () => {
   const categories: Category[] = ["colors", "wheels", "spoilers"];
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-28 relative z-0">
+    <div className="min-h-screen bg-gray-50 pt-20">
       <div className="flex flex-col md:flex-row p-6 gap-6">
-        {/* ✅ รูปรถ */}
+        {/* ✅ รูปรถที่โชว์ */}
         <div className="flex-1 flex justify-center items-center">
-          <div className="w-[80vw] md:w-[40vw] mx-auto">
-            <img
-              key={fadeKey}
-              src={displayImage}
-              alt={car.name}
-              className="w-full rounded-xl shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn"
-              onLoad={(e) => ((e.currentTarget as HTMLImageElement).style.opacity = "1")}
-            />
+          <div className="relative w-[80vw] md:w-[40vw] mx-auto aspect-video rounded-xl bg-gray-100 shadow-md overflow-hidden">
+            {displayImage ? (
+              <img
+                src={displayImage}
+                alt="car display"
+                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-700"
+              />
+            ) : (
+              <p className="text-gray-400 text-center">No image available</p>
+            )}
           </div>
         </div>
 
@@ -116,27 +108,33 @@ const CustomCar = () => {
 
           {categories.map((category) => (
             <div key={category} className="mb-8">
-              <h2 className="text-lg font-semibold mb-3">
-                Choose {category.charAt(0).toUpperCase() + category.slice(1)}
+              <h2 className="text-lg font-semibold mb-3 capitalize">
+                {category}
               </h2>
-              <div className="flex gap-3 flex-wrap">
-                {(options[category] as OverlayOption[]).length > 0 ? (
-                  options[category].map((opt: OverlayOption) => (
+              <div className="flex flex-wrap gap-3">
+                {options[category]?.length ? (
+                  options[category].map((opt) => (
                     <Button
                       key={opt.name}
                       label={opt.name}
                       onClick={() => handleSelect(category, opt)}
-                      variant={selected[category]?.name === opt.name ? "primary" : "outline"}
+                      variant={
+                        selected[category]?.name === opt.name
+                          ? "primary"
+                          : "outline"
+                      }
                     />
                   ))
                 ) : (
-                  <p className="text-sm text-gray-400">No {category} options available</p>
+                  <p className="text-sm text-gray-400">
+                    No {category} options available
+                  </p>
                 )}
               </div>
             </div>
           ))}
 
-          {/* ✅ ปุ่ม Reset */}
+          {/* ✅ Reset */}
           <div className="mt-8">
             <Button
               label="Reset to Default"
@@ -144,7 +142,6 @@ const CustomCar = () => {
               onClick={() => {
                 setSelected({ colors: null, wheels: null, spoilers: null });
                 setDisplayImage(car.image);
-                setFadeKey((k) => k + 1);
               }}
             />
           </div>
@@ -155,7 +152,7 @@ const CustomCar = () => {
             <p className="font-semibold text-gray-800">
               {Object.values(selected)
                 .filter(Boolean)
-                .map((item) => item!.name)
+                .map((i) => i!.name)
                 .join(" · ") || "None"}
             </p>
           </div>
