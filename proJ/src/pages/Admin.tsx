@@ -10,14 +10,14 @@ export default function Admin() {
           to="/admin/cars"
           className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition"
         >
-          🚗 จัดการรถ (CarAdmin)
+           จัดการรถ (CarAdmin)
         </Link>
 
         <Link
           to="/admin/customizations"
           className="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 transition"
         >
-          🎨 จัดการของแต่ง (CustomizationAdmin)
+           จัดการของแต่ง (CustomizationAdmin)
         </Link>
       </div>
     </div>
