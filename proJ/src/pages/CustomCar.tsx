@@ -11,14 +11,12 @@ interface OverlayOption {
 }
 
 // Define categories explicitly
-type Category = "colors" | "wheels" | "exhausts" | "windows" | "spoilers";
+type Category = "colors" | "wheels" | "spoilers";
 
 // Define CarOptions type
 interface CarOptions {
   colors: OverlayOption[];
   wheels: OverlayOption[];
-  exhausts: OverlayOption[];
-  windows: OverlayOption[];
   spoilers: OverlayOption[];
   combos: { selected: Record<Category, string>; image: string }[];
 }
@@ -36,8 +34,6 @@ const CustomCar = () => {
   const [selected, setSelected] = useState<Record<Category, OverlayOption | null>>({
     colors: null,
     wheels: null,
-    exhausts: null,
-    windows: null,
     spoilers: null,
   });
 
@@ -51,8 +47,6 @@ const CustomCar = () => {
     const initialSelected: Record<Category, OverlayOption | null> = {
       colors: null,
       wheels: null,
-      exhausts: null,
-      windows: null,
       spoilers: null,
     };
     setSelected(initialSelected);
@@ -108,7 +102,7 @@ const CustomCar = () => {
     );
   }
 
-  const categories: Category[] = ["colors", "wheels", "exhausts", "windows", "spoilers"];
+  const categories: Category[] = ["colors", "wheels", "spoilers"];
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
