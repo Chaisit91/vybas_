@@ -2,23 +2,20 @@ import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import type { Car } from "../types/Car";
-import { loadCarOptions } from "../services/carStorage"; // ✅ โหลด carOptions จาก localStorage
+import { loadCarOptions } from "../services/carStorage";
 
-// ประเภทของ overlay
 interface OverlayOption {
   name: string;
   image: string;
 }
 
-// ประเภทหมวดของการแต่ง
 type Category = "colors" | "wheels" | "spoilers";
 
-// ประเภทข้อมูลรถแต่ละคัน
 interface CarOptions {
   colors: OverlayOption[];
   wheels: OverlayOption[];
   spoilers: OverlayOption[];
-  combos: { selected: Record<Category, string>; image: string }[];
+  combos?: { selected: Record<Category, string>; image: string }[];
 }
 
 const CustomCar = () => {
@@ -26,7 +23,6 @@ const CustomCar = () => {
   const navigate = useNavigate();
   const car: Car | undefined = location.state?.car;
 
-  // ✅ โหลด carOptions จาก localStorage (หรือจาก default ถ้าไม่มี)
   const optionsData = loadCarOptions();
   const options: CarOptions | undefined = car ? optionsData[car.publicId] : undefined;
 
@@ -38,42 +34,35 @@ const CustomCar = () => {
 
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
   const [fadeKey, setFadeKey] = useState(0);
-  const [lastSelected, setLastSelected] = useState<OverlayOption | null>(null);
 
-  // ✅ เมื่อ options เปลี่ยน (เช่น เปลี่ยนรถ)
+  // ✅ รีเซ็ตเมื่อเปลี่ยนรถ
   useEffect(() => {
     if (!options) return;
-    setSelected({
-      colors: null,
-      wheels: null,
-      spoilers: null,
-    });
+    setSelected({ colors: null, wheels: null, spoilers: null });
     setDisplayImage(car?.image || "");
   }, [options, car]);
 
-  // ✅ เมื่อเลือกแต่งใหม่ → อัปเดตรูป
-  useEffect(() => {
-    if (!car) return;
-    const finalImage: string = lastSelected?.image || car.image || "";
-    const img = new Image();
-    img.src = finalImage;
-    img.onload = () => {
-      setDisplayImage(finalImage);
-      setFadeKey((prev) => prev + 1);
-    };
-  }, [lastSelected, car]);
-
-  // ✅ ฟังก์ชันเลือกตัวเลือกแต่ง
+  // ✅ เมื่อเลือกตัวเลือกใดๆ → เปลี่ยนภาพตามนั้น
   const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {
       const isSame = prev[category]?.name === option.name;
       const updated = { ...prev, [category]: isSame ? null : option };
-      setLastSelected(isSame ? null : option);
+
+      // ✅ ถ้ามีการเลือก option ใหม่ → แสดงภาพของมันเลย
+      const finalImage =
+        updated.spoilers?.image ||
+        updated.wheels?.image ||
+        updated.colors?.image ||
+        car?.image ||
+        "";
+
+      setDisplayImage(finalImage);
+      setFadeKey((k) => k + 1);
+
       return updated;
     });
   };
 
-  // ✅ กรณีไม่เจอรถ
   if (!car) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
@@ -88,14 +77,11 @@ const CustomCar = () => {
     );
   }
 
-  // ✅ กรณีไม่มีตัวเลือกการแต่ง (เพิ่งเพิ่มจากหน้า admin)
   if (!options) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
         <h1 className="text-2xl font-bold mb-4">No customization options found</h1>
-        <p className="text-gray-600 mb-6">
-          รถคันนี้ยังไม่มีตัวเลือกการแต่งในระบบ admin
-        </p>
+        <p className="text-gray-600 mb-6">รถคันนี้ยังไม่มีตัวเลือกการแต่งในระบบ admin</p>
         <button
           className="bg-yellow-500 text-black px-6 py-3 rounded"
           onClick={() => navigate("/models")}
@@ -109,24 +95,22 @@ const CustomCar = () => {
   const categories: Category[] = ["colors", "wheels", "spoilers"];
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gray-50 pt-28 relative z-0">
       <div className="flex flex-col md:flex-row p-6 gap-6">
-        {/* รูปรถ */}
+        {/* ✅ รูปรถ */}
         <div className="flex-1 flex justify-center items-center">
-          <div className="relative w-[80vw] md:w-[40vw] mx-auto">
+          <div className="w-[80vw] md:w-[40vw] mx-auto">
             <img
               key={fadeKey}
               src={displayImage}
               alt={car.name}
               className="w-full rounded-xl shadow-lg transition-opacity duration-700 opacity-0 animate-fadeIn"
-              onLoad={(e) => {
-                (e.currentTarget as HTMLImageElement).style.opacity = "1";
-              }}
+              onLoad={(e) => ((e.currentTarget as HTMLImageElement).style.opacity = "1")}
             />
           </div>
         </div>
 
-        {/* ตัวเลือกการแต่ง */}
+        {/* ✅ ตัวเลือกแต่ง */}
         <div className="w-full md:w-[35%] bg-white shadow-md p-6 rounded-t-2xl md:rounded-none md:rounded-l-2xl">
           <h1 className="text-2xl font-bold mb-6">Customize {car.name}</h1>
 
@@ -152,7 +136,20 @@ const CustomCar = () => {
             </div>
           ))}
 
-          {/* แสดงผลการเลือก */}
+          {/* ✅ ปุ่ม Reset */}
+          <div className="mt-8">
+            <Button
+              label="Reset to Default"
+              variant="outline"
+              onClick={() => {
+                setSelected({ colors: null, wheels: null, spoilers: null });
+                setDisplayImage(car.image);
+                setFadeKey((k) => k + 1);
+              }}
+            />
+          </div>
+
+          {/* ✅ แสดงผลการเลือก */}
           <div className="mt-10 border-t pt-4">
             <p className="text-gray-500 text-sm">Selected:</p>
             <p className="font-semibold text-gray-800">

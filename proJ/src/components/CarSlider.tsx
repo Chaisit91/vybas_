@@ -14,33 +14,47 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    // ✅ โหลดข้อมูลจาก localStorage
+    // ✅ โหลดข้อมูลจาก localStorage และรวมกับ defaultCars
     const saved = localStorage.getItem("car_list_data");
     if (saved) {
-      setCarList(JSON.parse(saved));
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          // ✅ รวมรถจาก localStorage + รถจาก data.json (กันซ้ำด้วย id)
+          const merged = [
+            ...defaultCars,
+            ...parsed.filter(
+              (newCar: Car) =>
+                !defaultCars.some((oldCar) => oldCar.id === newCar.id)
+            ),
+          ];
+          setCarList(merged);
+        } else {
+          setCarList(defaultCars);
+        }
+      } catch {
+        setCarList(defaultCars);
+      }
     } else {
       setCarList(defaultCars);
     }
   }, []);
 
+  // ✅ ป้องกันกรณี carList ว่าง
+  const car = carList[index];
+  if (!car) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500 text-lg">
+        No cars available.
+      </div>
+    );
+  }
+
   const next = () => setIndex((i) => (i + 1) % carList.length);
   const prev = () => setIndex((i) => (i - 1 + carList.length) % carList.length);
 
-  const car = carList[index];
-
-  if (!car) return null;
-
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-white text-center pt-24 relative overflow-hidden">
-      <img
-        src={car.sideLeft}
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 opacity-20 hidden md:block"
-      />
-      <img
-        src={car.sideRight}
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-1/3 opacity-20 hidden md:block"
-      />
-
       <div className="animate-fadeIn">
         <h2 className="text-3xl font-bold text-gray-900 mt-6">{car.name}</h2>
         <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mt-4 mb-8">
@@ -50,7 +64,7 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
         <img
           src={car.image}
           alt={car.name}
-          className="w-[80vw] md:w-[60vw] mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105"
+          className="w-[80vw] md:w-[60vw] mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105 rounded-lg"
         />
 
         <div className="flex gap-4 mt-10 justify-center">
@@ -62,18 +76,23 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
         </div>
       </div>
 
-      <button
-        onClick={prev}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 border border-black rounded-full p-3 hover:bg-black hover:text-white"
-      >
-        ‹
-      </button>
-      <button
-        onClick={next}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 border border-black rounded-full p-3 hover:bg-black hover:text-white"
-      >
-        ›
-      </button>
+      {/* ปุ่มเลื่อนซ้ายขวา */}
+      {carList.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-4 top-1/2 transform -translate-y-1/2 border border-black rounded-full p-3 hover:bg-black hover:text-white transition"
+          >
+            ‹
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-4 top-1/2 transform -translate-y-1/2 border border-black rounded-full p-3 hover:bg-black hover:text-white transition"
+          >
+            ›
+          </button>
+        </>
+      )}
     </section>
   );
 };

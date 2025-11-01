@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Models from "./pages/Models";
@@ -21,7 +21,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ เส้นทางที่ล็อกอินถึงเข้าได้ */}
+        {/* ✅ เส้นทางสำหรับ admin */}
         <Route
           path="/admin"
           element={
@@ -46,6 +46,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* ✅ ถ้าเจอ path ที่ไม่มีอยู่ → กลับไปหน้า Home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );
