@@ -8,7 +8,7 @@ interface Car {
   image: string;
   publicId: string;
 }
-
+//รอแก้ต่อพรุ่งนี้
 export default function CarAdmin() {
   const [cars, setCars] = useState<Car[]>([]);
   const [newCar, setNewCar] = useState<Car>({
