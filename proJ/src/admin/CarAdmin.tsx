@@ -8,7 +8,7 @@ interface Car {
   image: string;
   publicId: string;
 }
-//รอแก้ต่อพรุ่งนี้
+
 export default function CarAdmin() {
   const [cars, setCars] = useState<Car[]>([]);
   const [newCar, setNewCar] = useState<Car>({
@@ -18,14 +18,12 @@ export default function CarAdmin() {
     publicId: "",
   });
 
-  // โหลดข้อมูลจาก localStorage หรือ defaultCars
   useEffect(() => {
     const saved = localStorage.getItem("car_list_data");
     if (saved) setCars(JSON.parse(saved));
     else setCars(defaultCars);
   }, []);
 
-  // อัปโหลดภาพหลัก
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -33,7 +31,6 @@ export default function CarAdmin() {
     if (url) setNewCar((prev) => ({ ...prev, image: url }));
   };
 
-  // เพิ่มรถใหม่
   const handleAddCar = () => {
     if (!newCar.name || !newCar.image || !newCar.publicId) {
       alert("กรุณากรอกข้อมูลให้ครบ");
@@ -43,18 +40,11 @@ export default function CarAdmin() {
     const updatedCars = [...cars, newCar];
     setCars(updatedCars);
     localStorage.setItem("car_list_data", JSON.stringify(updatedCars));
-
     alert("✅ เพิ่มรถใหม่สำเร็จ!");
 
-    setNewCar({
-      name: "",
-      tagline: "",
-      image: "",
-      publicId: "",
-    });
+    setNewCar({ name: "", tagline: "", image: "", publicId: "" });
   };
 
-  // ลบรถ
   const handleDelete = (publicId: string) => {
     const updatedCars = cars.filter((c) => c.publicId !== publicId);
     setCars(updatedCars);
@@ -88,6 +78,17 @@ export default function CarAdmin() {
         <div>
           <p className="text-sm mb-1">อัปโหลดภาพหลัก:</p>
           <input type="file" onChange={handleUpload} />
+          {newCar.image && (
+            <div className="mt-3">
+              <p className="text-sm text-gray-600 mb-1">พรีวิว:</p>
+              {/* ใช้ขนาดอิงจาก CarSlider */}
+              <img
+                src={newCar.image}
+                alt="Preview"
+                className="w-[80vw] md:w-[60vw] mx-auto drop-shadow-xl rounded-lg object-cover"
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -128,3 +129,4 @@ export default function CarAdmin() {
     </div>
   );
 }
+
