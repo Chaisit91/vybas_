@@ -1,4 +1,4 @@
-import CarSlider from "../components/CarSlider";
+import CarSlider from "./CarSlider";
 import carsData from "../assets/data.json";
 import type { Car } from "../types/Car";
 

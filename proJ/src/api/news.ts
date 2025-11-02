@@ -1,6 +1,7 @@
+import axios from "axios";
 import type { News } from "../types/News";
-import newsData from "../news/news.json"; // ✅ import JSON ตรงจาก src/news/news.json
 
 export const fetchNews = async (): Promise<News[]> => {
-  return Promise.resolve(newsData as News[]);
+  const response = await axios.get("/src/assets/news.json");
+  return response.data;
 };

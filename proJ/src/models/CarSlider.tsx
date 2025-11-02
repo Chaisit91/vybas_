@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import Button from "../components/Button";
 import type { Car } from "../types/Car";
 import defaultCars from "../assets/data.json";
 

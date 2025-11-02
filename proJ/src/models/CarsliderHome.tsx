@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CarSlider from "../components/CarSlider";
+import CarSlider from "../models/CarSlider";
 import defaultCars from "../assets/data.json";
 import type { Car } from "../types/Car";
 

@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import Models from "./pages/Models";
-import CustomCar from "./pages/CustomCar";
+import Models from "./models/Models";
+import CustomCar from "./customCar/CustomCar";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import Admin from "./admin/Admin";
