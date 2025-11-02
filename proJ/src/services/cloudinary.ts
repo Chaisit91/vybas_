@@ -3,20 +3,27 @@ const CLOUDINARY_URL =
 const UPLOAD_PRESET = "products";
 
 export async function uploadImageToCloudinary(file: File): Promise<string | null> {
-  const formData = new FormData();
+  const formData: FormData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", UPLOAD_PRESET);
-  // ✅ ป้องกัน Cloudinary แปลงภาพ
-  formData.append("transformation", JSON.stringify([{ crop: "fit" }]));
 
   try {
-    const res = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
-    const data = await res.json();
+    const res = await fetch(CLOUDINARY_URL, {
+      method: "POST",
+      body: formData,
+    });
 
-    // ✅ ลบ query ครอปที่ Cloudinary อาจเพิ่มเอง
-    return data.secure_url
-      ? data.secure_url.replace(/\/upload\/[^/]+\//, "/upload/")
-      : null;
+    const data: { secure_url?: string } = await res.json();
+
+    if (!data.secure_url) return null;
+
+    // ✅ แปลง URL ให้ใช้ crop=fit และขนาด 1077x311 โดยไม่ตัดภาพ
+    const transformedUrl = data.secure_url.replace(
+      "/upload/",
+      "/upload/c_fit,w_1077,h_311/"
+    );
+
+    return transformedUrl;
   } catch (err) {
     console.error("Cloudinary upload failed:", err);
     return null;

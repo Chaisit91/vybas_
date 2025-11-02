@@ -1,26 +1,45 @@
-import defaultOptions from "../assets/carOptions.json";
+import type { Car } from "../types/Car";
 
-const STORAGE_KEY = "car_options_data";
+/**
+ * ดึงข้อมูลรถจาก localStorage
+ */
+export function getStoredCars(): Car[] {
+  const saved = localStorage.getItem("car_list_data");
+  if (!saved) return [];
 
-export const loadCarOptions = () => {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : { ...defaultOptions };
-};
-
-export const saveCarOptions = (data: any) => {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-};
-
-/** เพิ่ม car ใหม่เข้าไปใน car_options_data */
-export const addCarToOptions = (publicId: string) => {
-  const all = loadCarOptions();
-  if (!all[publicId]) {
-    all[publicId] = {
-      colors: [],
-      wheels: [],
-      spoilers: [],
-      combos: [],
-    };
-    saveCarOptions(all);
+  try {
+    const parsed = JSON.parse(saved) as unknown;
+    if (Array.isArray(parsed)) {
+      return parsed as Car[];
+    }
+    return [];
+  } catch (err) {
+    console.error("Failed to parse car_list_data:", err);
+    return [];
   }
-};
+}
+
+/**
+ * บันทึกรถทั้งหมดลง localStorage
+ */
+export function saveCars(cars: Car[]): void {
+  localStorage.setItem("car_list_data", JSON.stringify(cars));
+}
+
+/**
+ * เพิ่มรถใหม่
+ */
+export function addCar(newCar: Car): void {
+  const cars = getStoredCars();
+  const updatedCars = [...cars, newCar];
+  saveCars(updatedCars);
+}
+
+/**
+ * ลบรถออกจาก localStorage
+ */
+export function deleteCar(publicId: string): void {
+  const cars = getStoredCars();
+  const updatedCars = cars.filter((c) => c.publicId !== publicId);
+  saveCars(updatedCars);
+}
