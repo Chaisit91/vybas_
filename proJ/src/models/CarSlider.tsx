@@ -63,7 +63,7 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
         <img
           src={car.image}
           alt={car.name}
-          className="w-[80vw] md:w-[60vw] mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105 rounded-lg"
+          className="w-[80vw] mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105 rounded-lg"
         />
 
         <div className="flex gap-4 mt-10 justify-center">
