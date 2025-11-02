@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import type { Car } from "../types/Car";
-import defaultCars from "../assets/data.json";
+import defaultCarsData from "../assets/data.json";
+
+const defaultCars = defaultCarsData as Car[];
 
 interface CarSliderProps {
   cars?: Car[];
@@ -14,18 +16,16 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    // ✅ โหลดข้อมูลจาก localStorage และรวมกับ defaultCars
     const saved = localStorage.getItem("car_list_data");
     if (saved) {
       try {
-        const parsed = JSON.parse(saved);
+        const parsed: Car[] = JSON.parse(saved);
         if (Array.isArray(parsed)) {
-          // ✅ รวมรถจาก localStorage + รถจาก data.json (กันซ้ำด้วย id)
           const merged = [
             ...defaultCars,
             ...parsed.filter(
               (newCar: Car) =>
-                !defaultCars.some((oldCar) => oldCar.id === newCar.id)
+                !defaultCars.some((oldCar: Car) => oldCar.id === newCar.id)
             ),
           ];
           setCarList(merged);
@@ -40,7 +40,6 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
     }
   }, []);
 
-  // ✅ ป้องกันกรณี carList ว่าง
   const car = carList[index];
   if (!car) {
     return (
@@ -76,7 +75,6 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
         </div>
       </div>
 
-      {/* ปุ่มเลื่อนซ้ายขวา */}
       {carList.length > 1 && (
         <>
           <button

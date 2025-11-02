@@ -1,15 +1,25 @@
 import { useEffect, useState } from "react";
 import CarSlider from "../models/CarSlider";
-import defaultCars from "../assets/data.json";
 import type { Car } from "../types/Car";
+import defaultCarsData from "../assets/data.json";
+const defaultCars = defaultCarsData as Car[]; 
 
-export default function Home() {
+export default function CarSliderHome() {
   const [cars, setCars] = useState<Car[]>([]);
 
   useEffect(() => {
     const saved = localStorage.getItem("car_list_data");
     if (saved) {
-      setCars(JSON.parse(saved));
+      try {
+        const parsed: Car[] = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setCars(parsed);
+        } else {
+          setCars(defaultCars);
+        }
+      } catch {
+        setCars(defaultCars);
+      }
     } else {
       setCars(defaultCars);
     }
