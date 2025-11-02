@@ -5,7 +5,7 @@ import Models from "./pages/Models";
 import CustomCar from "./pages/CustomCar";
 import About from "./pages/About";
 import Login from "./pages/Login";
-import Admin from "./pages/Admin";
+import Admin from "./admin/Admin";
 import CarAdmin from "./admin/CarAdmin";
 import CustomizationAdmin from "./admin/CustomizationAdmin";
 import ProtectedRoute from "./pages/ProtectedRoute";
@@ -21,7 +21,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
 
-        {/* ✅ เส้นทางสำหรับ admin */}
+        {/* 🔒 เส้นทางเฉพาะ admin เท่านั้น */}
         <Route
           path="/admin"
           element={
@@ -47,7 +47,7 @@ function App() {
           }
         />
 
-        {/* ✅ ถ้าเจอ path ที่ไม่มีอยู่ → กลับไปหน้า Home */}
+        {/* 🚫 หาก path ไม่ตรง → กลับหน้า Home */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

@@ -1,7 +1,6 @@
-import axios from "axios";
 import type { News } from "../types/News";
+import newsData from "../news/news.json"; // ✅ import JSON ตรงจาก src/news/news.json
 
 export const fetchNews = async (): Promise<News[]> => {
-  const res = await axios.get<News[]>("/news/news.json"); // ชี้ไป public/news/news.json
-  return res.data;
+  return Promise.resolve(newsData as News[]);
 };
