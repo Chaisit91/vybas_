@@ -1,51 +1,43 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import carOptions from "../assets/carOptions.json";
+import { getCarOptions } from "../services/carOptionsService";
 import type { Car } from "../types/Car";
-
-interface OverlayOption {
-  name: string;
-  image: string;
-}
+import type { OverlayOption, CarOptions } from "../services/carOptionsService"; // ✅ import มาจาก service
 
 type Category = "colors" | "wheels" | "spoilers";
-
-interface CarOptions {
-  colors: OverlayOption[];
-  wheels: OverlayOption[];
-  spoilers: OverlayOption[];
-  combos: { selected: Record<Category, string>; image: string }[];
-}
 
 const CustomCar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const car: Car | undefined = location.state?.car;
 
-  const options: CarOptions | undefined = car
-    ? (carOptions as Record<string, CarOptions>)[car.publicId]
-    : undefined;
-
+  const [options, setOptions] = useState<CarOptions | null>(null);
   const [selected, setSelected] = useState<Record<Category, OverlayOption | null>>({
     colors: null,
     wheels: null,
     spoilers: null,
   });
-
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
   const [fadeKey, setFadeKey] = useState(0);
   const [lastSelected, setLastSelected] = useState<OverlayOption | null>(null);
 
   useEffect(() => {
-    if (!options) return;
+    if (car) {
+      const data = getCarOptions(car.publicId);
+      setOptions(data);
+    }
+  }, [car]);
+
+  useEffect(() => {
+    if (!options || !car) return;
     setSelected({ colors: null, wheels: null, spoilers: null });
-    setDisplayImage(car?.image || "");
+    setDisplayImage(car.image);
   }, [options, car]);
 
   useEffect(() => {
     if (!car) return;
-    const finalImage = lastSelected?.image || car.image || "";
+    const finalImage = lastSelected?.image || car.image;
     const img = new Image();
     img.src = finalImage;
     img.onload = () => {
@@ -96,7 +88,6 @@ const CustomCar = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 pt-20 font-sans">
       <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
-
         {/* Car Display Section */}
         <div className="flex-1 flex justify-center items-center w-full">
           <div className="relative w-full max-w-7xl bg-white/70 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden backdrop-blur-md">
@@ -124,7 +115,7 @@ const CustomCar = () => {
                 Choose {category.charAt(0).toUpperCase() + category.slice(1)}
               </h2>
               <div className="flex gap-3 flex-wrap">
-                {(options[category] as OverlayOption[]).map((opt) => (
+                {(options[category] || []).map((opt) => (
                   <Button
                     key={opt.name}
                     label={opt.name}
@@ -142,7 +133,7 @@ const CustomCar = () => {
               {Object.values(selected)
                 .filter(Boolean)
                 .map((item) => item!.name)
-                .join(" Â· ") || "None"}
+                .join(" · ") || "None"}
             </p>
           </div>
 
