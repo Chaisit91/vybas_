@@ -6,12 +6,11 @@ import defaultCarsData from "../assets/data.json";
 
 const defaultCars = defaultCarsData as Car[];
 
-// ✅ เพิ่ม interface สำหรับ props
 interface CarSliderProps {
   cars?: Car[];
 }
 
-function CarSlider({ cars }: CarSliderProps) {
+const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   const navigate = useNavigate();
   const [carList, setCarList] = useState<Car[]>(cars || []);
   const [index, setIndex] = useState(0);
@@ -42,15 +41,16 @@ function CarSlider({ cars }: CarSliderProps) {
   }, []);
 
   const car = carList[index];
-  const next = () => setIndex((i) => (i + 1) % carList.length);
-  const prev = () => setIndex((i) => (i - 1 + carList.length) % carList.length);
-
-  if (!car)
+  if (!car) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-500 text-lg">
         No cars available.
       </div>
     );
+  }
+
+  const next = () => setIndex((i) => (i + 1) % carList.length);
+  const prev = () => setIndex((i) => (i - 1 + carList.length) % carList.length);
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center bg-white text-center pt-24 relative overflow-hidden">
@@ -63,12 +63,7 @@ function CarSlider({ cars }: CarSliderProps) {
         <img
           src={car.image}
           alt={car.name}
-          className="mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105 rounded-lg"
-          style={{
-            width: "1077.59px",
-            height: "311.3px",
-            objectFit: "contain",
-          }}
+          className="w-[80vw] mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105 rounded-lg"
         />
 
         <div className="flex gap-4 mt-10 justify-center">
@@ -98,6 +93,6 @@ function CarSlider({ cars }: CarSliderProps) {
       )}
     </section>
   );
-}
+};
 
 export default CarSlider;
