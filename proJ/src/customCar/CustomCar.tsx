@@ -97,14 +97,14 @@ const CustomCar = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 pt-20 font-sans">
       <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
 
-        {/* Car Display Section */}
+        {/* ✅ ภาพรถหลัก (ขนาดอิงกับภาพของแต่ง) */}
         <div className="flex-1 flex justify-center items-center w-full">
           <div className="relative w-full max-w-7xl bg-white/70 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden backdrop-blur-md">
             <img
               key={fadeKey}
               src={displayImage}
               alt={car.name}
-              className="w-full h-[80vh] object-contain transition-transform duration-700 ease-in-out opacity-0 animate-fadeIn hover:scale-[1.03]"
+              className="w-full h-[80vh] object-contain transition-all duration-700 ease-in-out opacity-0 animate-fadeIn hover:scale-[1.03]"
               onLoad={(e) => {
                 (e.currentTarget as HTMLImageElement).style.opacity = "1";
               }}
@@ -142,7 +142,7 @@ const CustomCar = () => {
               {Object.values(selected)
                 .filter(Boolean)
                 .map((item) => item!.name)
-                .join(" Â· ") || "None"}
+                .join(" · ") || "None"}
             </p>
           </div>
 
@@ -161,3 +161,4 @@ const CustomCar = () => {
 };
 
 export default CustomCar;
+
