@@ -79,13 +79,18 @@ export default function CarAdmin() {
           <p className="text-sm mb-1">อัปโหลดภาพหลัก:</p>
           <input type="file" onChange={handleUpload} />
           {newCar.image && (
-            <div className="mt-3">
+            <div className="mt-3 overflow-auto max-w-full">
               <p className="text-sm text-gray-600 mb-1">พรีวิว:</p>
-              {/* ใช้ขนาดอิงจาก CarSlider */}
               <img
                 src={newCar.image}
                 alt="Preview"
-                className="w-[80vw] md:w-[60vw] mx-auto drop-shadow-xl rounded-lg object-cover"
+                className="mx-auto drop-shadow-xl rounded-lg"
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  display: "block",
+                  objectFit: "contain", // ✅ แสดงเต็มตามสัดส่วนจริง
+                }}
               />
             </div>
           )}
@@ -112,7 +117,13 @@ export default function CarAdmin() {
                 <img
                   src={c.image}
                   alt={c.name}
-                  className="w-16 h-10 object-cover rounded"
+                  className="rounded bg-gray-50"
+                  style={{
+                    width: "auto",
+                    height: "auto",
+                    maxWidth: "300px",
+                    objectFit: "contain",
+                  }}
                 />
                 <span>{c.name}</span>
               </div>
@@ -129,4 +140,3 @@ export default function CarAdmin() {
     </div>
   );
 }
-
