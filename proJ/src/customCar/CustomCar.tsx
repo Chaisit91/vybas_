@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
+import carOptions from "../assets/carOptions.json";
 import type { Car } from "../types/Car";
-import { loadCarOptions } from "../services/carStorage";
 
 interface OverlayOption {
   name: string;
@@ -15,6 +15,7 @@ interface CarOptions {
   colors: OverlayOption[];
   wheels: OverlayOption[];
   spoilers: OverlayOption[];
+  combos: { selected: Record<Category, string>; image: string }[];
 }
 
 const CustomCar = () => {
@@ -22,8 +23,9 @@ const CustomCar = () => {
   const navigate = useNavigate();
   const car: Car | undefined = location.state?.car;
 
-  const optionsData = loadCarOptions();
-  const options: CarOptions | undefined = car ? optionsData[car.publicId] : undefined;
+  const options: CarOptions | undefined = car
+    ? (carOptions as Record<string, CarOptions>)[car.publicId]
+    : undefined;
 
   const [selected, setSelected] = useState<Record<Category, OverlayOption | null>>({
     colors: null,
@@ -32,34 +34,44 @@ const CustomCar = () => {
   });
 
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
+  const [fadeKey, setFadeKey] = useState(0);
+  const [lastSelected, setLastSelected] = useState<OverlayOption | null>(null);
 
   useEffect(() => {
-    if (car) setDisplayImage(car.image);
-  }, [car]);
+    if (!options) return;
+    setSelected({ colors: null, wheels: null, spoilers: null });
+    setDisplayImage(car?.image || "");
+  }, [options, car]);
+
+  useEffect(() => {
+    if (!car) return;
+    const finalImage = lastSelected?.image || car.image || "";
+    const img = new Image();
+    img.src = finalImage;
+    img.onload = () => {
+      setDisplayImage(finalImage);
+      setFadeKey((prev) => prev + 1);
+    };
+  }, [lastSelected, car]);
 
   const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {
       const isSame = prev[category]?.name === option.name;
       const updated = { ...prev, [category]: isSame ? null : option };
-
-      // ✅ อัปเดตรูปจาก option ล่าสุดที่เลือก
-      const newImage = updated[category]?.image || car?.image || "";
-      console.log("🔹 Selected image:", newImage);
-      setDisplayImage(newImage);
-
+      setLastSelected(isSame ? null : option);
       return updated;
     });
   };
 
   if (!car) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center">
-        <h1 className="text-xl font-bold">Car not found</h1>
+      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
+        <h1 className="text-2xl font-bold mb-4">Car not found</h1>
         <button
+          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg shadow-md transition"
           onClick={() => navigate("/models")}
-          className="bg-yellow-500 px-4 py-2 rounded mt-4"
         >
-          Back
+          Back to Models
         </button>
       </div>
     );
@@ -67,14 +79,11 @@ const CustomCar = () => {
 
   if (!options) {
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center text-center">
-        <h1 className="text-2xl font-bold mb-2">No customization options</h1>
-        <p className="text-gray-500 mb-4">
-          รถคันนี้ยังไม่มีตัวเลือกของแต่งในระบบ admin
-        </p>
+      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
+        <h1 className="text-2xl font-bold mb-4">No customization options found</h1>
         <button
+          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg shadow-md transition"
           onClick={() => navigate("/models")}
-          className="bg-yellow-500 text-black px-6 py-3 rounded"
         >
           Back to Models
         </button>
@@ -85,76 +94,65 @@ const CustomCar = () => {
   const categories: Category[] = ["colors", "wheels", "spoilers"];
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <div className="flex flex-col md:flex-row p-6 gap-6">
-        {/* ✅ รูปรถที่โชว์ */}
-        <div className="flex-1 flex justify-center items-center">
-          <div className="relative w-[80vw] md:w-[40vw] mx-auto aspect-video rounded-xl bg-gray-100 shadow-md overflow-hidden">
-            {displayImage ? (
-              <img
-                src={displayImage}
-                alt="car display"
-                className="absolute inset-0 w-full h-full object-contain transition-opacity duration-700"
-              />
-            ) : (
-              <p className="text-gray-400 text-center">No image available</p>
-            )}
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 pt-20 font-sans">
+      <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
+
+        {/* Car Display Section */}
+        <div className="flex-1 flex justify-center items-center w-full">
+          <div className="relative w-full max-w-7xl bg-white/70 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden backdrop-blur-md">
+            <img
+              key={fadeKey}
+              src={displayImage}
+              alt={car.name}
+              className="w-full h-[80vh] object-contain transition-transform duration-700 ease-in-out opacity-0 animate-fadeIn hover:scale-[1.03]"
+              onLoad={(e) => {
+                (e.currentTarget as HTMLImageElement).style.opacity = "1";
+              }}
+            />
           </div>
         </div>
 
-        {/* ✅ ตัวเลือกแต่ง */}
-        <div className="w-full md:w-[35%] bg-white shadow-md p-6 rounded-t-2xl md:rounded-none md:rounded-l-2xl">
-          <h1 className="text-2xl font-bold mb-6">Customize {car.name}</h1>
+        {/* Control Panel */}
+        <div className="w-full lg:w-[32rem] bg-white/95 shadow-2xl border border-gray-100 p-8 rounded-3xl backdrop-blur-md lg:ml-auto">
+          <h1 className="text-4xl font-extrabold mb-6 text-gray-800 border-b pb-3 tracking-tight">
+            Customize <span className="text-indigo-600">{car.name}</span>
+          </h1>
 
           {categories.map((category) => (
             <div key={category} className="mb-8">
-              <h2 className="text-lg font-semibold mb-3 capitalize">
-                {category}
+              <h2 className="text-xl font-semibold mb-3 text-gray-700">
+                Choose {category.charAt(0).toUpperCase() + category.slice(1)}
               </h2>
-              <div className="flex flex-wrap gap-3">
-                {options[category]?.length ? (
-                  options[category].map((opt) => (
-                    <Button
-                      key={opt.name}
-                      label={opt.name}
-                      onClick={() => handleSelect(category, opt)}
-                      variant={
-                        selected[category]?.name === opt.name
-                          ? "primary"
-                          : "outline"
-                      }
-                    />
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-400">
-                    No {category} options available
-                  </p>
-                )}
+              <div className="flex gap-3 flex-wrap">
+                {(options[category] as OverlayOption[]).map((opt) => (
+                  <Button
+                    key={opt.name}
+                    label={opt.name}
+                    onClick={() => handleSelect(category, opt)}
+                    variant={selected[category]?.name === opt.name ? "primary" : "outline"}
+                  />
+                ))}
               </div>
             </div>
           ))}
 
-          {/* ✅ Reset */}
-          <div className="mt-8">
-            <Button
-              label="Reset to Default"
-              variant="outline"
-              onClick={() => {
-                setSelected({ colors: null, wheels: null, spoilers: null });
-                setDisplayImage(car.image);
-              }}
-            />
-          </div>
-
-          {/* ✅ แสดงผลการเลือก */}
-          <div className="mt-10 border-t pt-4">
+          <div className="mt-10 border-t pt-5">
             <p className="text-gray-500 text-sm">Selected:</p>
-            <p className="font-semibold text-gray-800">
+            <p className="font-semibold text-gray-800 text-lg mt-1">
               {Object.values(selected)
                 .filter(Boolean)
-                .map((i) => i!.name)
-                .join(" · ") || "None"}
+                .map((item) => item!.name)
+                .join(" Â· ") || "None"}
             </p>
+          </div>
+
+          <div className="mt-8 flex justify-end">
+            <button
+              onClick={() => navigate("/cart", { state: { car, selected } })}
+              className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              Add to Cart
+            </button>
           </div>
         </div>
       </div>
