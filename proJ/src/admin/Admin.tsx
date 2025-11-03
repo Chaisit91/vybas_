@@ -1,3 +1,4 @@
+// src/pages/Admin.tsx
 import { Link } from "react-router-dom";
 
 export default function Admin() {
@@ -10,14 +11,22 @@ export default function Admin() {
           to="/admin/cars"
           className="bg-blue-500 text-white px-6 py-3 rounded hover:bg-blue-600 transition"
         >
-           จัดการรถ (CarAdmin)
+          จัดการรถ (CarAdmin)
         </Link>
 
         <Link
           to="/admin/customizations"
           className="bg-green-500 text-white px-6 py-3 rounded hover:bg-green-600 transition"
         >
-           จัดการของแต่ง (CustomizationAdmin)
+          จัดการของแต่ง (CustomizationAdmin)
+        </Link>
+
+        {/* ✅ ปุ่มใหม่ */}
+        <Link
+          to="/admin/news"
+          className="bg-purple-500 text-white px-6 py-3 rounded hover:bg-purple-600 transition"
+        >
+          จัดการข่าว (NewsAdmin)
         </Link>
       </div>
     </div>

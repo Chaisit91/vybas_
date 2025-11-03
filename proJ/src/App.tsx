@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Admin from "./admin/Admin";
 import CarAdmin from "./admin/CarAdmin";
 import CustomizationAdmin from "./admin/CustomizationAdmin";
+import NewsAdmin from "./admin/NewsAdmin"; // ✅ เพิ่ม import ใหม่
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 function App() {
@@ -15,13 +16,14 @@ function App() {
     <BrowserRouter>
       <Navbar />
       <Routes>
+        {/* 🌐 Public routes */}
         <Route path="/" element={<Home />} />
         <Route path="/models" element={<Models />} />
         <Route path="/custom-car" element={<CustomCar />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
 
-        {/* 🔒 เส้นทางเฉพาะ admin เท่านั้น */}
+        {/* 🔒 เส้นทางสำหรับผู้ดูแลระบบ (Protected) */}
         <Route
           path="/admin"
           element={
@@ -30,6 +32,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/admin/cars"
           element={
@@ -38,11 +41,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/admin/customizations"
           element={
             <ProtectedRoute>
               <CustomizationAdmin />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* ✅ เพิ่มหน้า “จัดการข่าว” */}
+        <Route
+          path="/admin/news"
+          element={
+            <ProtectedRoute>
+              <NewsAdmin />
             </ProtectedRoute>
           }
         />

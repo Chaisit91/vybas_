@@ -18,11 +18,11 @@ const About = () => {
         About Us
       </h1>
       <p className="mb-4 text-lg text-gray-700 text-center max-w-3xl mx-auto leading-relaxed">
-        Welcome to <span className="font-semibold ">Custom CAR</span>! 
+        Welcome to <span className="font-semibold">Custom CAR</span>! 
         We are passionate about bringing you the best and most customizable car experiences.
       </p>
 
-      <h2 className="mt-12 text-2xl font-semibold mb-6 text-gray-900 border-b-2  inline-block">
+      <h2 className="mt-12 text-2xl font-semibold mb-6 text-gray-900 border-b-2 inline-block">
         Latest News
       </h2>
 
@@ -58,4 +58,3 @@ const About = () => {
 };
 
 export default About;
-
