@@ -75,6 +75,8 @@ export const addOptionToCar = (
   }
 
   saveOptions(all);
+  // ✅ แจ้ง event เพื่อให้ CustomCar อัปเดตอัตโนมัติ
+  window.dispatchEvent(new Event("carOptionsUpdated"));
 };
 
 /** ✅ ค้นหารูปภาพ combo ที่ตรงกับการเลือกของผู้ใช้ */
@@ -101,5 +103,5 @@ export const getCarOptions = (publicId: string): CarOptions | null => {
   return all[publicId] || null;
 };
 
-/** ✅ ส่งออกฟังก์ชัน load สำหรับหน้า CustomCar */
+/** ✅ ส่งออกฟังก์ชันโหลดทั้งหมด */
 export const loadCarOptions = loadOptions;

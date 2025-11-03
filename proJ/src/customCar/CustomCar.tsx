@@ -25,13 +25,29 @@ const CustomCar = () => {
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
   const [fadeKey, setFadeKey] = useState(0);
 
-  // ✅ โหลด options จาก service
+  // ✅ โหลด options จาก service + sync อัตโนมัติ
   useEffect(() => {
     if (car) {
       const loaded = getCarOptions(car.publicId);
       setOptions(loaded);
     }
-  }, [car, location.key]); // โหลดใหม่ทุกครั้งที่กลับเข้ามาหน้านี้
+
+    const handleUpdate = () => {
+      if (car) {
+        const updated = getCarOptions(car.publicId);
+        setOptions(updated);
+      }
+    };
+
+    // 🔄 sync อัตโนมัติเมื่อเพิ่มของแต่งใหม่
+    window.addEventListener("carOptionsUpdated", handleUpdate);
+    window.addEventListener("storage", handleUpdate);
+
+    return () => {
+      window.removeEventListener("carOptionsUpdated", handleUpdate);
+      window.removeEventListener("storage", handleUpdate);
+    };
+  }, [car, location.key]);
 
   // ✅ เปลี่ยนภาพเมื่อเลือกของแต่ง
   useEffect(() => {
@@ -100,7 +116,7 @@ const CustomCar = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 pt-20 font-sans">
       <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
 
-        {/* Car Display Section */}
+        {/* Car Display */}
         <div className="flex-1 flex justify-center items-center w-full">
           <div className="relative w-full max-w-7xl bg-white/70 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden backdrop-blur-md">
             <img
