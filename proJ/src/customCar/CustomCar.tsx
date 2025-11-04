@@ -25,6 +25,7 @@ const CustomCar = () => {
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
   const [fadeKey, setFadeKey] = useState(0);
 
+  // โหลดข้อมูล + ฟัง Event จากหน้า Admin
   useEffect(() => {
     if (car) {
       const loaded = getCarOptions(car.publicId);
@@ -33,6 +34,7 @@ const CustomCar = () => {
 
     const handleUpdate = () => {
       if (car) {
+        console.log("🔁 carOptionsUpdated received! Reloading options...");
         const updated = getCarOptions(car.publicId);
         setOptions(updated);
       }
@@ -40,6 +42,7 @@ const CustomCar = () => {
 
     window.addEventListener("carOptionsUpdated", handleUpdate);
     window.addEventListener("storage", handleUpdate);
+
     return () => {
       window.removeEventListener("carOptionsUpdated", handleUpdate);
       window.removeEventListener("storage", handleUpdate);
@@ -48,19 +51,26 @@ const CustomCar = () => {
 
   useEffect(() => {
     if (!car) return;
+
     const selectedNames: Partial<Record<Category, string>> = {};
     for (const key in selected) {
       const opt = selected[key as Category];
       if (opt) selectedNames[key as Category] = opt.name;
     }
 
-    const comboImage = findComboImage(car.publicId, selectedNames);
-    const finalImage =
-      comboImage ||
-      selected.spoilers?.image ||
-      selected.wheels?.image ||
-      selected.colors?.image ||
-      car.image;
+    // ✅ ถ้าไม่มีของแต่งเลย → กลับไปใช้รูป default ทันที
+    const nothingSelected = !selected.colors && !selected.wheels && !selected.spoilers;
+
+    let finalImage = car.image;
+    if (!nothingSelected) {
+      const comboImage = findComboImage(car.publicId, selectedNames);
+      finalImage =
+        comboImage ||
+        selected.spoilers?.image ||
+        selected.wheels?.image ||
+        selected.colors?.image ||
+        car.image;
+    }
 
     const img = new Image();
     img.src = finalImage;
@@ -69,6 +79,7 @@ const CustomCar = () => {
       setFadeKey((prev) => prev + 1);
     };
   }, [selected, car]);
+
 
   const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {

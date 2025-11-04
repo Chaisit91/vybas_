@@ -15,12 +15,9 @@ export async function uploadImageToCloudinary(file: File): Promise<string | null
 
   try {
     const res = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
-
-    // ❗ ตรวจว่าคำตอบเป็น JSON ที่ถูกต้องหรือไม่
     const data = await res.json();
     console.log("🌤️ Cloudinary response:", data);
 
-    // ⚠️ ตรวจว่าอัปโหลดไม่สำเร็จ
     if (data.error) {
       alert(`❌ Upload failed: ${data.error.message}`);
       return null;
@@ -28,16 +25,21 @@ export async function uploadImageToCloudinary(file: File): Promise<string | null
 
     if (!data.secure_url) {
       alert("❌ Upload failed — Cloudinary response invalid");
-      console.error("Cloudinary response invalid:", data);
       return null;
     }
 
-    // ✅ ส่งกลับลิงก์ที่สะอาด (ตัด query ที่ Cloudinary ใส่เอง)
-    const cleanUrl = data.secure_url.replace(/\/upload\/[^/]+\//, "/upload/");
-    return cleanUrl;
-  } catch (err: any) {
+    // ✅ ใช้ secure_url ตรง ๆ
+    const optimizedUrl = data.secure_url.replace("/upload/", "/upload/f_auto,q_auto/");
+    return optimizedUrl;
+  } catch (err: unknown) {
     console.error("❌ Cloudinary upload failed:", err);
-    alert("❌ อัปโหลดรูปไม่สำเร็จ — โปรดตรวจสอบอินเทอร์เน็ตหรือการตั้งค่า Cloudinary");
+
+    const errorMessage =
+      err instanceof Error ? err.message : "Unknown error occurred";
+
+    alert(
+      `❌ อัปโหลดรูปไม่สำเร็จ — โปรดตรวจสอบอินเทอร์เน็ตหรือการตั้งค่า Cloudinary\n(${errorMessage})`
+    );
     return null;
   }
 }

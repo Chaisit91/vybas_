@@ -20,31 +20,35 @@ export default function CarAdmin() {
 
   const imageRef = useRef<HTMLDivElement | null>(null);
 
+  // ✅ โหลดข้อมูลตอนเริ่มต้น
   useEffect(() => {
     const saved = localStorage.getItem("car_list_data");
-    if (saved) setCars(JSON.parse(saved));
-    else setCars(defaultCars);
+    const deleted = JSON.parse(localStorage.getItem("deleted_cars") || "[]");
+
+    // รวม defaultCars + localStorage แต่ไม่เอารถที่ถูกลบ
+    const base = saved ? JSON.parse(saved) : [];
+    const filteredDefaults = defaultCars.filter(
+      (c: Car) => !deleted.includes(c.publicId)
+    );
+
+    setCars([...filteredDefaults, ...base]);
   }, []);
 
+  // ✅ อัปโหลดภาพไป Cloudinary
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const base64 = event.target?.result as string;
-      setNewCar((prev) => ({ ...prev, image: base64 }));
-    };
-    reader.readAsDataURL(file);
-
     try {
       const url = await uploadImageToCloudinary(file);
       if (url) {
-        const safeUrl = url.replace("/upload/", "/upload/c_fit,f_auto,q_auto/");
-        setNewCar((prev) => ({ ...prev, image: safeUrl }));
+        setNewCar((prev) => ({ ...prev, image: url }));
+
+        // Scroll ไปยัง preview หลังอัปโหลดเสร็จ
         setTimeout(() => {
           imageRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 300);
+
         alert("✅ อัปโหลดรูปภาพสำเร็จ!");
       }
     } catch {
@@ -52,6 +56,7 @@ export default function CarAdmin() {
     }
   };
 
+  // ✅ เพิ่มรถใหม่
   const handleAddCar = () => {
     if (!newCar.name || !newCar.image || !newCar.publicId) {
       alert("⚠️ กรุณากรอกข้อมูลให้ครบ");
@@ -60,15 +65,56 @@ export default function CarAdmin() {
 
     const updatedCars = [...cars, newCar];
     setCars(updatedCars);
-    localStorage.setItem("car_list_data", JSON.stringify(updatedCars));
+
+    // เก็บเฉพาะรถที่ไม่ซ้ำกับ defaultCars
+    localStorage.setItem(
+      "car_list_data",
+      JSON.stringify(
+        updatedCars.filter(
+          (c) => !defaultCars.some((d) => d.publicId === c.publicId)
+        )
+      )
+    );
+
     alert("✅ เพิ่มรถใหม่สำเร็จ!");
     setNewCar({ name: "", tagline: "", image: "", publicId: "" });
   };
 
+  // ✅ ลบรถ
   const handleDelete = (publicId: string) => {
     const updatedCars = cars.filter((c) => c.publicId !== publicId);
     setCars(updatedCars);
-    localStorage.setItem("car_list_data", JSON.stringify(updatedCars));
+
+    // เก็บ publicId ของรถที่ถูกลบไว้
+    const deleted = JSON.parse(localStorage.getItem("deleted_cars") || "[]");
+    if (!deleted.includes(publicId)) {
+      deleted.push(publicId);
+      localStorage.setItem("deleted_cars", JSON.stringify(deleted));
+    }
+
+    // อัปเดตเฉพาะรถที่เพิ่มใหม่
+    localStorage.setItem(
+      "car_list_data",
+      JSON.stringify(
+        updatedCars.filter(
+          (c) => !defaultCars.some((d) => d.publicId === c.publicId)
+        )
+      )
+    );
+  };
+
+  // ✅ รีเซ็ตข้อมูลเป็นค่าเริ่มต้น
+  const handleReset = () => {
+    if (
+      confirm(
+        "⚠️ ต้องการรีเซ็ตกลับเป็นค่าเริ่มต้นหรือไม่? (ข้อมูลทั้งหมดจะหาย)"
+      )
+    ) {
+      localStorage.removeItem("car_list_data");
+      localStorage.removeItem("deleted_cars");
+      setCars(defaultCars);
+      alert("✅ รีเซ็ตข้อมูลเรียบร้อยแล้ว!");
+    }
   };
 
   return (
@@ -78,7 +124,7 @@ export default function CarAdmin() {
           🏎️ Car Management System
         </h1>
 
-        {/* ฟอร์มข้อมูล */}
+        {/* ฟอร์มเพิ่มรถ */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 bg-neutral-800/70 p-6 rounded-2xl shadow-xl border border-neutral-700">
           <input
             placeholder="ชื่อรถ (เช่น TEMERARIO)"
@@ -100,32 +146,7 @@ export default function CarAdmin() {
           />
         </div>
 
-        {/* แสดงภาพ Preview */}
-        {newCar.image && (
-          <div
-            ref={imageRef}
-            className="bg-neutral-950/90 text-center rounded-2xl shadow-2xl border border-neutral-700 pt-10 pb-16 mt-6 transition-transform hover:scale-[1.01]"
-          >
-            <h2 className="text-4xl font-bold text-gray-300 mt-4">
-              {newCar.name || "CAR NAME"}
-            </h2>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-white mt-3 mb-6 tracking-tight uppercase">
-              {newCar.tagline || "TAGLINE"}
-            </h1>
-            <div
-              className="mx-auto rounded-lg overflow-hidden flex items-center justify-center bg-black border border-neutral-700"
-              style={{ width: "1077.59px", height: "311.3px" }}
-            >
-              <img
-                src={newCar.image}
-                alt="Preview"
-                className="w-full h-full object-contain"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Upload Section */}
+        {/* อัปโหลดภาพ */}
         <div className="mt-8">
           <p className="text-gray-400 text-sm mb-2">
             อัปโหลดภาพหลัก (1077×311 — ภาพเต็ม ไม่ครอป)
@@ -136,19 +157,37 @@ export default function CarAdmin() {
             accept="image/*"
             className="block mx-auto w-72 text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 transition"
           />
+
+          {/* ✅ Preview ภาพหลังอัปโหลด */}
+          {newCar.image && (
+            <div className="mt-6 flex justify-center" ref={imageRef}>
+              <img
+                src={newCar.image}
+                alt="Car Preview"
+                className="w-full max-w-3xl rounded-xl border border-neutral-700 shadow-lg"
+              />
+            </div>
+          )}
         </div>
 
-        {/* ปุ่มเพิ่มรถ */}
-        <div className="mt-10">
+        {/* ปุ่มเพิ่ม / รีเซ็ต */}
+        <div className="mt-10 flex flex-col md:flex-row justify-center gap-6">
           <button
             onClick={handleAddCar}
             className="bg-white hover:bg-gray-200 text-black px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-gray-700/40 transition"
           >
             ➕ เพิ่มรถใหม่
           </button>
+
+          <button
+            onClick={handleReset}
+            className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-red-800/40 transition"
+          >
+            🔄 รีเซ็ตเป็นค่าเริ่มต้น
+          </button>
         </div>
 
-        {/* รายการรถ */}
+        {/* รายการรถทั้งหมด */}
         <div className="mt-16 text-left">
           <h2 className="text-3xl font-bold mb-6 text-gray-200 border-l-4 border-gray-400 pl-3">
             รายการรถทั้งหมด

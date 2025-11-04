@@ -14,29 +14,27 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   const [carList, setCarList] = useState<Car[]>(cars || []);
   const [index, setIndex] = useState(0);
 
+  // ✅ โหลดข้อมูลรถทั้งหมด (รวมค่าเริ่มต้น + รถใหม่ที่เพิ่ม + ข้ามรถที่ถูกลบ)
   useEffect(() => {
     const saved = localStorage.getItem("car_list_data");
+    const deleted = JSON.parse(localStorage.getItem("deleted_cars") || "[]");
+
+    let parsed: Car[] = [];
     if (saved) {
       try {
-        const parsed: Car[] = JSON.parse(saved);
-        if (Array.isArray(parsed)) {
-          const merged = [
-            ...defaultCars,
-            ...parsed.filter(
-              (newCar: Car) =>
-                !defaultCars.some((oldCar: Car) => oldCar.id === newCar.id)
-            ),
-          ];
-          setCarList(merged);
-        } else {
-          setCarList(defaultCars);
-        }
+        parsed = JSON.parse(saved);
       } catch {
-        setCarList(defaultCars);
+        parsed = [];
       }
-    } else {
-      setCarList(defaultCars);
     }
+
+    // รวม defaultCars + localStorage (ข้ามรถที่ถูกลบ)
+    const merged = [
+      ...defaultCars.filter((car) => !deleted.includes(car.publicId)),
+      ...parsed.filter((newCar) => !deleted.includes(newCar.publicId)),
+    ];
+
+    setCarList(merged);
   }, []);
 
   const car = carList[index];
@@ -53,8 +51,10 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
 
   return (
     <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-b from-[#0A0F1C] via-[#0F1628] to-[#0A0F1C] text-white">
+      {/* Layer background */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-0" />
 
+      {/* Content */}
       <div className="relative z-10 text-center px-6 animate-fadeIn">
         {/* Model Name */}
         <h2 className="text-xl md:text-2xl tracking-widest text-blue-200 font-semibold mb-2 uppercase">
@@ -76,7 +76,7 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
           />
         </div>
 
-        {/* Button */}
+        {/* Explore Button */}
         <div className="mt-12 flex justify-center">
           <button
             onClick={() => navigate("/custom-car", { state: { car } })}
