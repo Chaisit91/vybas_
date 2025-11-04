@@ -10,6 +10,7 @@ import CarAdmin from "./admin/CarAdmin";
 import CustomizationAdmin from "./admin/CustomizationAdmin";
 import NewsAdmin from "./admin/NewsAdmin"; // ✅ เพิ่ม import ใหม่
 import ProtectedRoute from "./pages/ProtectedRoute";
+import HomeAdmin from "./admin/HomeAdmin";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/custom-car" element={<CustomCar />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/home" element={<HomeAdmin />} />
 
         {/* 🔒 เส้นทางสำหรับผู้ดูแลระบบ (Protected) */}
         <Route
