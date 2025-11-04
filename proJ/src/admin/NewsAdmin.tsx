@@ -1,4 +1,3 @@
-// src/pages/NewsAdmin.tsx
 import { useEffect, useState } from "react";
 import {
   fetchNews,
