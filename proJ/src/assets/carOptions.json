@@ -1,7 +1,7 @@
 {
   "temerario": {
     "colors": [
-      { "name": "Crimson Red", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487352/familyChooser-Sian_Roadster_cws4lb.png" },
+      { "name": "Crimson Red", "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762261344/mquloewpcwif3d7skbzs.png" },
       { "name": "Shadow Black", "image": "https://res.cloudinary.com/dzhxwdlwb/image/upload/v1761487351/familyChooser-Fenomeno_zmv51n.png" }
     ],
     "wheels": [
@@ -14,7 +14,7 @@
     ],
     "combos": [
 
-      { "selected": { "colors": "Crimson Red", "wheels": "Vortex" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-combo-7.png" },
+      { "selected": { "colors": "Crimson Red", "wheels": "Vortex" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762261344/mquloewpcwif3d7skbzs.png" },
       { "selected": { "colors": "Crimson Red", "wheels": "Carbon X" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-combo-8.png" },
       { "selected": { "colors": "Shadow Black", "wheels": "Vortex" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-combo-9.png" },
       { "selected": { "colors": "Shadow Black", "wheels": "Carbon X" }, "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/temerario-combo-10.png" },
