@@ -1,6 +1,5 @@
-// src/admin/HomeAdmin.tsx
 import { useEffect, useState } from "react";
-import { uploadImageToCloudinary } from "../services/cloudinary"; // ✅ ใช้บริการอัปโหลด
+import { uploadImageToCloudinary } from "../services/cloudinary";
 
 interface HomeContent {
   title: string;
@@ -17,19 +16,17 @@ export default function HomeAdmin() {
     title: "",
     subtitle: "",
     buttonText: "",
-    buttonLink: "",
+    buttonLink: "/models",
     background: "",
   });
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      setContent(JSON.parse(saved));
-    }
+    if (saved) setContent(JSON.parse(saved));
   }, []);
 
-  const handleChange = (key: keyof HomeContent, value: string) => {
-    setContent((prev) => ({ ...prev, [key]: value }));
+  const handleChange = (field: keyof HomeContent, value: string) => {
+    setContent((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,109 +35,111 @@ export default function HomeAdmin() {
     const url = await uploadImageToCloudinary(file);
     if (url) {
       setContent((prev) => ({ ...prev, background: url }));
-      alert("✅ อัปโหลดพื้นหลังสำเร็จ!");
+      alert("✅ Background updated successfully!");
     } else {
-      alert("❌ Upload failed");
+      alert("❌ Upload failed.");
     }
   };
 
   const handleSave = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-    alert("✅ บันทึกข้อมูลหน้า Home แล้ว!");
+    alert("✅ Home content saved successfully!");
+  };
+
+  const handleReset = () => {
+    localStorage.removeItem(STORAGE_KEY);
+    window.location.reload();
   };
 
   return (
-    <div className="p-8 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">🏠 แก้ไขหน้า Home</h1>
+    <div className="min-h-screen bg-[#0A0A0A] py-16 px-6 flex flex-col items-center text-gray-100">
+      <h1 className="text-5xl font-extrabold mb-12 text-white tracking-widest drop-shadow-[0_0_15px_rgba(255,255,255,0.25)] uppercase">
+        🏠 HOME PAGE CONTROL PANEL
+      </h1>
 
-      <div className="grid gap-4 max-w-xl">
-        {/* ===== ฟิลด์เนื้อหา ===== */}
+      <div className="bg-[#111111] border border-gray-800 rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.05)] 
+                      p-10 w-full max-w-4xl space-y-6 backdrop-blur-sm">
+        {/* Title */}
         <div>
-          <label className="block font-semibold mb-1">หัวข้อหลัก (Title)</label>
+          <label className="font-semibold block mb-2 text-gray-300 tracking-wide uppercase">
+            Title
+          </label>
           <input
-            type="text"
             value={content.title}
             onChange={(e) => handleChange("title", e.target.value)}
-            className="border p-2 rounded w-full"
+            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 
+                       placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+            placeholder="Enter title"
           />
         </div>
 
+        {/* Subtitle */}
         <div>
-          <label className="block font-semibold mb-1">คำอธิบาย (Subtitle)</label>
+          <label className="font-semibold block mb-2 text-gray-300 tracking-wide uppercase">
+            Subtitle
+          </label>
           <textarea
             value={content.subtitle}
             onChange={(e) => handleChange("subtitle", e.target.value)}
-            className="border p-2 rounded w-full h-24"
+            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 
+                       placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+            placeholder="Enter subtitle"
           />
         </div>
 
+        {/* Button Text */}
         <div>
-          <label className="block font-semibold mb-1">ข้อความบนปุ่ม (Button Text)</label>
+          <label className="font-semibold block mb-2 text-gray-300 tracking-wide uppercase">
+            Button Text
+          </label>
           <input
-            type="text"
             value={content.buttonText}
             onChange={(e) => handleChange("buttonText", e.target.value)}
-            className="border p-2 rounded w-full"
+            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 
+                       placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+            placeholder="Enter button text"
           />
         </div>
 
+        {/* Background Image */}
         <div>
-          <label className="block font-semibold mb-1">ลิงก์ของปุ่ม (Button Link)</label>
-          <input
-            type="text"
-            value={content.buttonLink}
-            onChange={(e) => handleChange("buttonLink", e.target.value)}
-            className="border p-2 rounded w-full"
-          />
-        </div>
-
-        {/* ===== แก้ไขภาพพื้นหลัง ===== */}
-        <div>
-          <label className="block font-semibold mb-1">พื้นหลัง (Background URL)</label>
-          <input
-            type="text"
-            value={content.background}
-            onChange={(e) => handleChange("background", e.target.value)}
-            className="border p-2 rounded w-full mb-2"
-          />
+          <label className="font-semibold block mb-2 text-gray-300 tracking-wide uppercase">
+            Background Image
+          </label>
+          {content.background && (
+            <div className="relative group">
+              <img
+                src={content.background}
+                alt="Preview"
+                className="w-full h-64 object-cover rounded-xl mb-3 border border-gray-700/50 shadow-[0_0_25px_rgba(255,255,255,0.08)] group-hover:scale-[1.02] transition-all"
+              />
+            </div>
+          )}
           <input
             type="file"
+            accept="image/*"
             onChange={handleUpload}
-            className="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg 
-                       file:border-0 file:font-semibold file:bg-yellow-50 file:text-yellow-700 
-                       hover:file:bg-yellow-100"
+            className="block w-full text-sm text-gray-300 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 
+                       file:font-semibold file:bg-gray-800 file:text-gray-300 hover:file:bg-gray-700 transition-all cursor-pointer"
           />
-          {content.background && (
-            <img
-              src={content.background}
-              alt="background preview"
-              className="mt-3 rounded-lg shadow-md"
-            />
-          )}
         </div>
 
-        <button
-          onClick={handleSave}
-          className="bg-yellow-500 text-black px-6 py-2 rounded font-semibold hover:bg-yellow-600 transition"
-        >
-          💾 บันทึก
-        </button>
-      </div>
-
-      {/* ===== PREVIEW ===== */}
-      <div className="mt-10 border-t pt-6">
-        <h2 className="text-2xl font-semibold mb-4">🔍 ตัวอย่างหน้า Home (Live Preview)</h2>
-        <div
-          className="rounded-2xl overflow-hidden shadow-xl min-h-[400px] flex flex-col justify-center items-center text-center text-white bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${content.background})` }}
-        >
-          <div className="bg-black/50 p-6 rounded-xl">
-            <h1 className="text-4xl font-bold mb-4">{content.title}</h1>
-            <p className="text-gray-200 mb-6">{content.subtitle}</p>
-            <button className="bg-yellow-500 text-black px-4 py-2 rounded font-semibold">
-              {content.buttonText}
-            </button>
-          </div>
+        {/* Buttons */}
+        <div className="flex gap-4 mt-8">
+          <button
+            onClick={handleSave}
+            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold 
+                       shadow-[0_0_25px_rgba(255,255,255,0.1)] w-full transition-all hover:scale-[1.03]"
+          >
+            💾 SAVE CHANGES
+          </button>
+          <button
+            onClick={handleReset}
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold 
+                       shadow-[0_0_20px_rgba(239,68,68,0.4)] w-full transition-all hover:scale-[1.03]"
+          >
+            🔄 RESET
+          </button>
         </div>
       </div>
     </div>

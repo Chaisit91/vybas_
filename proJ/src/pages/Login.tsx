@@ -6,38 +6,53 @@ export default function Login() {
   const location = useLocation();
   const [password, setPassword] = useState("");
 
-  // ถ้ามีเส้นทางที่ถูกกันไว้ก่อนหน้า → จะกลับไปที่นั่นหลังล็อกอิน
   const from = location.state?.from?.pathname || "/admin";
 
   const handleLogin = () => {
     if (password === "123") {
       localStorage.setItem("isAdmin", "true");
-      window.dispatchEvent(new Event("admin-login")); // ✅ แจ้งให้ Navbar อัปเดตทันที
+      window.dispatchEvent(new Event("admin-login"));
       navigate(from, { replace: true });
     } else {
-      alert("รหัสผ่านไม่ถูกต้อง ❌");
+      alert("❌ รหัสผ่านไม่ถูกต้อง");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-lg w-80">
-        <h1 className="text-xl font-bold mb-4 text-center">🔐 Admin Login</h1>
+    <div
+      className="flex items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white font-sans"
+    >
+      <div className="bg-gray-950/70 backdrop-blur-md border border-gray-700 shadow-2xl rounded-3xl p-10 w-[90%] max-w-md transition-all duration-300">
+        {/* โลโก้ / หัวข้อ */}
+        <h1 className="text-3xl font-extrabold text-center mb-6 tracking-wide text-white">
+          🔐 Admin Login
+        </h1>
+
+        {/* ช่องกรอกรหัสผ่าน */}
         <input
           type="password"
-          placeholder="กรอกรหัสผ่าน"
+          placeholder="กรอกรหัสผ่านเพื่อเข้าสู่ระบบ"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border w-full p-2 mb-4 rounded"
+          className="w-full px-4 py-3 mb-6 rounded-xl bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
         />
+
+        {/* ปุ่มเข้าสู่ระบบ */}
         <button
           onClick={handleLogin}
-          className="bg-yellow-500 w-full py-2 rounded font-semibold hover:bg-yellow-600 transition"
+          className="w-full py-3 bg-gradient-to-r from-blue-800 via-blue-700 to-blue-600 hover:from-blue-700 hover:to-blue-500 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
         >
           เข้าสู่ระบบ
         </button>
+
+        {/* เส้นแบ่ง */}
+        <div className="mt-6 border-t border-gray-700 opacity-50"></div>
+
+        {/* ข้อความเพิ่มเติม */}
+        <p className="text-center text-gray-400 text-sm mt-4">
+          *สำหรับผู้ดูแลระบบเท่านั้น*
+        </p>
       </div>
     </div>
   );
 }
-

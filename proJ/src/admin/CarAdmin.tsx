@@ -26,12 +26,10 @@ export default function CarAdmin() {
     else setCars(defaultCars);
   }, []);
 
-  // ✅ Upload และแสดงภาพเต็มแบบไม่ครอป
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // แสดงภาพจากเครื่องก่อน upload
     const reader = new FileReader();
     reader.onload = (event) => {
       const base64 = event.target?.result as string;
@@ -42,18 +40,14 @@ export default function CarAdmin() {
     try {
       const url = await uploadImageToCloudinary(file);
       if (url) {
-        // ✅ บังคับ Cloudinary ให้ไม่ครอปเลย (fit ภาพเต็ม)
         const safeUrl = url.replace("/upload/", "/upload/c_fit,f_auto,q_auto/");
         setNewCar((prev) => ({ ...prev, image: safeUrl }));
-
         setTimeout(() => {
           imageRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 300);
-
         alert("✅ อัปโหลดรูปภาพสำเร็จ!");
       }
-    } catch (err) {
-      console.error("Upload failed", err);
+    } catch {
       alert("❌ อัปโหลดรูปภาพไม่สำเร็จ");
     }
   };
@@ -78,29 +72,31 @@ export default function CarAdmin() {
   };
 
   return (
-    <section className="min-h-screen flex flex-col items-center justify-center bg-white text-center pt-24 relative overflow-hidden">
-      <div className="animate-fadeIn w-full max-w-6xl px-4">
-        <h1 className="text-4xl font-bold mb-6 text-gray-900">จัดการข้อมูลรถยนต์</h1>
+    <section className="min-h-screen bg-gradient-to-b from-black via-neutral-900 to-gray-900 text-white py-20 px-6 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto text-center">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-10 text-white drop-shadow-lg tracking-wide">
+          🏎️ Car Management System
+        </h1>
 
         {/* ฟอร์มข้อมูล */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 bg-neutral-800/70 p-6 rounded-2xl shadow-xl border border-neutral-700">
           <input
             placeholder="ชื่อรถ (เช่น TEMERARIO)"
             value={newCar.name}
             onChange={(e) => setNewCar({ ...newCar, name: e.target.value })}
-            className="border p-3 rounded-lg w-full text-lg"
+            className="p-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"
           />
           <input
             placeholder="แท็กไลน์ (Tagline)"
             value={newCar.tagline}
             onChange={(e) => setNewCar({ ...newCar, tagline: e.target.value })}
-            className="border p-3 rounded-lg w-full text-lg"
+            className="p-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"
           />
           <input
             placeholder="Public ID (ไม่ซ้ำ)"
             value={newCar.publicId}
             onChange={(e) => setNewCar({ ...newCar, publicId: e.target.value })}
-            className="border p-3 rounded-lg w-full text-lg"
+            className="p-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"
           />
         </div>
 
@@ -108,75 +104,76 @@ export default function CarAdmin() {
         {newCar.image && (
           <div
             ref={imageRef}
-            className="bg-white text-center rounded-lg shadow-inner pt-16 pb-12 overflow-hidden mt-6"
+            className="bg-neutral-950/90 text-center rounded-2xl shadow-2xl border border-neutral-700 pt-10 pb-16 mt-6 transition-transform hover:scale-[1.01]"
           >
-            <h2 className="text-3xl font-bold text-gray-900 mt-6">
+            <h2 className="text-4xl font-bold text-gray-300 mt-4">
               {newCar.name || "CAR NAME"}
             </h2>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-gray-800 mt-4 mb-8">
+            <h1 className="text-5xl md:text-7xl font-extrabold text-white mt-3 mb-6 tracking-tight uppercase">
               {newCar.tagline || "TAGLINE"}
             </h1>
-
-            {/* ✅ กรอบใหญ่เท่ากับ CarSlider และไม่ครอปภาพ */}
             <div
-              className="mx-auto drop-shadow-xl transition-transform duration-700 hover:scale-105 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center"
-              style={{
-                width: "1077.59px",
-                height: "311.3px",
-              }}
+              className="mx-auto rounded-lg overflow-hidden flex items-center justify-center bg-black border border-neutral-700"
+              style={{ width: "1077.59px", height: "311.3px" }}
             >
               <img
                 src={newCar.image}
                 alt="Preview"
                 className="w-full h-full object-contain"
-                style={{ display: "block" }}
               />
             </div>
           </div>
         )}
 
-        {/* ✅ ปุ่ม Choose File อยู่ด้านล่างสุด */}
-        <div className="mt-6">
-          <p className="text-sm mb-1 text-gray-600">
-            อัปโหลดภาพหลัก (แสดงภาพเต็มในกรอบ 1077.59×311.3)
+        {/* Upload Section */}
+        <div className="mt-8">
+          <p className="text-gray-400 text-sm mb-2">
+            อัปโหลดภาพหลัก (1077×311 — ภาพเต็ม ไม่ครอป)
           </p>
-          <input type="file" onChange={handleUpload} accept="image/*" />
+          <input
+            type="file"
+            onChange={handleUpload}
+            accept="image/*"
+            className="block mx-auto w-72 text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 transition"
+          />
         </div>
 
         {/* ปุ่มเพิ่มรถ */}
-        <div className="mt-8">
+        <div className="mt-10">
           <button
             onClick={handleAddCar}
-            className="bg-blue-600 text-white px-8 py-3 rounded-lg text-lg hover:bg-blue-700 transition"
+            className="bg-white hover:bg-gray-200 text-black px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-gray-700/40 transition"
           >
-            เพิ่มรถใหม่
+            ➕ เพิ่มรถใหม่
           </button>
         </div>
 
         {/* รายการรถ */}
-        <div className="mt-12">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-900">
+        <div className="mt-16 text-left">
+          <h2 className="text-3xl font-bold mb-6 text-gray-200 border-l-4 border-gray-400 pl-3">
             รายการรถทั้งหมด
           </h2>
           <ul className="space-y-3">
             {cars.map((c) => (
               <li
                 key={c.publicId}
-                className="flex justify-between items-center border p-4 rounded-lg shadow-sm hover:shadow-md transition"
+                className="flex justify-between items-center bg-neutral-900 border border-neutral-700 p-4 rounded-xl hover:border-white transition"
               >
                 <div className="flex items-center gap-4">
                   <img
                     src={c.image}
                     alt={c.name}
-                    className="w-20 h-12 object-cover rounded"
+                    className="w-24 h-14 object-cover rounded"
                   />
-                  <span className="text-lg font-medium">{c.name}</span>
+                  <span className="text-lg font-semibold text-white">
+                    {c.name}
+                  </span>
                 </div>
                 <button
                   onClick={() => handleDelete(c.publicId)}
-                  className="text-red-600 hover:underline text-sm"
+                  className="text-gray-400 hover:text-white text-sm font-semibold transition"
                 >
-                  ลบ
+                  🗑️ ลบ
                 </button>
               </li>
             ))}

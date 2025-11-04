@@ -13,46 +13,51 @@ const About = () => {
   }, []);
 
   return (
-    <div className="pt-20 max-w-6xl mx-auto px-4 font-serif text-gray-800">
-      <h1 className="text-4xl font-extrabold mb-6 text-center tracking-wide text-gray-900">
-        About Us
-      </h1>
-      <p className="mb-4 text-lg text-gray-700 text-center max-w-3xl mx-auto leading-relaxed">
-        Welcome to <span className="font-semibold">Custom CAR</span>! 
-        We are passionate about bringing you the best and most customizable car experiences.
-      </p>
+    <div className="min-h-screen bg-gradient-to-b from-[#0A0F1C] via-[#0F1628] to-[#0A0F1C] text-white pt-20 pb-20 font-serif">
+      {/* ส่วนหัว */}
+      <div className="max-w-4xl mx-auto text-center px-4">
+        <h1 className="text-5xl font-extrabold mb-6 tracking-wide text-white drop-shadow-[0_3px_10px_rgba(0,0,0,0.5)]">
+          About Us
+        </h1>
+        <p className="mb-10 text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
+          Welcome to <span className="font-semibold text-blue-300">Custom CAR</span>! 
+          We are passionate about bringing you the most innovative and customizable car experiences — 
+          crafted with technology, precision, and design.
+        </p>
+      </div>
 
-      <h2 className="mt-12 text-2xl font-semibold mb-6 text-gray-900 border-b-2 inline-block">
-        Latest News
-      </h2>
+      {/* ข่าวล่าสุด */}
+      <div className="max-w-6xl mx-auto px-4">
 
-      {loading ? (
-        <p className="text-center text-gray-500 mt-8">Loading news...</p>
-      ) : (
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-6">
-          {newsList.map((news) => (
-            <div
-              key={news.id}
-              className="bg-white shadow-2xl hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] 
-                         rounded-2xl overflow-hidden transition-all duration-300"
-            >
-              <img
-                src={news.image}
-                alt={news.title}
-                className="w-full h-52 object-cover"
-              />
-              <div className="p-5">
-                <h3 className="font-bold text-xl mb-2 text-gray-900 leading-snug">
-                  {news.title}
-                </h3>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  {news.content}
-                </p>
+        {loading ? (
+          <p className="text-center text-gray-400 mt-8">Loading news...</p>
+        ) : (
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 mt-6">
+            {newsList.map((news) => (
+              <div
+                key={news.id}
+                className="bg-[#111827]/70 backdrop-blur-md border border-[#1E293B] 
+                           hover:border-blue-400/50 transition-all duration-300 
+                           shadow-lg hover:shadow-blue-900/40 rounded-2xl overflow-hidden"
+              >
+                <img
+                  src={news.image}
+                  alt={news.title}
+                  className="w-full h-52 object-cover opacity-90 hover:opacity-100 transition duration-300"
+                />
+                <div className="p-5">
+                  <h3 className="font-bold text-xl mb-2 text-white leading-snug">
+                    {news.title}
+                  </h3>
+                  <p className="text-gray-300 text-sm leading-relaxed line-clamp-4">
+                    {news.content}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

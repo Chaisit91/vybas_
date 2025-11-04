@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -7,7 +6,7 @@ interface HomeContent {
   subtitle: string;
   buttonText: string;
   buttonLink: string;
-  background: string; // ✅ เพิ่ม background
+  background: string;
 }
 
 const defaultContent: HomeContent = {
@@ -15,7 +14,8 @@ const defaultContent: HomeContent = {
   subtitle: "Discover the future of performance and design.",
   buttonText: "View Models →",
   buttonLink: "/models",
-  background: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1690000000/lamborghini-bg.jpg",
+  background:
+    "https://res.cloudinary.com/dlp0q39ua/image/upload/v1690000000/lamborghini-bg.jpg",
 };
 
 const STORAGE_KEY = "home_content";
@@ -30,20 +30,24 @@ const Home: React.FC = () => {
 
   return (
     <section
-      className="min-h-screen flex flex-col justify-center items-center text-white text-center px-4 md:px-0 bg-cover bg-center bg-no-repeat"
+      className="min-h-screen flex items-center justify-center text-white text-center bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${content.background})`,
       }}
     >
-      <div className="bg-black/50 p-8 rounded-2xl">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">{content.title}</h1>
-        <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-xl">
+      <div className="bg-black/60 backdrop-blur-sm px-10 py-12 rounded-3xl shadow-2xl max-w-2xl mx-4">
+        {/* ✅ ใช้สไตล์ Title เดิม */}
+        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+          {content.title}
+        </h1>
+
+        <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto">
           {content.subtitle}
         </p>
 
         <Link
           to={content.buttonLink}
-          className="bg-yellow-500 text-black px-6 py-3 rounded font-semibold hover:bg-yellow-600 transition"
+          className="inline-block bg-yellow-500 text-black px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition-transform duration-300 hover:scale-105 shadow-md"
         >
           {content.buttonText}
         </Link>

@@ -1,3 +1,4 @@
+// src/pages/NewsAdmin.tsx
 import { useEffect, useState } from "react";
 import {
   fetchNews,
@@ -91,85 +92,87 @@ export default function NewsAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 flex flex-col items-center">
-      <h1 className="text-3xl font-extrabold text-center mb-8 text-gray-900">
-        📰 News Management
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 py-10 px-4 flex flex-col items-center text-gray-100">
+      <h1 className="text-4xl font-extrabold text-center mb-10 text-white tracking-wide drop-shadow-lg">
+        📰 NEWS ADMIN PANEL
       </h1>
 
       {/* === FORM === */}
-      <div className="bg-white rounded-3xl shadow-lg p-8 w-full max-w-5xl">
+      <div className="bg-[#111111] border border-gray-700 rounded-3xl shadow-[0_0_30px_rgba(255,255,255,0.1)] p-8 w-full max-w-5xl">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <input
-            placeholder="News Title"
+            placeholder="📝 News Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-indigo-500"
+            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
           />
           <textarea
-            placeholder="Content"
+            placeholder="🗒️ Content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-indigo-500 md:col-span-2"
+            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition md:col-span-2"
           />
           <input
             type="file"
             onChange={handleUpload}
-            className="block w-full text-sm text-gray-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 md:col-span-2"
+            className="block w-full text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-red-600/20 file:text-red-400 hover:file:bg-red-600/30 transition md:col-span-2"
           />
         </div>
 
         <button
           onClick={handleSave}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-xl transition-all duration-300 w-full"
+          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-700/40 transition-all duration-300 w-full"
         >
-          {editingId ? "💾 Save Changes" : "➕ Add News"}
+          {editingId ? "💾 SAVE CHANGES" : "➕ ADD NEWS"}
         </button>
 
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleReset}
-            className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full"
+            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full"
           >
-            🔄 Reset Local News
+            🔄 Reset Local
           </button>
           <button
             onClick={handleClearAll}
-            className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full"
+            className="bg-red-800 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full"
           >
-            🗑️ Clear All News
+            🗑️ Clear All
           </button>
         </div>
       </div>
 
       {/* === NEWS LIST === */}
-      <div className="mt-10 w-full max-w-5xl">
-        <h2 className="text-2xl font-bold mb-4 text-gray-800">
-          All News ({newsList.length})
+      <div className="mt-10 w-full max-w-6xl">
+        <h2 className="text-2xl font-bold mb-6 text-gray-100 border-b border-gray-700 pb-2">
+          🗞️ All News ({newsList.length})
         </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {newsList.map((item) => (
             <div
               key={item.id}
-              className="bg-white shadow-md rounded-2xl overflow-hidden"
+              className="bg-[#181818] border border-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-red-700/30 transition-all duration-300"
             >
               <img
                 src={item.image}
                 alt={item.title}
-                className="h-48 w-full object-cover"
+                className="h-48 w-full object-cover opacity-90 hover:opacity-100 transition"
               />
               <div className="p-4">
-                <h3 className="font-bold text-lg">{item.title}</h3>
-                <p className="text-gray-600 text-sm mt-2">{item.content}</p>
+                <h3 className="font-bold text-lg text-white">{item.title}</h3>
+                <p className="text-gray-400 text-sm mt-2 line-clamp-3">
+                  {item.content}
+                </p>
                 <div className="flex justify-between mt-4">
                   <button
                     onClick={() => handleEdit(item)}
-                    className="text-blue-600 font-semibold hover:underline"
+                    className="text-blue-400 font-semibold hover:text-blue-300 transition"
                   >
                     ✏️ Edit
                   </button>
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="text-red-600 font-semibold hover:underline"
+                    className="text-red-500 font-semibold hover:text-red-400 transition"
                   >
                     🗑️ Delete
                   </button>

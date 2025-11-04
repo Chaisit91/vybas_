@@ -3,16 +3,19 @@ import { Link } from "react-router-dom";
 
 export default function Admin() {
   return (
-    <div className="p-8 min-h-screen bg-gray-50">
-      <h1 className="text-3xl font-bold mb-8 text-center text-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-[#0A0F1C] via-[#0F1628] to-[#0A0F1C] text-white flex flex-col items-center justify-center px-6 py-16">
+      <h1 className="text-5xl font-extrabold mb-12 tracking-wide drop-shadow-[0_3px_10px_rgba(0,0,0,0.6)] text-center">
         ⚙️ Admin Dashboard
       </h1>
 
-      <div className="grid gap-6 max-w-2xl mx-auto">
+      <div className="grid gap-6 w-full max-w-2xl">
         {/* 🏠 แก้ไขหน้า Home */}
         <Link
           to="/admin/home"
-          className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-4 rounded-xl text-lg font-semibold shadow-md hover:shadow-xl transition flex justify-center items-center gap-2"
+          className="bg-gradient-to-r from-[#1E3A8A] to-[#0F172A] hover:from-[#2563EB] hover:to-[#1E40AF]
+               border border-blue-600/50 text-white px-6 py-5 rounded-2xl text-lg font-semibold 
+               shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
+               flex justify-center items-center gap-3"
         >
           🏠 แก้ไขหน้า Home
         </Link>
@@ -20,7 +23,10 @@ export default function Admin() {
         {/* 🚗 จัดการรถ */}
         <Link
           to="/admin/cars"
-          className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-4 rounded-xl text-lg font-semibold shadow-md hover:shadow-xl transition flex justify-center items-center gap-2"
+          className="bg-gradient-to-r from-[#1E3A8A] to-[#0F172A] hover:from-[#2563EB] hover:to-[#1E40AF]
+               border border-blue-600/50 text-white px-6 py-5 rounded-2xl text-lg font-semibold 
+               shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
+               flex justify-center items-center gap-3"
         >
           🚗 จัดการรถ (CarAdmin)
         </Link>
@@ -28,7 +34,10 @@ export default function Admin() {
         {/* 🛠️ ของแต่ง */}
         <Link
           to="/admin/customizations"
-          className="bg-green-500 hover:bg-green-600 text-white px-6 py-4 rounded-xl text-lg font-semibold shadow-md hover:shadow-xl transition flex justify-center items-center gap-2"
+          className="bg-gradient-to-r from-[#1E3A8A] to-[#0F172A] hover:from-[#2563EB] hover:to-[#1E40AF]
+               border border-blue-600/50 text-white px-6 py-5 rounded-2xl text-lg font-semibold 
+               shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
+               flex justify-center items-center gap-3"
         >
           🛠️ จัดการของแต่ง (CustomizationAdmin)
         </Link>
@@ -36,12 +45,15 @@ export default function Admin() {
         {/* 📰 ข่าว */}
         <Link
           to="/admin/news"
-          className="bg-purple-500 hover:bg-purple-600 text-white px-6 py-4 rounded-xl text-lg font-semibold shadow-md hover:shadow-xl transition flex justify-center items-center gap-2"
+          className="bg-gradient-to-r from-[#1E3A8A] to-[#0F172A] hover:from-[#2563EB] hover:to-[#1E40AF]
+               border border-blue-600/50 text-white px-6 py-5 rounded-2xl text-lg font-semibold 
+               shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
+               flex justify-center items-center gap-3"
         >
           📰 จัดการข่าว (NewsAdmin)
         </Link>
       </div>
+
     </div>
   );
 }
-
