@@ -12,6 +12,7 @@ export default function Login() {
   const handleLogin = () => {
     if (password === "123") {
       localStorage.setItem("isAdmin", "true");
+      window.dispatchEvent(new Event("admin-login")); // ✅ แจ้งให้ Navbar อัปเดตทันที
       navigate(from, { replace: true });
     } else {
       alert("รหัสผ่านไม่ถูกต้อง ❌");
@@ -39,3 +40,4 @@ export default function Login() {
     </div>
   );
 }
+
