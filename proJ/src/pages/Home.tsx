@@ -30,27 +30,33 @@ const Home: React.FC = () => {
 
   return (
     <section
-      className="min-h-screen flex items-center justify-center text-white text-center bg-cover bg-center bg-no-repeat"
+      className="min-h-screen flex flex-col items-center justify-center text-white text-center bg-cover bg-center bg-no-repeat relative"
       style={{
         backgroundImage: `url(${content.background})`,
       }}
     >
-      <div className="bg-black/60 backdrop-blur-sm px-10 py-12 rounded-3xl shadow-2xl max-w-2xl mx-4">
-        {/* ✅ ใช้สไตล์ Title เดิม */}
-        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+      {/* ชั้น Overlay เบา ๆ ช่วยให้อ่านข้อความได้ชัด */}
+      <div className="absolute inset-0 bg-black/40"></div>
+
+      {/* เนื้อหากลางจอ */}
+      <div className="relative z-10 px-6">
+        <h1 className="text-5xl md:text-7xl font-extrabold mb-6 drop-shadow-[0_4px_10px_rgba(0,0,0,0.7)]">
           {content.title}
         </h1>
 
-        <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-xl mx-auto">
+        <p className="text-lg md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
           {content.subtitle}
         </p>
-
         <Link
           to={content.buttonLink}
-          className="inline-block bg-yellow-500 text-black px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition-transform duration-300 hover:scale-105 shadow-md"
+          className="inline-block bg-[#0a1444] text-white px-10 py-4 rounded-full font-semibold text-lg 
+             hover:bg-[#13235f] transition-transform duration-300 hover:scale-105 
+             shadow-[0_0_25px_rgba(10,20,68,0.7)]"
         >
           {content.buttonText}
         </Link>
+
+
       </div>
     </section>
   );

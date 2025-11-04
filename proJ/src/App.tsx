@@ -23,7 +23,6 @@ function App() {
         <Route path="/custom-car" element={<CustomCar />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/home" element={<HomeAdmin />} />
 
         {/* 🔒 Admin protected routes */}
         <Route

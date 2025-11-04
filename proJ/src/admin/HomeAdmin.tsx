@@ -52,7 +52,7 @@ export default function HomeAdmin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] py-16 px-6 flex flex-col items-center text-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-gray-800 pt-28 pb-10 px-4 flex flex-col items-center text-gray-100">
       <h1 className="text-5xl font-extrabold mb-12 text-white tracking-widest drop-shadow-[0_0_15px_rgba(255,255,255,0.25)] uppercase">
         🏠 HOME PAGE CONTROL PANEL
       </h1>

@@ -25,7 +25,6 @@ const CustomCar = () => {
   const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
   const [fadeKey, setFadeKey] = useState(0);
 
-  // ✅ โหลด options จาก service + sync อัตโนมัติ
   useEffect(() => {
     if (car) {
       const loaded = getCarOptions(car.publicId);
@@ -39,17 +38,14 @@ const CustomCar = () => {
       }
     };
 
-    // 🔄 sync อัตโนมัติเมื่อเพิ่มของแต่งใหม่
     window.addEventListener("carOptionsUpdated", handleUpdate);
     window.addEventListener("storage", handleUpdate);
-
     return () => {
       window.removeEventListener("carOptionsUpdated", handleUpdate);
       window.removeEventListener("storage", handleUpdate);
     };
   }, [car, location.key]);
 
-  // ✅ เปลี่ยนภาพเมื่อเลือกของแต่ง
   useEffect(() => {
     if (!car) return;
     const selectedNames: Partial<Record<Category, string>> = {};
@@ -74,7 +70,6 @@ const CustomCar = () => {
     };
   }, [selected, car]);
 
-  // ✅ จัดการเมื่อคลิกเลือกของแต่ง
   const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {
       const isSame = prev[category]?.name === option.name;
@@ -82,43 +77,41 @@ const CustomCar = () => {
     });
   };
 
-  if (!car) {
+  if (!car)
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
+      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center bg-black text-white">
         <h1 className="text-2xl font-bold mb-4">Car not found</h1>
         <button
-          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg shadow-md transition"
+          className="bg-[#0a1444] hover:bg-[#13235f] text-white px-6 py-3 rounded-lg shadow-[0_0_20px_rgba(10,20,68,0.6)] transition"
           onClick={() => navigate("/models")}
         >
           Back to Models
         </button>
       </div>
     );
-  }
 
-  if (!options) {
+  if (!options)
     return (
-      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center">
+      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center bg-black text-white">
         <h1 className="text-2xl font-bold mb-4">Loading customization options...</h1>
         <button
-          className="bg-yellow-500 hover:bg-yellow-600 text-black px-6 py-3 rounded-lg shadow-md transition"
+          className="bg-[#0a1444] hover:bg-[#13235f] text-white px-6 py-3 rounded-lg shadow-[0_0_20px_rgba(10,20,68,0.6)] transition"
           onClick={() => navigate("/models")}
         >
           Back to Models
         </button>
       </div>
     );
-  }
 
   const categories: Category[] = ["colors", "wheels", "spoilers"];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 pt-20 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-black via-[#0a0f1a] to-[#0b1330] text-white pt-24 font-sans">
       <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
 
         {/* Car Display */}
         <div className="flex-1 flex justify-center items-center w-full">
-          <div className="relative w-full max-w-7xl bg-white/70 rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.2)] overflow-hidden backdrop-blur-md">
+          <div className="relative w-full max-w-7xl bg-[#0a0f1a]/70 rounded-3xl border border-[#1e3a8a]/30 shadow-[0_0_40px_rgba(30,58,138,0.4)] overflow-hidden backdrop-blur-lg">
             <img
               key={fadeKey}
               src={displayImage}
@@ -132,14 +125,14 @@ const CustomCar = () => {
         </div>
 
         {/* Control Panel */}
-        <div className="w-full lg:w-[32rem] bg-white/95 shadow-2xl border border-gray-100 p-8 rounded-3xl backdrop-blur-md lg:ml-auto">
-          <h1 className="text-4xl font-extrabold mb-6 text-gray-800 border-b pb-3 tracking-tight">
-            Customize <span className="text-indigo-600">{car.name}</span>
+        <div className="w-full lg:w-[32rem] bg-[#0a0f1a]/90 border border-[#1e3a8a]/30 shadow-[0_0_30px_rgba(30,58,138,0.5)] p-8 rounded-3xl backdrop-blur-md lg:ml-auto">
+          <h1 className="text-4xl font-extrabold mb-6 text-white border-b border-[#1e3a8a]/40 pb-3 tracking-tight">
+            Customize <span className="text-[#00eaff]">{car.name}</span>
           </h1>
 
           {categories.map((category) => (
             <div key={category} className="mb-8">
-              <h2 className="text-xl font-semibold mb-3 text-gray-700">
+              <h2 className="text-lg font-semibold mb-3 text-gray-300">
                 Choose {category.charAt(0).toUpperCase() + category.slice(1)}
               </h2>
               <div className="flex gap-3 flex-wrap">
@@ -155,9 +148,9 @@ const CustomCar = () => {
             </div>
           ))}
 
-          <div className="mt-10 border-t pt-5">
-            <p className="text-gray-500 text-sm">Selected:</p>
-            <p className="font-semibold text-gray-800 text-lg mt-1">
+          <div className="mt-10 border-t border-[#1e3a8a]/30 pt-5">
+            <p className="text-gray-400 text-sm">Selected:</p>
+            <p className="font-semibold text-white text-lg mt-1">
               {Object.values(selected)
                 .filter(Boolean)
                 .map((item) => item!.name)
@@ -170,14 +163,14 @@ const CustomCar = () => {
               onClick={() => {
                 if (car) setOptions(getCarOptions(car.publicId));
               }}
-              className="px-5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition"
+              className="px-5 py-2 bg-[#111827] hover:bg-[#1e293b] text-gray-200 font-semibold rounded-lg transition border border-[#1e3a8a]/30"
             >
               🔄 โหลดของแต่งใหม่
             </button>
 
             <button
               onClick={() => navigate("/cart", { state: { car, selected } })}
-              className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+              className="px-8 py-3 bg-[#0a1444] hover:bg-[#13235f] text-white font-semibold rounded-xl shadow-[0_0_25px_rgba(10,20,68,0.6)] transition-all duration-300 transform hover:-translate-y-0.5"
             >
               Add to Cart
             </button>
