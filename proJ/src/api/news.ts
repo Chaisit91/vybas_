@@ -101,11 +101,3 @@ export async function resetLocalNews() {
 export async function clearAllNews() {
   localStorage.removeItem(STORAGE_KEY);
 }
-
-<<<<<<< HEAD
-=======
-/** ✅ ลบทั้งหมด (รวม mock ออกด้วย — จะกลับมาเมื่อ reload app) */
-export async function clearAllNews(): Promise<void> {
-  localStorage.removeItem(STORAGE_KEY);
-}
->>>>>>> 508604aab673cb83fd5c556ab4fa4d1f2607e2df
