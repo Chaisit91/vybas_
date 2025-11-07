@@ -1,46 +1,5 @@
-import type { Car, AllCarOptions } from "../types/carall";
+import type { AllCarOptions } from "../types/carall";
 
-export const CARS: Car[] = [
-  {
-    id: 1,
-    name: "TEMERARIO",
-    tagline: "YOU CAN'T HIDE WHO YOU ARE",
-    image:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762255477/wz2xf2spfqg7efsana9n.png",
-    sideLeft:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395957/ilvtm6oam4hzqib0p3gh.png",
-    sideRight:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395752/v5154th8rt4zdoalubuc.png",
-    specs: "",
-    publicId: "temerario",
-  },
-  {
-    id: 2,
-    name: "REVUELTO",
-    tagline: "THE FUTURE OF SUPERCARS",
-    image:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395752/v5154th8rt4zdoalubuc.png",
-    sideLeft:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395957/ilvtm6oam4hzqib0p3gh.png",
-    sideRight:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395835/x34ypvkld6aiohybzn3d.png",
-    specs: "",
-    publicId: "revuelto",
-  },
-  {
-    id: 3,
-    name: "RES",
-    tagline: "THE FUTURE OF SUPERCARS",
-    image:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395957/ilvtm6oam4hzqib0p3gh.png",
-    sideLeft:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395752/v5154th8rt4zdoalubuc.png",
-    sideRight:
-      "https://res.cloudinary.com/dlp0q39ua/image/upload/v1761395835/x34ypvkld6aiohybzn3d.png",
-    specs: "",
-    publicId: "res",
-  },
-];
 
 export const CAR_OPTIONS: AllCarOptions = {
   temerario: {

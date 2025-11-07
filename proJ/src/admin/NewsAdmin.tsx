@@ -15,6 +15,7 @@ export default function NewsAdmin() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [preview, setPreview] = useState<string | null>(null); // 👈 เพิ่ม state สำหรับ preview
   const [editingId, setEditingId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -29,6 +30,11 @@ export default function NewsAdmin() {
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    // ✅ แสดง preview ทันที
+    setPreview(URL.createObjectURL(file));
+
+    // ✅ อัปโหลดขึ้น Cloudinary
     const url = await uploadImageToCloudinary(file);
     if (url) setImageUrl(url);
     else alert("❌ Upload failed");
@@ -57,6 +63,7 @@ export default function NewsAdmin() {
     setTitle("");
     setContent("");
     setImageUrl("");
+    setPreview(null); // ✅ เคลียร์ preview หลังบันทึก
     setEditingId(null);
     await loadNews();
   };
@@ -65,6 +72,7 @@ export default function NewsAdmin() {
     setTitle(item.title);
     setContent(item.content);
     setImageUrl(item.image);
+    setPreview(item.image); // ✅ แสดงภาพของข่าวที่แก้ไข
     setEditingId(item.id);
   };
 
@@ -116,6 +124,17 @@ export default function NewsAdmin() {
             onChange={handleUpload}
             className="block w-full text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-red-600/20 file:text-red-400 hover:file:bg-red-600/30 transition md:col-span-2"
           />
+
+          {/* ✅ แสดงตัวอย่างภาพที่เลือก */}
+          {preview && (
+            <div className="md:col-span-2 flex justify-center mt-2">
+              <img
+                src={preview}
+                alt="preview"
+                className="h-48 rounded-lg border border-gray-600 object-cover"
+              />
+            </div>
+          )}
         </div>
 
         <button
