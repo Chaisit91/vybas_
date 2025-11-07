@@ -15,7 +15,7 @@ const defaultContent: HomeContent = {
   buttonText: "View Models →",
   buttonLink: "/models",
   background:
-    "https://res.cloudinary.com/dlp0q39ua/image/upload/v1690000000/lamborghini-bg.jpg",
+    "",
 };
 
 const STORAGE_KEY = "home_content";

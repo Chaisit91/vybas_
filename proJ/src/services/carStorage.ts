@@ -1,4 +1,4 @@
-import type { Car } from "../types/Car";
+import type { Car } from "../types/carall";
 
 /**
  * ดึงข้อมูลรถจาก localStorage

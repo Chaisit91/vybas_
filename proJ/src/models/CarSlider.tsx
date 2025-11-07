@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Car } from "../types/Car";
+import type { Car } from "../types/carall";
 import defaultCarsData from "../assets/data.json";
 
 const defaultCars = defaultCarsData as Car[];

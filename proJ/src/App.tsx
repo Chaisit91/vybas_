@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
-import CarSlider from "./models/CarSlider"; // ✅ ใช้ CarSlider เป็นหน้า Models
+import CarSlider from "./models/CarSlider";
 import CustomCar from "./customCar/CustomCar";
 import About from "./pages/About";
 import Login from "./pages/Login";
@@ -12,14 +12,14 @@ import NewsAdmin from "./admin/NewsAdmin";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import HomeAdmin from "./admin/HomeAdmin";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
         {/* 🌐 Public routes */}
         <Route path="/" element={<Home />} />
-        <Route path="/models" element={<CarSlider />} /> {/* ✅ ปุ่มจากหน้า Home มาที่นี่ */}
+        <Route path="/models" element={<CarSlider />} />
         <Route path="/custom-car" element={<CustomCar />} />
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
@@ -33,7 +33,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/admin/cars"
           element={
@@ -42,7 +41,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/admin/customizations"
           element={
@@ -51,7 +49,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/admin/news"
           element={
@@ -60,7 +57,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
         <Route
           path="/admin/home"
           element={
@@ -76,5 +72,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;

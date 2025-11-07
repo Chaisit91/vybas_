@@ -5,7 +5,7 @@ export default function Admin() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A0F1C] via-[#0F1628] to-[#0A0F1C] text-white flex flex-col items-center justify-center px-6 py-16">
       <h1 className="text-5xl font-extrabold mb-12 tracking-wide drop-shadow-[0_3px_10px_rgba(0,0,0,0.6)] text-center">
-        ⚙️ Admin Dashboard
+         Admin Dashboard
       </h1>
 
       <div className="grid gap-6 w-full max-w-2xl">
@@ -17,7 +17,7 @@ export default function Admin() {
                shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
                flex justify-center items-center gap-3"
         >
-          🏠 แก้ไขหน้า Home
+           แก้ไขหน้า Home
         </Link>
 
         {/* 🚗 จัดการรถ */}
@@ -28,7 +28,7 @@ export default function Admin() {
                shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
                flex justify-center items-center gap-3"
         >
-          🚗 จัดการรถ (CarAdmin)
+           จัดการรถ (CarAdmin)
         </Link>
 
         {/* 🛠️ ของแต่ง */}
@@ -39,7 +39,7 @@ export default function Admin() {
                shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
                flex justify-center items-center gap-3"
         >
-          🛠️ จัดการของแต่ง (CustomizationAdmin)
+           จัดการของแต่ง (CustomizationAdmin)
         </Link>
 
         {/* 📰 ข่าว */}
@@ -50,7 +50,7 @@ export default function Admin() {
                shadow-lg hover:shadow-[0_0_25px_rgba(37,99,235,0.4)] transition-all duration-300 
                flex justify-center items-center gap-3"
         >
-          📰 จัดการข่าว (NewsAdmin)
+           จัดการข่าว (NewsAdmin)
         </Link>
       </div>
 

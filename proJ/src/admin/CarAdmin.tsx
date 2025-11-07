@@ -121,7 +121,7 @@ export default function CarAdmin() {
     <section className="min-h-screen bg-gradient-to-b from-black via-neutral-900 to-gray-900 text-white py-20 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto text-center">
         <h1 className="text-5xl md:text-6xl font-extrabold mb-10 text-white drop-shadow-lg tracking-wide">
-          🏎️ Car Management System
+           Car Management System
         </h1>
 
         {/* ฟอร์มเพิ่มรถ */}

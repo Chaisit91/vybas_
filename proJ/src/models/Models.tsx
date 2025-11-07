@@ -1,6 +1,6 @@
 import CarSlider from "./CarSlider";
 import carsData from "../assets/data.json";
-import type { Car } from "../types/Car";
+import type { Car } from "../types/carall";
 
 const Models = () => {
   const cars = carsData as Car[];

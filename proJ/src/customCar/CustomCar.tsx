@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
-import type { Car } from "../types/Car";
+import type { Car } from "../types/carall";
 import {
   getCarOptions,
   findComboImage,
