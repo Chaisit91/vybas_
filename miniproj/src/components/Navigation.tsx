@@ -22,7 +22,7 @@ export default function Navigation() {
         </NavigationMenu.Item>
         <NavigationMenu.Item>
           <Link to="/profile" className={linkClass("/profile")}>
-            <User size={16} /> โปรไฟล์ส่วนตัว
+            <User size={16} /> งานอดิเรก
           </Link>
         </NavigationMenu.Item>
       </NavigationMenu.List>

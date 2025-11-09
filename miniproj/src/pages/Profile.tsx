@@ -1,47 +1,36 @@
+import * as HoverCard from "@radix-ui/react-hover-card";
+import { FaGraduationCap, FaUserCircle } from "react-icons/fa";
+
 export default function Profile() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen px-4 mt-20">
-      <div className="bg-white rounded-lg shadow-md p-6 w-full max-w-3xl border border-gray-200">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="bg-blue-100 text-blue-700 w-16 h-16 flex items-center justify-center rounded-full text-2xl font-bold">
-            SP
-          </div>
-          <div>
-            <h2 className="text-lg font-semibold">สนานุ จินดาภาวรกุล</h2>
-            <p className="text-sm text-gray-600">นักศึกษาวิศวกรรมคอมพิวเตอร์</p>
-          </div>
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 text-gray-200">
+      <h1 className="text-3xl font-bold mb-6 text-purple-400">งานอดิเรก</h1>
 
-        <div className="border-t pt-3 mt-3">
-          <h3 className="font-semibold mb-2">เกี่ยวกับฉัน</h3>
-          <p className="text-sm text-gray-700">
-            สวัสดีครับ ผมชื่อสนานุ จินดาภาวรกุล เป็นนักศึกษาที่มีความสนใจในด้าน Frontend
-            หวังว่าจะได้นำความรู้และเทคโนโลยีใหม่ ๆ มาประยุกต์ใช้กับโปรเจกต์ในอนาคต
-          </p>
-        </div>
+      <HoverCard.Root>
+        <HoverCard.Trigger asChild>
+          <button className="flex items-center space-x-2 text-lg text-white font-medium hover:text-purple-300 transition">
+            <FaUserCircle className="text-4xl text-purple-400" /> <span>ชัยสิทธิ์ หมัดอาเด็น</span>
+          </button>
+        </HoverCard.Trigger>
+        <HoverCard.Portal>
+          <HoverCard.Content className="bg-gray-800 border border-purple-700 shadow-lg p-4 rounded-lg text-sm w-64 text-gray-200">
+            <p className="font-semibold text-purple-400">นักศึกษาวิศวกรรมคอมพิวเตอร์</p>
+            <p>มหาวิทยาลัยธุรกิจบัณฑิตย์</p>
+            <p className="mt-2 text-gray-400">สนใจด้าน Frontend และเทคโนโลยีใหม่ ๆ 💻</p>
+            <HoverCard.Arrow className="fill-gray-800" />
+          </HoverCard.Content>
+        </HoverCard.Portal>
+      </HoverCard.Root>
 
-        <div className="border-t pt-3 mt-3">
-          <h3 className="font-semibold mb-2">การศึกษา</h3>
-          <p className="text-sm text-gray-700">
-            ปริญญาตรี วิศวกรรมศาสตร์คอมพิวเตอร์ <br />
-            มหาวิทยาลัยเชียงใหม่ <br />
-            ปี 2566 - ปัจจุบัน
-          </p>
-        </div>
-
-        <div className="border-t pt-3 mt-3">
-          <h3 className="font-semibold mb-2">ทักษะและความสามารถ</h3>
-          <div className="flex flex-wrap gap-2 text-sm">
-            {["HTML/CSS", "JavaScript", "TypeScript", "React", "Node.js", "Tailwind CSS", "Radix UI"].map((skill) => (
-              <span
-                key={skill}
-                className="bg-blue-100 text-blue-700 px-2 py-1 rounded-md border border-blue-200"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
+      <div className="border border-purple-700 bg-gray-800/70 shadow-xl rounded-xl p-6 w-full max-w-2xl mt-8 backdrop-blur-sm">
+        <h2 className="flex items-center text-lg font-semibold text-purple-400 mb-3">
+          <FaGraduationCap className="mr-2" /> กิจกรรมที่ชอบ
+        </h2>
+        <ul className="text-gray-300 list-disc ml-5 space-y-1 text-sm">
+          <li>พัฒนาเว็บไซต์และฝึกฝนการเขียนโค้ด</li>
+          <li>สตรีมเกม 🎮</li>
+          <li>เรียนรู้เทคโนโลยีใหม่ ๆ</li>
+        </ul>
       </div>
     </div>
   );
