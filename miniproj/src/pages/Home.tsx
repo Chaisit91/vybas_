@@ -41,7 +41,9 @@ export default function Home() {
           <FaLaptopCode className="mr-2 text-purple-400" /> การศึกษา
         </h2>
         <ul className="list-disc ml-5 text-gray-300 text-sm space-y-1">
-        
+          <li>กำลังศึกษาอยู่ที่ มหาวิทยาลัยธุรกิจบัณฑิตย์</li>
+          <li>คณะวิศวกรรมศาสตร์ สาขา วิศวกรรมคอมพิวเตอร์</li>
+          <li>ชั้นปีที่ 3</li>
         </ul>
       </div>
 
