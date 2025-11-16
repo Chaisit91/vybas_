@@ -1,127 +1,125 @@
-import { useState, useEffect } from "react"; // นำเข้า hook useState และ useEffect จาก React
-import { useLocation, useNavigate } from "react-router-dom"; // ดึงข้อมูล state ที่ส่งมาทาง route และใช้เปลี่ยนหน้า
-import Button from "../components/Button"; // นำเข้าปุ่ม Button component
-import type { Car } from "../types/carall"; // กำหนด type ของข้อมูลรถ Car
-import {
-  getCarOptions, // ฟังก์ชันโหลดตัวเลือกของแต่งจาก localStorage
-  findComboImage, // ฟังก์ชันหาภาพรวมเมื่อเลือกหลายส่วน
-  type CarOptions, // type ของตัวเลือกทั้งหมด (colors / wheels / spoilers)
-  type OverlayOption, // type ของ option รายการย่อย เช่น สีแดง, ล้อดำ ฯลฯ
-} from "../services/carOptionsService"; // นำเข้า service จัดการข้อมูล options ของรถ
+import { useState, useEffect } from "react"; // ใช้จัดการ state และ side effects
+import { useLocation, useNavigate } from "react-router-dom"; // ใช้รับค่า state จาก navigation และสั่งเปลี่ยนหน้า
+import Button from "../components/Button"; // ปุ่ม UI ที่สร้างเอง
+import type { Car } from "../types/carall"; // ชนิดข้อมูลของรถ
 
-// กำหนดหมวดหมู่ของแต่ง 3 แบบ
+// ดึงฟังก์ชันเกี่ยวกับการตั้งค่าตกแต่งรถ
+import {
+  getCarOptions, // โหลดตัวเลือกทั้งหมดของรถคันที่เลือก
+  findComboImage, // หา image ที่ตรงกับ combo ที่เลือก
+  type CarOptions, // ชนิดข้อมูลตัวเลือกทั้งหมด เช่น สี ล้อ สปอยเลอร์
+  type OverlayOption, // ชนิดของตัวเลือกแต่ละอัน เช่น สีหนึ่งสี
+} from "../services/carOptionsService";
+
+// ประเภทของ category ที่เลือกได้
 type Category = "colors" | "wheels" | "spoilers";
 
 const CustomCar = () => {
-  // สร้าง component ชื่อ CustomCar
-  const location = useLocation(); // ดึงข้อมูล state ที่ส่งมาจากหน้า Models
-  const navigate = useNavigate(); // ใช้เปลี่ยนหน้าแบบ programmatic
+  const location = useLocation(); // ใช้รับข้อมูลรถที่ถูกส่งมาจากหน้าอื่น
+  const navigate = useNavigate(); // ใช้ย้อนกลับหน้า models
 
-  const car: Car | undefined = location.state?.car; // ถ้ามีการส่ง car จากหน้าอื่น ให้รับไว้
+  const car: Car | undefined = location.state?.car; // ดึงข้อมูลรถจาก state
 
-  const [options, setOptions] = useState<CarOptions | null>(null); // เก็บข้อมูล options ของรถคันนี้
+  // state ตัวเลือกทั้งหมดของรถ
+  const [options, setOptions] = useState<CarOptions | null>(null);
+
+  // state ตัวเลือกที่ผู้ใช้เลือก
   const [selected, setSelected] = useState<
     Record<Category, OverlayOption | null>
   >({
-    colors: null, // ยังไม่เลือกสี
-    wheels: null, // ยังไม่เลือกล้อ
-    spoilers: null, // ยังไม่เลือกสปอยเลอร์
+    colors: null,
+    wheels: null,
+    spoilers: null,
   });
-  const [displayImage, setDisplayImage] = useState<string>(car?.image || ""); // รูปที่จะนำมาแสดง
-  const [fadeKey, setFadeKey] = useState(0); // เปลี่ยน key เพื่อบังคับให้ img render ใหม่เพื่อเล่น animation
 
-  //  โหลด options เมื่อเปิดหน้า หรือเมื่อ admin อัปเดตข้อมูล
+  // เก็บรูปที่จะแสดงตอนนี้
+  const [displayImage, setDisplayImage] = useState<string>(car?.image || "");
+
+  // ใช้ trigger transition เวลาเปลี่ยนภาพ
+  const [fadeKey, setFadeKey] = useState(0);
+
+  // ⭐ state สำหรับข้อความ confirm
+  const [message, setMessage] = useState<{
+    text: string;
+    type: "success" | "error";
+  } | null>(null);
+
+  // โหลด options ของรถเมื่อเริ่ม component
   useEffect(() => {
     if (car) {
-      // ถ้ามีข้อมูลรถ
-      const loaded = getCarOptions(car.publicId); // โหลด options จาก localStorage
-      setOptions(loaded); // อัปเดต state
+      const loaded = getCarOptions(car.publicId); // โหลดข้อมูลตัวเลือกจาก localStorage
+      setOptions(loaded);
     }
 
-    // ฟังก์ชันสำหรับ event listener
+    // ฟังก์ชันเมื่อข้อมูลใน localStorage มีการอัปเดต
     const handleUpdate = () => {
       if (car) {
-        console.log("🔁 carOptionsUpdated received! Reloading options...");
-        const updated = getCarOptions(car.publicId); // โหลด options ใหม่
-        setOptions(updated); // อัปเดต state
+        const updated = getCarOptions(car.publicId);
+        setOptions(updated);
       }
     };
 
-    window.addEventListener("carOptionsUpdated", handleUpdate); // ฟังการอัปเดตจากหน้า admin
-    window.addEventListener("storage", handleUpdate); // ฟังการเปลี่ยนของ localStorage
+    window.addEventListener("carOptionsUpdated", handleUpdate); // event แบบ custom
+    window.addEventListener("storage", handleUpdate); // event เมื่อ localStorage ถูกแก้ไข
 
     return () => {
-      window.removeEventListener("carOptionsUpdated", handleUpdate); // ลบ event ตอนออกจากหน้า
-      window.removeEventListener("storage", handleUpdate); // ลบ event ตอนออกจากหน้า
+      window.removeEventListener("carOptionsUpdated", handleUpdate);
+      window.removeEventListener("storage", handleUpdate);
     };
-  }, [car, location.key]); // ทำงานใหม่เมื่อ car หรือ key เปลี่ยน (เช่น refresh หน้า)
+  }, [car, location.key]); // รันเมื่อรถเปลี่ยน หรือหน้า refresh
 
-  //  คำนวณรูปภาพเมื่อเลือกของแต่ง
+  // อัปเดตรูปตามตัวเลือก user
   useEffect(() => {
-    if (!car) return; // ถ้าไม่เจอรถให้หยุด
+    if (!car) return;
 
-    const selectedNames: Partial<Record<Category, string>> = {}; // เก็บชื่อ option ที่เลือกแต่ละหมวด
+    // เก็บชื่อตัวเลือกที่เลือก เพื่อค้นหา combo ที่ตรงกัน
+    const selectedNames: Partial<Record<Category, string>> = {};
     for (const key in selected) {
-      // วนหมวดหมู่ทั้งหมด
-      const opt = selected[key as Category]; // value ของหมวด
-      if (opt) selectedNames[key as Category] = opt.name; // ถ้ามีให้เก็บชื่อ
+      const opt = selected[key as Category];
+      if (opt) selectedNames[key as Category] = opt.name;
     }
 
     const nothingSelected =
-      !selected.colors && !selected.wheels && !selected.spoilers; // true ถ้ายังไม่ได้เลือกอะไรเลย
+      !selected.colors && !selected.wheels && !selected.spoilers;
 
-    let finalImage = car.image; // default เป็นภาพรถปกติ
+    let finalImage = car.image; // รูปพื้นฐานของรถ
 
     if (!nothingSelected) {
-      // ถ้ามีการเลือกของแต่ง
-      const comboImage = findComboImage(car.publicId, selectedNames); // หาภาพรวม (ถ้ามี)
+      const comboImage = findComboImage(car.publicId, selectedNames);
+
+      // เลือกลำดับความสำคัญ: combo > spoiler > wheel > color > default
       finalImage =
-        comboImage || // ใช้ภาพรวมถ้ามี
-        selected.spoilers?.image || // ถ้าไม่มี ใช้ภาพสปอยเลอร์ก่อน
-        selected.wheels?.image || // ต่อด้วยภาพล้อ
-        selected.colors?.image || // ต่อด้วยภาพสี
-        car.image; // ถ้ายังไม่มีเลย ใช้ภาพ default
+        comboImage ||
+        selected.spoilers?.image ||
+        selected.wheels?.image ||
+        selected.colors?.image ||
+        car.image;
     }
 
-    const img = new Image(); // preload เพื่อรอให้โหลดก่อนแสดง
+    // โหลดรูปใหม่ก่อนค่อยแสดง เพื่อป้องกันภาพกระพริบ
+    const img = new Image();
     img.src = finalImage;
     img.onload = () => {
-      setDisplayImage(finalImage); // เซ็ตภาพโชว์
-      setFadeKey((prev) => prev + 1); // เพิ่ม key เพื่อให้ภาพ animate ใหม่อีกครั้ง
+      setDisplayImage(finalImage);
+      setFadeKey((prev) => prev + 1); // trigger animation
     };
-  }, [selected, car]); // ใช้ effect เมื่อมีการเปลี่ยน selected
+  }, [selected, car]); // รันเมื่อ user เลือกอะไรใหม่
 
-  //  ฟังก์ชันเลือก option
+  // ฟังก์ชันเลือก option
   const handleSelect = (category: Category, option: OverlayOption) => {
     setSelected((prev) => {
-      const isSame = prev[category]?.name === option.name; // ถ้ากดซ้ำรายการเดิม = จะลบออก
-      return { ...prev, [category]: isSame ? null : option }; // ถ้าซ้ำ → null, ถ้าใหม่ → เลือกอันใหม่
+      const isSame = prev[category]?.name === option.name; // คลิกซ้ำคือ unselect
+      return { ...prev, [category]: isSame ? null : option };
     });
   };
 
-  //  ถ้าไม่มี car ส่งมาจากหน้าอื่น ให้แจ้ง error
+  // ถ้าไม่มีรถ ส่ง user กลับ models
   if (!car)
     return (
       <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center bg-black text-white">
         <h1 className="text-2xl font-bold mb-4">Car not found</h1>
         <button
-          className="bg-[#0a1444] hover:bg-[#13235f] text-white px-6 py-3 rounded-lg shadow-[0_0_20px_rgba(10,20,68,0.6)] transition"
-          onClick={() => navigate("/models")} // กลับหน้า models
-        >
-          Back to Models
-        </button>
-      </div>
-    );
-
-  //  โหลด options อยู่ (ก่อนโหลดเสร็จ)
-  if (!options)
-    return (
-      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center bg-black text-white">
-        <h1 className="text-2xl font-bold mb-4">
-          Loading customization options...
-        </h1>
-        <button
-          className="bg-[#0a1444] hover:bg-[#13235f] text-white px-6 py-3 rounded-lg shadow-[0_0_20px_rgba(10,20,68,0.6)] transition"
+          className="bg-[#0a1444] hover:bg-[#13235f] text-white px-6 py-3 rounded-lg"
           onClick={() => navigate("/models")}
         >
           Back to Models
@@ -129,102 +127,149 @@ const CustomCar = () => {
       </div>
     );
 
-  // หมวดหมู่ของแต่ง 3 แบบ
-  const categories: Category[] = ["colors", "wheels", "spoilers"];
+  // ถ้ากำลังโหลด options
+  if (!options)
+    return (
+      <div className="min-h-screen flex flex-col justify-center items-center p-10 text-center bg-black text-white">
+        <h1 className="text-2xl font-bold mb-4">
+          Loading customization options...
+        </h1>
+        <button
+          className="bg-[#0a1444] hover:bg-[#13235f] text-white px-6 py-3 rounded-lg"
+          onClick={() => navigate("/models")}
+        >
+          Back to Models
+        </button>
+      </div>
+    );
+
+  const categories: Category[] = ["colors", "wheels", "spoilers"]; // หมวดหมู่ทั้งหมด
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-[#0a0f1a] to-[#0b1330] text-white pt-24 font-sans">
       <div className="flex flex-col lg:flex-row p-8 gap-10 max-w-[1600px] mx-auto items-center justify-between">
-        {/* ============================
-             ส่วนแสดงภาพรถหลัก
-        ============================= */}
+        {/* ============================ */}
+        {/*      ภาพรถหลัก              */}
+        {/* ============================ */}
+
         <div className="flex-1 flex justify-center items-center w-full">
-          {" "}
-          {/* กล่องใหญ่จัดกึ่งกลางภาพรถ */}
           <div className="relative w-full max-w-7xl bg-[#0a0f1a]/70 rounded-3xl border border-[#1e3a8a]/30 shadow-[0_0_40px_rgba(30,58,138,0.4)] overflow-hidden backdrop-blur-lg">
-            {" "}
-            {/* กรอบแสดงรถ ไล่สี ใสขอบเบา */}
             <img
-              key={fadeKey} // ให้ React re-render เพื่อเล่น animation fade-in ทุกครั้งที่รูปเปลี่ยน
-              src={displayImage} // ใช้รูปที่คำนวณแล้วจาก selected
-              alt={car.name} // ชื่อรถสำหรับ screen reader
-              className="w-full h-[80vh] object-contain transition-transform duration-700 ease-in-out opacity-0 animate-fadeIn hover:scale-[1.03]" // ทำให้รูป fade-in + hover ขยายเล็กน้อย
+              key={fadeKey} // เปลี่ยน key เพื่อทำ animation
+              src={displayImage} // รูปที่จะแสดง
+              alt={car.name}
+              className="w-full h-[80vh] object-contain transition-transform duration-700 ease-in-out opacity-0 animate-fadeIn hover:scale-[1.03]"
               onLoad={(e) => {
-                (e.currentTarget as HTMLImageElement).style.opacity = "1"; // ทำให้รูปค่อย ๆ โผล่เมื่อโหลดเสร็จ
+                (e.currentTarget as HTMLImageElement).style.opacity = "1";
               }}
             />
           </div>
         </div>
 
-        {/* ===============================
-            🎛️ แผงควบคุมเลือกของแต่ง
-        ================================= */}
+        {/* ============================ */}
+        {/*       Panel ตัวเลือก         */}
+        {/* ============================ */}
+
         <div className="w-full lg:w-[32rem] bg-[#0a0f1a]/90 border border-[#1e3a8a]/30 shadow-[0_0_30px_rgba(30,58,138,0.5)] p-8 rounded-3xl backdrop-blur-md lg:ml-auto">
-          {" "}
-          {/* กล่อง Control Panel ด้านขวา */}
           <h1 className="text-4xl font-extrabold mb-6 text-white border-b border-[#1e3a8a]/40 pb-3 tracking-tight">
-            {" "}
-            {/* หัวข้อใหญ่ */}
-            Customize <span className="text-[#00eaff]">{car.name}</span>{" "}
-            {/* ชื่อรถมีสีฟ้าเน้น */}
+            Customize <span className="text-[#00eaff]">{car.name}</span>
           </h1>
-          {/* วนลูปแสดงปุ่มเลือกของแต่งแต่ละหมวด (สี / ล้อ / สปอยเลอร์) */}
+
+          {/* แสดงปุ่มแต่ละประเภท เช่น สี ล้อ สปอยเลอร์ */}
           {categories.map((category) => (
             <div key={category} className="mb-8">
-              {" "}
-              {/* กล่องของแต่ละหมวด */}
               <h2 className="text-lg font-semibold mb-3 text-gray-300">
-                {" "}
-                {/* หัวข้อหมวด */}
-                Choose {category.charAt(0).toUpperCase() +
-                  category.slice(1)}{" "}
-                {/* แปลงชื่อเป็นตัวใหญ่ */}
+                Choose {category.charAt(0).toUpperCase() + category.slice(1)}
               </h2>
+              {/*  
+      เมื่อกดปุ่มนี้:
+      - เรียก handleSelect()
+      - ส่ง category เช่น "colors"
+      - ส่ง opt คือข้อมูล option ที่ถูกกด
+       เอาไว้บันทึกว่าผู้ใช้เลือกของแต่งอะไร   
+      และ  
+      ถ้าตัวเลือกนี้ถูกเลือกอยู่ → ให้ปุ่มเป็น style "primary" (สีเน้น)
+      ถ้าไม่ใช่  ให้ปุ่มเป็นแบบ "outline"  
+       เพื่อบอกผู้ใช้ว่ากำลังเลือกตัวไหนอยู่
+    */}
               <div className="flex gap-3 flex-wrap">
-                {" "}
-                {/* วางปุ่มแบบ wrap บรรทัด */}
-                {(options[category] as OverlayOption[]).map(
-                  (
-                    opt // วนรายการ option ในหมวด
-                  ) => (
-                    <Button
-                      key={opt.name} // key ของปุ่ม
-                      label={opt.name} // ชื่อปุ่ม
-                      onClick={() => handleSelect(category, opt)} // เมื่อเลือก ให้เรียก handleSelect
-                      variant={
-                        selected[category]?.name === opt.name
-                          ? "primary"
-                          : "outline"
-                      } // ถ้าเลือกอยู่ให้เปลี่ยนเป็น primary
-                    />
-                  )
-                )}
+                {(options[category] as OverlayOption[]).map((opt) => (
+                  <Button
+                    key={opt.name}
+                    label={opt.name}
+                    onClick={() => handleSelect(category, opt)}
+                    variant={
+                      selected[category]?.name === opt.name
+                        ? "primary"
+                        : "outline"
+                    }
+                  />
+                ))}
               </div>
             </div>
           ))}
-          {/* แสดงว่าตอนนี้เลือกอะไรอยู่ */}
+
+          {/* ============================ */}
+          {/*     แสดงรายการที่เลือก      */}
+          {/* ============================ */}
+
           <div className="mt-10 border-t border-[#1e3a8a]/30 pt-5">
-            {" "}
-            {/* เส้นคั่น */}
-            <p className="text-gray-400 text-sm">Selected:</p> {/* หัวข้อ */}
+            <p className="text-gray-400 text-sm">Selected:</p>
             <p className="font-semibold text-white text-lg mt-1">
-              {" "}
-              {/* รายการตัวเลือก */}
               {Object.values(selected)
-                .filter(Boolean) // เอาเฉพาะที่ไม่ใช่ null
-                .map((item) => item!.name) // แปลงเป็นชื่อ
-                .join(" · ") || // คั่นด้วยจุดกลาง
-                "None"}{" "}
-              
+                .filter(Boolean)
+                .map((item) => item!.name)
+                .join(" · ") || "None"}{" "}
+              {/*ดึงค่าทั้งหมดจาก object selected  ได้เป็น array ของตัวเลือกที่ผู้ใช้เลือก ,
+                                              กรองเอาเฉพาะค่าที่ไม่เป็น null (คือผู้ใช้เลือกไว้จริง) ,
+                                              แปลงแต่ละ item ให้เหลือแค่ชื่อ option เช่น "Red", "Sport Wheels" , 
+                                              เอามาต่อกันด้วยสัญลักษณ์ · เช่น "Red · Sport Wheels" */}
             </p>
           </div>
-          {/* ปุ่ม reload และ add to cart */}
-          
-            {" "}
+
+          {/* ============================ */}
+          {/*      ปุ่ม Confirm + แจ้งเตือน */}
+          {/* ============================ */}
+
+          <div className="mt-8 flex flex-col gap-4">
+            <Button
+              label="Confirm"
+              variant="primary"
+              onClick={() => {
+                const hasSelection =
+                  selected.colors || selected.wheels || selected.spoilers;
+
+                if (!hasSelection) {
+                  setMessage({
+                    text: "กรุณาแต่งรถก่อน",
+                    type: "error",
+                  });
+                } else {
+                  setMessage({
+                    text: "คุณแต่งรถเรียบร้อยแล้ว!",
+                    type: "success",
+                  });
+                }
+              }}
+            />
+
+            {/* กล่องแจ้งเตือน */}
+            {message && (
+              <div
+                className={`p-3 rounded-lg text-center text-sm ${
+                  message.type === "error"
+                    ? "bg-red-500/20 text-red-400 border border-red-500/40"
+                    : "bg-green-500/20 text-green-400 border border-green-500/40"
+                }`}
+              >
+                {message.text}
+              </div>
+            )}
           </div>
         </div>
       </div>
+    </div>
   );
 };
 
-export default CustomCar; 
+export default CustomCar;
