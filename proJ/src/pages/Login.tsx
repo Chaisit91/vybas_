@@ -60,7 +60,7 @@ export default function Login() {
 
         {/* หัวข้อ login */}
         <h1 className="text-3xl font-extrabold text-center mb-6 tracking-wide text-white">
-          🔐 Admin Login
+           Admin Login
         </h1>
 
         {/* ช่องกรอก ID */}
