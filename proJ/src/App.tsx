@@ -48,8 +48,7 @@ export default function App() {
             <ProtectedRoute>
               <Admin />
             </ProtectedRoute>
-          }
-        />
+          }/>
 
         {/* หน้าแผงจัดการรถ */}
         <Route
@@ -58,8 +57,7 @@ export default function App() {
             <ProtectedRoute>
               <CarAdmin />
             </ProtectedRoute>
-          }
-        />
+          }/>
 
         {/* หน้าแผงจัดการของแต่งรถ */}
         <Route
@@ -68,8 +66,7 @@ export default function App() {
             <ProtectedRoute>
               <CustomizationAdmin />
             </ProtectedRoute>
-          }
-        />
+          }/>
 
         {/* หน้าแผงจัดการข่าว */}
         <Route
@@ -78,8 +75,7 @@ export default function App() {
             <ProtectedRoute>
               <NewsAdmin />
             </ProtectedRoute>
-          }
-        />
+          }/>
 
         {/* หน้าแอดมินจัดการหน้า Home */}
         <Route
@@ -88,8 +84,7 @@ export default function App() {
             <ProtectedRoute>
               <HomeAdmin />
             </ProtectedRoute>
-          }
-        />
+          }/>
 
 
         {/* ถ้าไม่มีหน้าอยู่จริง  redirect กลับหน้าแรก */}

@@ -69,8 +69,7 @@ export default function Login() {
           placeholder="กรอกรหัสผู้ใช้ (ID)"
           value={userId}                     // ค่าใน input
           onChange={(e) => setUserId(e.target.value)} // เปลี่ยนค่าเมื่อพิมพ์
-          className="w-full px-4 py-3 mb-4 rounded-xl bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
+          className="w-full px-4 py-3 mb-4 rounded-xl bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"/>
 
         {/* ช่องกรอกรหัสผ่าน */}
         <input
@@ -78,14 +77,12 @@ export default function Login() {
           placeholder="กรอกรหัสผ่าน"
           value={password}                         // ค่าใน input
           onChange={(e) => setPassword(e.target.value)} // เปลี่ยนค่าเมื่อพิมพ์
-          className="w-full px-4 py-3 mb-6 rounded-xl bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
+          className="w-full px-4 py-3 mb-6 rounded-xl bg-gray-800 text-white placeholder-gray-400 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"/>
 
         {/* ปุ่มเข้าสู่ระบบ */}
         <button
           onClick={handleLogin} // เมื่อคลิกให้เช็คข้อมูล
-          className="w-full py-3 bg-gradient-to-r from-blue-800 via-blue-700 to-blue-600 hover:from-blue-700 hover:to-blue-500 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02]"
-        >
+          className="w-full py-3 bg-gradient-to-r from-blue-800 via-blue-700 to-blue-600 hover:from-blue-700 hover:to-blue-500 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
           เข้าสู่ระบบ
         </button>
 

@@ -72,17 +72,15 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => { // ประกา�
           <img
             src={car.image} // รูปภาพของรถ
             alt={car.name} // ชื่อรถสำหรับ SEO และ accessibility
-            className="relative z-10 w-full rounded-3xl transition-transform duration-700 hover:scale-105"
-          />
+            className="relative z-10 w-full rounded-3xl transition-transform duration-700 hover:scale-105"/>
         </div>
 
         {/* ปุ่ม Explore */}
         <div className="mt-12 flex justify-center">
           <button
             onClick={() => navigate("/custom-car", { state: { car } })} // เมื่อคลิกให้ไปหน้า custom-car พร้อมส่งข้อมูลรถ
-            className="bg-gradient-to-r from-[#1C2A44] to-[#223355] hover:from-[#223355] hover:to-[#2C3E60] text-white px-10 py-3 rounded-full font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-blue-900/40"
-          >
-            EXPLORE THE MODEL →
+            className="bg-gradient-to-r from-[#1c2a44] to-[#223355] hover:from-[#223355] hover:to-[#2C3E60] text-white px-10 py-3 rounded-full font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-blue-900/40">
+            EXPLORE THE MODEL
           </button>
         </div>
       </div>
@@ -92,15 +90,13 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => { // ประกา�
         <>
           <button
             onClick={prev} // ปุ่มเลื่อนไปคันก่อนหน้า
-            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white text-4xl transition-all duration-300"
-          >
+            className="absolute left-6 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white text-4xl transition-all duration-300">
             ‹
           </button>
 
           <button
             onClick={next} // ปุ่มเลื่อนไปคันถัดไป
-            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white text-4xl transition-all duration-300"
-          >
+            className="absolute right-6 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white text-4xl transition-all duration-300">
             ›
           </button>
         </>

@@ -41,9 +41,7 @@ const Home: React.FC = () => {
     <section
       className="min-h-screen flex flex-col items-center justify-center text-white text-center bg-cover bg-center bg-no-repeat relative"
       style={{
-        backgroundImage: `url(${content.background})`, // ตั้งค่าพื้นหลังแบบ dynamic
-      }}
-    >
+        backgroundImage: `url(${content.background})`,}}>
       {/* ชั้น overlay ดำโปร่งให้ตัวหนังสืออ่านง่าย */}
       <div className="absolute inset-0 bg-black/40"></div>
 
@@ -62,10 +60,9 @@ const Home: React.FC = () => {
         {/* ปุ่มลิงก์ไปหน้าอื่น เช่น Models */}
         <Link
           to={content.buttonLink} // กดแล้วไปหน้าไหน
-          className="inline-block bg-[#0a1444] text-white px-10 py-4 rounded-full font-semibold text-lg 
-             hover:bg-[#13235f] transition-transform duration-300 hover:scale-105 
-             shadow-[0_0_25px_rgba(10,20,68,0.7)]"
-        >
+          className="inline-block bg-[#1c2a44] text-white px-10 py-4 rounded-full font-semibold text-lg 
+             hover:bg-[#223355] transition-transform duration-300 hover:scale-105 
+             shadow-[0_0_25px_rgba(10,20,68,0.7)]">
           {content.buttonText}
         </Link>
       </div>

@@ -140,23 +140,20 @@ export default function NewsAdmin() {
             placeholder=" News Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"
-          />
+            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
 
           {/* เนื้อหา */}
           <textarea
             placeholder=" Content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition md:col-span-2"
-          />
+            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition md:col-span-2"/>
 
           {/* อัปโหลดภาพ */}
           <input
             type="file"
             onChange={handleUpload}
-            className="block w-full text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-red-600/20 file:text-red-400 hover:file:bg-red-600/30 transition md:col-span-2"
-          />
+            className="block w-full text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-red-600/20 file:text-red-400 hover:file:bg-red-600/30 transition md:col-span-2"/>
 
           {/* รูป Preview */}
           {preview && (
@@ -164,8 +161,7 @@ export default function NewsAdmin() {
               <img
                 src={preview}
                 alt="preview"
-                className="h-48 rounded-lg border border-gray-600 object-cover"
-              />
+                className="h-48 rounded-lg border border-gray-600 object-cover"/>
             </div>
           )}
         </div>
@@ -173,28 +169,24 @@ export default function NewsAdmin() {
         {/* ปุ่ม Add / Save */}
         <button
           onClick={handleSave}
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-700/40 transition-all duration-300 w-full"
-        >
-          {editingId ? "💾 SAVE CHANGES" : "➕ ADD NEWS"}
+          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-700/40 transition-all duration-300 w-full">
+          {editingId ? "SAVE CHANGES" : "ADD NEWS"}
         </button>
 
         {/* ปุ่ม Reset + Clear All */}
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleReset}
-            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full"
-          >
-            🔄 Reset Local
+            className="bg-gray-700 hover:bg-gray-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full">
+            Reset Local
           </button>
 
           <button
             onClick={handleClearAll}
-            className="bg-red-800 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full"
-          >
-            🗑️ Clear All
+            className="bg-red-800 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full">
+            Clear All
           </button>
         </div>
-
       </div>
 
       {/* ============================
@@ -209,14 +201,12 @@ export default function NewsAdmin() {
           {newsList.map((item) => (
             <div
               key={item.id}
-              className="bg-[#181818] border border-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-red-700/30 transition-all duration-300"
-            >
+              className="bg-[#181818] border border-gray-700 rounded-2xl overflow-hidden shadow-md hover:shadow-red-700/30 transition-all duration-300">
               {/* รูปข่าว */}
               <img
                 src={item.image}
                 alt={item.title}
-                className="h-48 w-full object-cover opacity-90 hover:opacity-100 transition"
-              />
+                className="h-48 w-full object-cover opacity-90 hover:opacity-100 transition"/>
 
               {/* เนื้อหาของข่าว */}
               <div className="p-4">
@@ -229,25 +219,21 @@ export default function NewsAdmin() {
                 <div className="flex justify-between mt-4">
                   <button
                     onClick={() => handleEdit(item)}
-                    className="text-blue-400 font-semibold hover:text-blue-300 transition"
-                  >
+                    className="text-blue-400 font-semibold hover:text-blue-300 transition">
                      Edit
                   </button>
 
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="text-red-500 font-semibold hover:text-red-400 transition"
-                  >
+                    className="text-red-500 font-semibold hover:text-red-400 transition">
                      Delete
                   </button>
                 </div>
-
               </div>
             </div>
           ))}
         </div>
       </div>
-
     </div>
   );
 }

@@ -68,11 +68,9 @@ const About = () => {
                 key={news.id}
                 // ใส่ key เพื่อป้องกัน warning ของ React
 
-                className="bg-[#111827]/70 backdrop-blur-md border border-[#1E293B] 
-                           hover:border-blue-400/50 transition-all duration-300 
-                           shadow-lg hover:shadow-blue-900/40 rounded-2xl overflow-hidden"
-                // การ์ดข่าว พร้อม effect hover และขอบโค้ง
-              >
+                className="bg-[#111827]/70 backdrop-blur-md border border-[#1E293B] hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-blue-900/40 rounded-2xl overflow-hidden">
+                {/* การ์ดข่าว พร้อม effect hover และขอบโค้ง */}
+
 
                 <img
                   src={news.image}
@@ -81,9 +79,8 @@ const About = () => {
                   alt={news.title}
                   // alt สำหรับ SEO และ accessibility
 
-                  className="w-full h-52 object-cover opacity-90 hover:opacity-100 transition duration-300"
-                  // ปรับขนาดรูปและ effect hover ให้สว่างขึ้น
-                />
+                  className="w-full h-52 object-cover opacity-90 hover:opacity-100 transition duration-300"/>
+                  {/* ปรับขนาดรูปและ effect hover ให้สว่างขึ้น */}
 
                 <div className="p-5">
 

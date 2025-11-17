@@ -70,14 +70,13 @@ export default function Navbar() {
         
         {/* โลโก้ */}
         <Link to="/" className="text-3xl font-black text-white tracking-tight">
-          CUSTOM CAR<span className="text-red-500">.</span>
+          CUSTOM CAR
         </Link>
 
         {/* ปุ่มเมนูสำหรับมือถือ */}
         <button
           className="md:hidden text-white"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
           {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
@@ -91,8 +90,7 @@ export default function Navbar() {
           {!isAdmin ? (
             <Link
               to="/login"
-              className="text-white font-semibold px-4 py-1 hover:bg-white hover:text-black rounded-full transition-all"
-            >
+              className="text-white font-semibold px-4 py-1 hover:bg-white hover:text-black rounded-full transition-all">
               LOGIN
             </Link>
           ) : (
@@ -100,8 +98,7 @@ export default function Navbar() {
               {/* ปุ่มเปิด dropdown admin */}
               <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="flex items-center gap-2 px-4 py-1 text-white font-semibold hover:bg-white hover:text-black rounded-full transition-all"
-              >
+                className="flex items-center gap-2 px-4 py-1 text-white font-semibold hover:bg-white hover:text-black rounded-full transition-all">
                 {adminId.toUpperCase()} <ChevronDown size={16} />
               </button>
 
@@ -111,14 +108,12 @@ export default function Navbar() {
                   <Link
                     to="/admin"
                     className="block px-4 py-2 text-gray-200 hover:bg-white/10"
-                    onClick={() => setMenuOpen(false)}
-                  >
+                    onClick={() => setMenuOpen(false)}>
                     Dashboard
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="block w-full text-left px-4 py-2 text-red-400 hover:bg-white/10"
-                  >
+                    className="block w-full text-left px-4 py-2 text-red-400 hover:bg-white/10">
                     Logout
                   </button>
                 </div>
@@ -140,8 +135,7 @@ export default function Navbar() {
             <Link
               to="/login"
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-white font-semibold px-4 py-2 bg-red-600 rounded-full text-center hover:bg-red-700"
-            >
+              className="text-white font-semibold px-4 py-2 bg-red-600 rounded-full text-center hover:bg-red-700">
               LOGIN
             </Link>
           ) : (
@@ -149,15 +143,13 @@ export default function Navbar() {
               <Link
                 to="/admin"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 text-center"
-              >
+                className="px-4 py-2 bg-white/10 rounded-lg hover:bg-white/20 text-center">
                 Dashboard
               </Link>
 
               <button
                 onClick={handleLogout}
-                className="px-4 py-2 bg-red-700 rounded-lg hover:bg-red-600 text-white"
-              >
+                className="px-4 py-2 bg-red-700 rounded-lg hover:bg-red-600 text-white">
                 Logout
               </button>
             </>

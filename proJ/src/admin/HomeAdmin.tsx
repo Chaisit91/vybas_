@@ -47,14 +47,14 @@ export default function HomeAdmin() {
       setContent((prev) => ({ ...prev, background: url }));
       alert("✅ Background updated successfully!");
     } else {
-      alert("❌ Upload failed.");
+      alert("Upload failed.");
     }
   };
 
   // บันทึกข้อมูลลง localStorage
   const handleSave = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(content));
-    alert("✅ Home content saved successfully!");
+    alert("Home content saved successfully!");
   };
 
   // รีเซ็ตข้อมูลให้กลับค่าเริ่มต้น
@@ -72,8 +72,7 @@ export default function HomeAdmin() {
       </h1>
 
       {/* กล่องล้อมฟอร์ม */}
-      <div className="bg-[#111111] border border-gray-800 rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.05)] 
-                      p-10 w-full max-w-4xl space-y-6 backdrop-blur-sm">
+      <div className="bg-[#111111] border border-gray-800 rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.05)] p-10 w-full max-w-4xl space-y-6 backdrop-blur-sm">
 
         {/* Title Field */}
         <div>
@@ -83,10 +82,8 @@ export default function HomeAdmin() {
           <input
             value={content.title}
             onChange={(e) => handleChange("title", e.target.value)} // เปลี่ยน title
-            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 
-                       placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-            placeholder="Enter title"
-          />
+            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+            placeholder="Enter title"/>
         </div>
 
         {/* Subtitle Field */}
@@ -97,10 +94,8 @@ export default function HomeAdmin() {
           <textarea
             value={content.subtitle}
             onChange={(e) => handleChange("subtitle", e.target.value)} // เปลี่ยน subtitle
-            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 
-                       placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-            placeholder="Enter subtitle"
-          />
+            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+            placeholder="Enter subtitle"/>
         </div>
 
         {/* Button Text Field */}
@@ -111,10 +106,8 @@ export default function HomeAdmin() {
           <input
             value={content.buttonText}
             onChange={(e) => handleChange("buttonText", e.target.value)} // เปลี่ยน button text
-            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 
-                       placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
-            placeholder="Enter button text"
-          />
+            className="bg-[#1A1A1A] border border-gray-700 w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 transition-all"
+            placeholder="Enter button text"/>
         </div>
 
         {/* Background Image Upload */}
@@ -129,8 +122,7 @@ export default function HomeAdmin() {
               <img
                 src={content.background}
                 alt="Preview"
-                className="w-full h-64 object-cover rounded-xl mb-3 border border-gray-700/50 shadow-[0_0_25px_rgba(255,255,255,0.08)] group-hover:scale-[1.02] transition-all"
-              />
+                className="w-full h-64 object-cover rounded-xl mb-3 border border-gray-700/50 shadow-[0_0_25px_rgba(255,255,255,0.08)] group-hover:scale-[1.02] transition-all"/>
             </div>
           )}
 
@@ -139,30 +131,23 @@ export default function HomeAdmin() {
             type="file"
             accept="image/*"
             onChange={handleUpload} // เรียกอัปโหลดรูป
-            className="block w-full text-sm text-gray-300 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 
-                       file:font-semibold file:bg-gray-800 file:text-gray-300 hover:file:bg-gray-700 transition-all cursor-pointer"
-          />
+            className="block w-full text-sm text-gray-300 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-gray-800 file:text-gray-300 hover:file:bg-gray-700 transition-all cursor-pointer"/>
         </div>
 
         {/* ปุ่ม Save + Reset */}
         <div className="flex gap-4 mt-8">
           <button
             onClick={handleSave} // บันทึกข้อมูล
-            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold 
-                       shadow-[0_0_25px_rgba(255,255,255,0.1)] w-full transition-all hover:scale-[1.03]"
-          >
-            💾 SAVE CHANGES
+            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold shadow-[0_0_25px_rgba(255,255,255,0.1)] w-full transition-all hover:scale-[1.03]">
+            SAVE CHANGES
           </button>
 
           <button
             onClick={handleReset} // รีเซ็ตข้อมูล
-            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold 
-                       shadow-[0_0_20px_rgba(239,68,68,0.4)] w-full transition-all hover:scale-[1.03]"
-          >
-            🔄 RESET
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-[0_0_20px_rgba(239,68,68,0.4)] w-full transition-all hover:scale-[1.03]">
+            RESET
           </button>
         </div>
-
       </div>
     </div>
   );

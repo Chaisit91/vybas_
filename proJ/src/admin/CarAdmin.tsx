@@ -144,76 +144,35 @@ export default function CarAdmin() {
 
   return (
     // พื้นหลังแบบ gradient + padding + layout
-    <section className="
-        min-h-screen                      // ความสูงเต็มหน้าจอ
-        bg-gradient-to-b                 // ไล่สีบน→ล่าง
-        from-black via-neutral-900 to-gray-900
-        text-white                       // ตัวอักษรสีขาว
-        py-20 px-6                       // padding รอบด้าน
-        relative overflow-hidden         // รองรับ element ซ้อน
-      "
-    >
+    <section className="min-h-screen bg-gradient-to-b from-black via-neutral-900 to-gray-900 text-white py-20 px-6 relative overflow-hidden">
       <div className="max-w-6xl mx-auto text-center">
         {/* หัวข้อหน้า */}
-        <h1 className="
-            text-5xl md:text-6xl            // ขนาดฟอนต์ responsive
-            font-extrabold                  // หนามาก
-            mb-10                           // เว้นด้านล่าง
-            text-white                      // สีขาว
-            drop-shadow-lg                  // เงาชัด
-            tracking-wide                   // เพิ่มระยะตัวอักษร
-        ">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-10 text-white drop-shadow-lg tracking-wide">
            Car Management System
         </h1>
 
         {/* ฟอร์มเพิ่มรถ */}
-        <div className="
-            grid grid-cols-1 md:grid-cols-3 // layout 1 คอลัมน์บนมือถือ / 3 คอลัมน์บนจอใหญ่
-            gap-4                           // ระยะห่าง
-            mb-10                           // เว้นด้านล่าง
-            bg-neutral-800/70               // กล่องโปร่ง 70%
-            p-6                             // padding
-            rounded-2xl                     // มุมมน
-            shadow-xl                       // เงาใหญ่
-            border border-neutral-700       // เส้นขอบเทาเข้ม
-        ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 bg-neutral-800/70 p-6 rounded-2xl shadow-xl border border-neutral-700">
           {/* ช่องกรอกชื่อรถ */}
           <input
             placeholder="ชื่อรถ (เช่น TEMERARIO)"
             value={newCar.name}
             onChange={(e) => setNewCar({ ...newCar, name: e.target.value })}
-            className="
-              p-3 rounded-lg
-              bg-neutral-900
-              border border-neutral-700
-              text-white
-              focus:ring-2 focus:ring-gray-400
-            "
-          />
+            className="p-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"/>
 
           {/* ช่อง tagline */}
           <input
             placeholder="แท็กไลน์ (Tagline)"
             value={newCar.tagline}
             onChange={(e) => setNewCar({ ...newCar, tagline: e.target.value })}
-            className="
-              p-3 rounded-lg bg-neutral-900
-              border border-neutral-700 text-white
-              focus:ring-2 focus:ring-gray-400
-            "
-          />
+            className="p-3 rounded-lg bg-neutral-900border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"/>
 
           {/* public ID */}
           <input
             placeholder="Public ID (ไม่ซ้ำ)"
             value={newCar.publicId}
             onChange={(e) => setNewCar({ ...newCar, publicId: e.target.value })} // เมื่อมีการพิมพ์ในช่อง input อัปเดตเฉพาะค่า publicId ให้เป็นค่าที่พิมพ์ในช่อง input
-            className="
-              p-3 rounded-lg bg-neutral-900
-              border border-neutral-700 text-white
-              focus:ring-2 focus:ring-gray-400
-            "
-          />
+            className="p-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"/>
         </div>
 
         {/* อัปโหลดรูป */}
@@ -226,17 +185,7 @@ export default function CarAdmin() {
             type="file"
             onChange={handleUpload}
             accept="image/*"
-            className="
-              block mx-auto w-72
-              text-sm text-gray-200
-              file:mr-3 file:py-2 file:px-4
-              file:rounded-lg file:border-0
-              file:font-semibold
-              file:bg-white/10 file:text-white
-              hover:file:bg-white/20
-              transition
-            "
-          />
+            className="block mx-auto w-72 text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-white/10 file:text-white hover:file:bg-white/20 transition"/>
 
           {/* Preview ภาพ */}
           {newCar.image && (
@@ -244,13 +193,7 @@ export default function CarAdmin() {
               <img
                 src={newCar.image}
                 alt="Car Preview"
-                className="
-                  w-full max-w-3xl
-                  rounded-xl
-                  border border-neutral-700
-                  shadow-lg
-                "
-              />
+                className="w-full max-w-3xl rounded-xl border border-neutral-700 shadow-lg"/>
             </div>
           )}
         </div>
@@ -261,45 +204,21 @@ export default function CarAdmin() {
           {/* ปุ่มเพิ่มรถ */}
           <button
             onClick={handleAddCar}
-            className="
-              bg-white hover:bg-gray-200
-              text-black
-              px-10 py-4
-              rounded-xl
-              text-xl font-bold
-              tracking-wider
-              shadow-lg shadow-gray-700/40
-              transition
-            "
-          >
-            ➕ เพิ่มรถใหม่
+            className=" bg-white hover:bg-gray-200 text-black px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-gray-700/40 transition">
+            เพิ่มรถใหม่
           </button>
 
           {/* ปุ่มรีเซ็ต */}
           <button
             onClick={handleReset}
-            className="
-              bg-red-600 hover:bg-red-700
-              text-white
-              px-10 py-4
-              rounded-xl
-              text-xl font-bold
-              tracking-wider
-              shadow-lg shadow-red-800/40
-              transition
-            "
-          >
-            🔄 รีเซ็ตเป็นค่าเริ่มต้น
+            className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-red-800/40 transition">
+            รีเซ็ตเป็นค่าเริ่มต้น
           </button>
         </div>
 
         {/* รายการรถทั้งหมด */}
         <div className="mt-16 text-left">
-          <h2 className="
-              text-3xl font-bold
-              mb-6 text-gray-200
-              border-l-4 border-gray-400 pl-3
-          ">
+          <h2 className="text-3xl font-bold mb-6 text-gray-200 border-l-4 border-gray-400 pl-3">
             รายการรถทั้งหมด
           </h2>
 
@@ -307,21 +226,12 @@ export default function CarAdmin() {
             {cars.map((c) => (
               <li
                 key={c.publicId}
-                className="
-                  flex justify-between items-center
-                  bg-neutral-900
-                  border border-neutral-700
-                  p-4 rounded-xl
-                  hover:border-white
-                  transition
-                "
-              >
+                className="flex justify-between items-center bg-neutral-900 border border-neutral-700 p-4 rounded-xl hover:border-white transition">
                 <div className="flex items-center gap-4">
                   <img
                     src={c.image}
                     alt={c.name}
-                    className="w-24 h-14 object-cover rounded"
-                  />
+                    className="w-24 h-14 object-cover rounded"/>
                   <span className="text-lg font-semibold text-white">
                     {c.name}
                   </span>
@@ -330,9 +240,8 @@ export default function CarAdmin() {
                 {/* ปุ่มลบ */}
                 <button
                   onClick={() => handleDelete(c.publicId)}
-                  className="text-gray-400 hover:text-white text-sm font-semibold transition"
-                >
-                  🗑️ ลบ
+                  className="text-gray-400 hover:text-white text-sm font-semibold transition">
+                  ลบ
                 </button>
               </li>
             ))}
