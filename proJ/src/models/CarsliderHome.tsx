@@ -33,10 +33,10 @@ export default function CarSliderHome() {
 
         if (Array.isArray(parsed)) {
           setCars(parsed);
-          // ถ้าข้อมูลถูกต้อง → ใช้รถจาก localStorage
+          // ถ้าข้อมูลถูกต้อง  ใช้รถจาก localStorage
         } else {
           setCars(defaultCars);
-          // ถ้าไม่ใช่ array → ใช้ข้อมูล default
+          // ถ้าไม่ใช่ array  ใช้ข้อมูล default
         }
       } catch {
         setCars(defaultCars);
