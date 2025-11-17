@@ -165,7 +165,7 @@ export default function CarAdmin() {
             placeholder="แท็กไลน์ (Tagline)"
             value={newCar.tagline}
             onChange={(e) => setNewCar({ ...newCar, tagline: e.target.value })}
-            className="p-3 rounded-lg bg-neutral-900border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"/>
+            className="p-3 rounded-lg bg-neutral-900 border border-neutral-700 text-white focus:ring-2 focus:ring-gray-400"/>
 
           {/* public ID */}
           <input
