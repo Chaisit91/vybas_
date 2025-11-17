@@ -140,20 +140,20 @@ export default function NewsAdmin() {
             placeholder=" News Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition"/>
+            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white-500 transition"/>
 
           {/* เนื้อหา */}
           <textarea
             placeholder=" Content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition md:col-span-2"/>
+            className="bg-[#1a1a1a] border border-gray-600 p-3 rounded-lg text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white-500 transition md:col-span-2"/>
 
           {/* อัปโหลดภาพ */}
           <input
             type="file"
             onChange={handleUpload}
-            className="block w-full text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-red-600/20 file:text-red-400 hover:file:bg-red-600/30 transition md:col-span-2"/>
+            className="block w-full text-sm text-gray-200 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-semibold file:bg-blue-600/20 file:text-blue-400 hover:file:bg-blue-300/30 transition md:col-span-2"/>
 
           {/* รูป Preview */}
           {preview && (
@@ -169,7 +169,7 @@ export default function NewsAdmin() {
         {/* ปุ่ม Add / Save */}
         <button
           onClick={handleSave}
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-700/40 transition-all duration-300 w-full">
+          className="bg-blue-950 hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-red-700/40 transition-all duration-300 w-full">
           {editingId ? "SAVE CHANGES" : "ADD NEWS"}
         </button>
 
@@ -183,7 +183,7 @@ export default function NewsAdmin() {
 
           <button
             onClick={handleClearAll}
-            className="bg-red-800 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full">
+            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition-all duration-300 w-full">
             Clear All
           </button>
         </div>

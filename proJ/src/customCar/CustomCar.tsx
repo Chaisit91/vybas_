@@ -111,7 +111,7 @@ const CustomCar = () => {
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Download failed:", err);
-      alert("❌ ดาวน์โหลดไม่สำเร็จ โปรดลองอีกครั้ง");
+      alert("ดาวน์โหลดไม่สำเร็จ โปรดลองอีกครั้ง");
     }
   };
 
@@ -209,9 +209,9 @@ const CustomCar = () => {
             <p className="text-white font-semibold mb-4">Your car is ready!</p>
             <div className="flex justify-center gap-4">
               <button
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
+                className="bg-blue-800 hover:bg-blue-600 text-white px-4 py-2 rounded-lg"
                 onClick={handleDownload}>
-                Download Image
+                Download
               </button>
               <button
                 className="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"

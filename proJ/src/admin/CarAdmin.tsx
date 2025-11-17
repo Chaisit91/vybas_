@@ -204,14 +204,14 @@ export default function CarAdmin() {
           {/* ปุ่มเพิ่มรถ */}
           <button
             onClick={handleAddCar}
-            className=" bg-white hover:bg-gray-200 text-black px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-gray-700/40 transition">
+            className="bg-blue-950 hover:bg-blue-800 text-white px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-gray-700/40 transition">
             เพิ่มรถใหม่
           </button>
 
           {/* ปุ่มรีเซ็ต */}
           <button
             onClick={handleReset}
-            className="bg-red-600 hover:bg-red-700 text-white px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-red-800/40 transition">
+            className="bg-gray-800 hover:bg-gray-700 text-white px-10 py-4 rounded-xl text-xl font-bold tracking-wider shadow-lg shadow-blue-600-800/40 transition">
             รีเซ็ตเป็นค่าเริ่มต้น
           </button>
         </div>

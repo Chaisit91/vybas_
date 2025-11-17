@@ -43,7 +43,7 @@ const About = () => {
         </h1>
 
         <p className="mb-10 text-lg text-gray-300 leading-relaxed max-w-2xl mx-auto">
-          Welcome to <span className="font-semibold text-blue-300">Custom CAR</span>! 
+          Welcome to <span className="font-semibold text-white-300">Custom CAR</span> 
           We are passionate about bringing you the most innovative and customizable car experiences — 
           crafted with technology, precision, and design.
         </p>
@@ -68,7 +68,7 @@ const About = () => {
                 key={news.id}
                 // ใส่ key เพื่อป้องกัน warning ของ React
 
-                className="bg-[#111827]/70 backdrop-blur-md border border-[#1E293B] hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-blue-900/40 rounded-2xl overflow-hidden">
+                className="bg-[#111827]/70 backdrop-blur-md border border-[#fdfeff] hover:border-blue-400/50 transition-all duration-300 shadow-lg hover:shadow-blue-900/40 rounded-2xl overflow-hidden">
                 {/* การ์ดข่าว พร้อม effect hover และขอบโค้ง */}
 
 
@@ -82,7 +82,7 @@ const About = () => {
                   className="w-full h-52 object-cover opacity-90 hover:opacity-100 transition duration-300"/>
                   {/* ปรับขนาดรูปและ effect hover ให้สว่างขึ้น */}
 
-                <div className="p-5">
+                <div className="p-5 bg-[##fdfeff]">
 
                   <h3 className="font-bold text-xl mb-2 text-white leading-snug">
                     {news.title}

@@ -138,13 +138,13 @@ export default function HomeAdmin() {
         <div className="flex gap-4 mt-8">
           <button
             onClick={handleSave} // บันทึกข้อมูล
-            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold shadow-[0_0_25px_rgba(255,255,255,0.1)] w-full transition-all hover:scale-[1.03]">
+            className="bg-blue-950 hover:bg-blue-800 text-white px-6 py-3 rounded-xl font-semibold shadow-[0_0_25px_rgba(255,255,255,0.1)] w-full transition-all hover:scale-[1.03]">
             SAVE CHANGES
           </button>
 
           <button
             onClick={handleReset} // รีเซ็ตข้อมูล
-            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl font-semibold shadow-[0_0_20px_rgba(239,68,68,0.4)] w-full transition-all hover:scale-[1.03]">
+            className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-xl font-semibold shadow-[0_0_20px_rgba(15, 39, 76, 0.8)] w-full transition-all hover:scale-[1.03]">
             RESET
           </button>
         </div>

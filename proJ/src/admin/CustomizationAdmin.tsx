@@ -95,9 +95,9 @@ export default function CustomizationAdmin() {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-10">
       {/* ตัว container หลัก */}
-      <div className="bg-[#0a0f1a] border border-[#1e3a8a]/40 rounded-3xl p-10 shadow-[0_0_40px_rgba(30,58,138,0.4)] w-full max-w-xl">
+      <div className="bg-[#0a0f1a] border border-rgba(255, 255, 255, 0.8) rounded-3xl p-10 shadow-[0_0_40px_rgba(30,58,138,0.4)] w-full max-w-xl">
         
-        <h1 className="text-3xl font-bold mb-8 text-center text-[#00eaff]">
+        <h1 className="text-3xl font-bold mb-8 text-center text-[#f0f1f1]">
           จัดการของแต่งรถ
         </h1>
 
@@ -111,7 +111,7 @@ export default function CustomizationAdmin() {
               type="text"
               value={carId} 
               onChange={(e) => setCarId(e.target.value)} 
-              className="w-full bg-[#111827] border border-[#1e3a8a]/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#00eaff]"/>
+              className="w-full bg-[#111827] border border-[#1e3a8a]/30 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#eaecec]"/>
               {/* เมื่อผู้ใช้พิมพ์ → อัปเดต carId */}
           </div>
 
@@ -167,7 +167,7 @@ export default function CustomizationAdmin() {
 
             <button
               onClick={handleDeleteOption}
-              className="px-6 py-3 bg-red-700 hover:bg-red-800 rounded-lg font-semibold transition">
+              className="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-semibold transition">
               ลบของแต่งนี้
             </button>
           </div>
