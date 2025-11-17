@@ -85,7 +85,7 @@ export default function CarAdmin() {
     const updatedCars = [...cars, newCar];
     setCars(updatedCars);
 
-    // เก็บเฉพาะรถที่ไม่ใช่ defaultCars → ป้องกันซ้ำซ้อน
+    // เก็บเฉพาะรถที่ไม่ใช่ defaultCars  ป้องกันซ้ำซ้อน
     localStorage.setItem(
       "car_list_data",// แปลงข้อมูลรถให้เป็นสตริง JSON ก่อนเก็บลง localStorage
       JSON.stringify(     // filter = คัดกรองรายการรถ
