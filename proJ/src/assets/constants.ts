@@ -5,38 +5,38 @@ export const CAR_OPTIONS: AllCarOptions = {
   temerario: {
     colors: [
       {
-        name: "Crimson Red",
+        name: "BLACK STEEL",
         image:
-          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762261344/mquloewpcwif3d7skbzs.png",
+          "",
       },
       {
-        name: "Shadow Black",
+        name: "YELLOW",
         image:
-          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762509540/uiwpvyjfnytq44kz5lme.png",
+          "",
       },
     ],
     wheels: [
       {
-        name: "Vortex",
+        name: "Cheetah Carbon R",
         image:
-          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762452163/gdlnphebebxt0pk2il0q.png",
+          "",
       },
       {
-        name: "Carbon X",
+        name: "Carbon Solar",
         image:
-          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762509485/mpuscr4xpst8zyakowwl.png",
+          "",
       },
     ],
     spoilers: [
       {
-        name: "Sport",
+        name: "Super Wing",
         image:
-          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762509429/s5hlwvufhkvmqztoavcx.png",
+          "",
       },
       {
-        name: "GT",
+        name: "Carbon Super Wing",
         image:
-          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1762509458/u1ik2mpn4hsji2vssyx1.png",
+          "",
       },
     ],
     combos: [
