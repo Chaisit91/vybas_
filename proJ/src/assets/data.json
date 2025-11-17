@@ -1,32 +1,32 @@
 [
   {
     "id": 1,
-    "name": "TEMERARIO",
+    "name": "lambo",
     "tagline": "YOU CAN'T HIDE WHO YOU ARE",
     "image": "",
     "sideLeft": "",
     "sideRight": "",
     "specs": "",
-    "publicId": "temerario"
+    "publicId": "lambo"
   },
   {
     "id": 2,
-    "name": "REVUELTO",
+    "name": "r8",
     "tagline": "THE FUTURE OF SUPERCARS",
     "image": "",
     "sideLeft": "",
     "sideRight": "",
     "specs": "",
-    "publicId": "revuelto"
+    "publicId": "r8"
   },
   {
     "id": 3,
-    "name": "RES",
+    "name": "poche",
     "tagline": "THE FUTURE OF SUPERCARS",
     "image": "",
     "sideLeft": "",
     "sideRight": "",
     "specs": "",
-    "publicId": "res"
+    "publicId": "poche"
   }
 ]
