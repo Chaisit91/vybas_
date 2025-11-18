@@ -71,62 +71,62 @@ export const CAR_OPTIONS: AllCarOptions = {
       {
         name: "BLACK STEEL",
         image:
-          "",
+          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458623/n5zpyyrpu3up1whcgcmm.png",
       },
       {
         name: "YELLOW",
         image:
-          "",
+          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458641/s940bkrihaqccswewzgo.png",
       },
     ],
     wheels: [
       {
         name: "Cheetah Carbon R",
         image:
-          "",
+          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458680/eiw3wzuftjcdrkn1uu1h.png",
       },
       {
         name: "Carbon Solar",
         image:
-          "",
+          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458684/exgwxw1defnxkhmqghk9.png",
       },
     ],
     spoilers: [
       {
         name: "Carbon XL Wing",
         image:
-          "",
+          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458719/uaqkjtdowyanhzubyfea.png",
       },
       {
         name: "Forged XL Wing",
         image:
-          "",
+          "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458732/xe1wrkztuyemrcy3zfgx.png",
       },
     ],
     combos: [
-      { selected: { colors: "BLACK STEEL", wheels: "Cheetah Carbon R" }, image: "" },
-      { selected: { colors: "BLACK STEEL", wheels: "Carbon Solar" }, image: "" },
-      { selected: { colors: "YELLOW", wheels: "Cheetah Carbon R" }, image: "" },
-      { selected: { colors: "YELLOW", wheels: "Carbon Solar" }, image: "" },
+      { selected: { colors: "BLACK STEEL", wheels: "Cheetah Carbon R" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458882/yyojxobdzsbdwwlynhfx.png" },
+      { selected: { colors: "BLACK STEEL", wheels: "Carbon Solar" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458894/smr7akvvocouy92b869z.png" },
+      { selected: { colors: "YELLOW", wheels: "Cheetah Carbon R" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458956/kti1hobefqdnjfhgkvua.png" },
+      { selected: { colors: "YELLOW", wheels: "Carbon Solar" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458963/yecbepvb36syfyf7w3ri.png" },
 
-      { selected: { colors: "BLACK STEEL", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { colors: "BLACK STEEL", spoilers: "Forged XL Wing" }, image: "" },
-      { selected: { colors: "YELLOW", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { colors: "YELLOW", spoilers: "Forged XL Wing" }, image: "" },
+      { selected: { colors: "BLACK STEEL", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459036/ccdkqd5lrko1onn6oc6r.png" },
+      { selected: { colors: "BLACK STEEL", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459045/p4dbhtdmtbiqypejtdkh.png" },
+      { selected: { colors: "YELLOW", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459072/zp6gid1vaqq7wnggwz0l.png" },
+      { selected: { colors: "YELLOW", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459081/kdiyes7ylc19vqhqck7l.png" },
 
-      { selected: { wheels: "Cheetah Carbon R", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { wheels: "Cheetah Carbon R", spoilers: "Forged XL Wing" }, image: "" },
-      { selected: { wheels: "Carbon Solar", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { wheels: "Carbon Solar", spoilers: "Forged XL Wing" }, image: "" },
+      { selected: { wheels: "Cheetah Carbon R", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459183/gpm0m68m0kph84fzbf3a.png" },
+      { selected: { wheels: "Cheetah Carbon R", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459194/sjjrhayqlbdstoos7izc.png" },
+      { selected: { wheels: "Carbon Solar", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459255/yjvnuo4sotgba6vsvkle.png" },
+      { selected: { wheels: "Carbon Solar", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459261/htxminomee0lb9sylmn3.png" },
 
-      { selected: { colors: "BLACK STEEL", wheels: "Cheetah Carbon R", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { colors: "BLACK STEEL", wheels: "Cheetah Carbon R", spoilers: "Forged XL Wing" }, image: "" },
-      { selected: { colors: "BLACK STEEL", wheels: "Carbon Solar", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { colors: "BLACK STEEL", wheels: "Carbon Solar", spoilers: "Forged XL Wing" }, image: "" },
-      { selected: { colors: "YELLOW", wheels: "Cheetah Carbon R", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { colors: "YELLOW", wheels: "Cheetah Carbon R", spoilers: "Forged XL Wing" }, image: "" },
-      { selected: { colors: "YELLOW", wheels: "Carbon Solar", spoilers: "Carbon XL Wing" }, image: "" },
-      { selected: { colors: "YELLOW", wheels: "Carbon Solar", spoilers: "Forged XL Wing" }, image: "" },
+      { selected: { colors: "BLACK STEEL", wheels: "Cheetah Carbon R", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459363/oxkjctfjg5gh4ysza6tm.png" },
+      { selected: { colors: "BLACK STEEL", wheels: "Cheetah Carbon R", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459370/ldvrsv39x0b7grsfxbco.png" },
+      { selected: { colors: "BLACK STEEL", wheels: "Carbon Solar", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459395/fqemb6uqumgzcn4a3iro.png" },
+      { selected: { colors: "BLACK STEEL", wheels: "Carbon Solar", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459404/yxygii4tvsivtuezjlpu.png" },
+      { selected: { colors: "YELLOW", wheels: "Cheetah Carbon R", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459439/qeyuvucb1nfcytkui0qx.png" },
+      { selected: { colors: "YELLOW", wheels: "Cheetah Carbon R", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459451/mke5nm4bfkrwxlftwmew.png" },
+      { selected: { colors: "YELLOW", wheels: "Carbon Solar", spoilers: "Carbon XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459473/lxanadc2otoirq8ya8d7.png" },
+      { selected: { colors: "YELLOW", wheels: "Carbon Solar", spoilers: "Forged XL Wing" }, image: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763459479/beylecbqayaun25glhjr.png" },
     ],
   },
 
