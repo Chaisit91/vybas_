@@ -14,7 +14,7 @@ interface HomeContent {
 
 // ข้อมูลเริ่มต้นของหน้า Home หากไม่มีข้อมูลใน localStorage
 const defaultContent: HomeContent = {
-  title: "Welcome to Lamborghini", 
+  title: "WELCOME TO REVIEW CUSTOMCAR", 
   subtitle: "Discover the future of performance and design.", 
   buttonText: "View Models ", 
   buttonLink: "/models", 

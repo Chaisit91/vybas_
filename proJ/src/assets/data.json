@@ -3,30 +3,21 @@
     "id": 1,
     "name": "lambo",
     "tagline": "YOU CAN'T HIDE WHO YOU ARE",
-    "image": "",
-    "sideLeft": "",
-    "sideRight": "",
-    "specs": "",
+    "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763451663/edx4lpx3jcltazunimig.png",
     "publicId": "lambo"
   },
   {
     "id": 2,
     "name": "r8",
-    "tagline": "THE FUTURE OF SUPERCARS",
+    "tagline": "THE FUTURE OFdS",
     "image": "",
-    "sideLeft": "",
-    "sideRight": "",
-    "specs": "",
-    "publicId": "r8"
+    "publicId": "r8" 
   },
   {
     "id": 3,
-    "name": "poche",
-    "tagline": "THE FUTURE OF SUPERCARS",
-    "image": "",
-    "sideLeft": "",
-    "sideRight": "",
-    "specs": "",
-    "publicId": "poche"
+    "name": "porche",
+    "tagline": "DARE TO LIVE MORE",
+    "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763451567/lhqlv1lry71d3looj4lc.png",
+    "publicId": "porche"
   }
 ]

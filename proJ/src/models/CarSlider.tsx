@@ -52,25 +52,21 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
   return (
     <section className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-b from-[#0A0F1C] via-[#0F1628] to-[#0A0F1C] text-white">
 
-      {/* Background overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent z-0" />
 
-      {/* Content */}
-      <div
-        className="
-          relative z-10 text-center px-6 animate-fadeIn
-          mt-14 md:mt-20   /* ⭐ ขยับข้อความลงมา */
-        "
-      >
-        <h2 className="text-xl md:text-2xl tracking-widest text-blue-200 font-semibold mb-2 uppercase">
+      {/* ⭐ ข้อความชิดรถมากที่สุด */}
+      <div className="relative z-10 text-center px-6 animate-fadeIn mt-2 md:mt-4">
+
+        <h2 className="text-xl md:text-2xl tracking-widest text-blue-200 font-semibold mb-1 uppercase">
           {car.name}
         </h2>
 
-        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-10 drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-0 drop-shadow-[0_4px_20px_rgba(0,0,0,0.6)]">
           {car.tagline}
         </h1>
 
-        <div className="relative mx-auto w-[85vw] md:w-[70vw]">
+        {/* ⭐ รถถูกดึงขึ้นไปชิดข้อความ */}
+        <div className="relative mx-auto w-[85vw] md:w-[70vw] -mt-6 md:-mt-10">
           <div className="absolute inset-0 rounded-3xl bg-gradient-to-b from-transparent via-[#0A0F1C]/60 to-[#0A0F1C] blur-2xl opacity-70" />
 
           <img
@@ -78,7 +74,7 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
             alt={car.name}
             className="
               relative z-10 w-full
-              h-[420px] md:h-[580px]   /* ⭐ ทำให้รถใหญ่ขึ้น */
+              h-[420px] md:h-[580px]
               object-contain object-center
               rounded-3xl
               transition-transform duration-700 hover:scale-105
@@ -86,9 +82,9 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
           />
         </div>
 
-        <div className="mt-12 flex justify-center">
+        <div className="mt-8 flex justify-center">
           <button
-            onClick={() => navigate("/custom-car", { state: { car } })}
+            onClick={() => navigate('/custom-car', { state: { car } })}
             className="bg-gradient-to-r from-[#1c2a44] to-[#223355] hover:from-[#223355] hover:to-[#2C3E60] text-white px-10 py-3 rounded-full font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-blue-900/40"
           >
             EXPLORE THE MODEL
@@ -101,26 +97,14 @@ const CarSlider: React.FC<CarSliderProps> = ({ cars }) => {
         <>
           <button
             onClick={prev}
-            className="
-              absolute left-3 md:left-6
-              top-1/2 -translate-y-1/2
-              text-white/80 hover:text-white
-              text-4xl z-20
-              p-4 transition-all duration-300
-            "
+            className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl z-20 p-4 transition-all duration-300"
           >
             ‹
           </button>
 
           <button
             onClick={next}
-            className="
-              absolute right-3 md:right-6
-              top-1/2 -translate-y-1/2
-              text-white/80 hover:text-white
-              text-4xl z-20
-              p-4 transition-all duration-300
-            "
+            className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white text-4xl z-20 p-4 transition-all duration-300"
           >
             ›
           </button>
