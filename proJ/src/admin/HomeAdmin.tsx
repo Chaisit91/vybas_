@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"; // นำเข้า Hook ของ React สำหรับใช้ state และ lifecycle
-import { uploadImageToCloudinary } from "../services/cloudinary"; // ฟังก์ชันอัปโหลดรูปไป Cloudinary
+import { useEffect, useState } from "react"; 
+import { uploadImageToCloudinary } from "../services/cloudinary";
 
 // รูปแบบข้อมูลที่ใช้เก็บข้อมูลของหน้า Home
 interface HomeContent {
@@ -147,4 +147,4 @@ function HomeAdmin() {
   );
 }
 
-export default HomeAdmin; // ส่งออก component นี้
+export default HomeAdmin;

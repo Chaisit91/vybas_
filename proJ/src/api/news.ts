@@ -1,8 +1,5 @@
 import type { News } from "../types/News"; 
-//  นำเข้า Type ของข่าว เพื่อช่วยตรวจรูปแบบข้อมูลให้ถูกต้อง
-
 import mockData from "../assets/news.json";
-//  mockData = ข่าวเริ่มต้นแบบไฟล์ JSON (ทำตัวเหมือนฐานข้อมูลเริ่มต้น)
 
 const STORAGE_KEY = "newsData";
 //  ชื่อ key สำหรับเก็บข้อมูลข่าวทั้งหมดใน localStorage
@@ -13,8 +10,8 @@ export async function fetchNews(): Promise<News[]> {
   //  ดึงข้อมูลข่าวจาก localStorage (เป็น string หรือ null)
 
   const localNews = stored ? JSON.parse(stored) : [];
-  //  ถ้ามีข้อมูล → แปลงเป็น array
-  //  ถ้าไม่มี → ให้เป็น array ว่าง []
+  //  ถ้ามีข้อมูล  แปลงเป็น array
+  //  ถ้าไม่มี  ให้เป็น array ว่าง []
 
   //  รวม mockData เฉพาะข่าวที่ยังไม่มีใน localNews (กันซ้ำ)
   const merged = [

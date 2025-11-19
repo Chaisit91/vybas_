@@ -1,4 +1,3 @@
-// นำเข้าข้อมูลรถเริ่มต้นจากไฟล์ data.json
 import carData from '../assets/data.json';
 
 // ประกาศโครงสร้างข้อมูลรถ 1 คัน

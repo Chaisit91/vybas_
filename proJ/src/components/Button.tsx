@@ -1,6 +1,4 @@
 import React from "react";
-//  นำเข้า React เพื่อใช้สร้าง Component
-
 interface ButtonProps {
   label: string; 
   //  ข้อความบนปุ่ม
@@ -38,4 +36,3 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 export default Button;
-//  ส่งออก Component ให้ไฟล์อื่นนำไปใช้ได้

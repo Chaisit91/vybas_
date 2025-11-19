@@ -1,4 +1,3 @@
-// import Navigate เพื่อเอาไว้ redirect ไปหน้า login
 import { Navigate } from "react-router-dom";
 // import ReactNode เพื่อระบุชนิดของ children
 import type { ReactNode } from "react";

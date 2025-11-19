@@ -1,4 +1,3 @@
-// นำเข้า type Car เพื่อกำหนดรูปแบบข้อมูลรถ
 import type { Car } from "../types/carall";
 
 // ฟังก์ชันดึงข้อมูลรถจาก localStorage
@@ -6,7 +5,7 @@ export function getStoredCars(): Car[] {
   // ดึงข้อมูลดิบจาก localStorage
   const saved = localStorage.getItem("car_list_data");
 
-  // ถ้าไม่มีข้อมูลเลย → คืน array ว่าง
+  // ถ้าไม่มีข้อมูลเลย  คืน array ว่าง
   if (!saved) return [];
 
   try {

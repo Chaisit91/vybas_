@@ -1,10 +1,8 @@
-// นำเข้า useState และ useEffect สำหรับ state และ lifecycle
 import { useState, useEffect } from "react";
 // นำเข้า useLocation สำหรับดึง state ที่ส่งมาจากหน้าอื่น, useNavigate สำหรับเปลี่ยนหน้า
 import { useLocation, useNavigate } from "react-router-dom";
 // ปุ่ม UI ที่สร้างเอง
 import Button from "../components/Button";
-// นำเข้า type ของ Car
 import type { Car } from "../types/carall";
 // นำเข้า service สำหรับโหลด options และ combo images
 import { getCarOptions, findComboImage, type CarOptions, type OverlayOption } from "../services/carOptionsService";

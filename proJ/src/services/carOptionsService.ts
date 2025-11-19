@@ -1,6 +1,5 @@
 // นำเข้า base options ของรถจากไฟล์ constants
 import { CAR_OPTIONS } from "../assets/constants";
-
 // ระบุประเภทของ category ที่ใช้ในระบบ
 export type Category = "colors" | "wheels" | "spoilers";
 
@@ -95,7 +94,7 @@ export const findComboImage = (
   return null; // ถ้าไม่มี combo ที่ตรงทั้งหมด
 };
 
-// 🔹 ลบของแต่งของรถ
+//🔹 ลบของแต่งของรถ
 export const deleteOptionFromCar = (
   publicId: string, // รถ
   category: Category, // หมวด

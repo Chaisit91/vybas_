@@ -1,4 +1,3 @@
-// นำเข้า Link สำหรับ navigation ไปหน้าอื่น
 import { Link } from "react-router-dom";
 // นำเข้า useState สำหรับเก็บ state ของ content
 import { useState } from "react";

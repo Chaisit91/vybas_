@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // ใช้ Hook ของ React: useState สำหรับ state, useEffect สำหรับโหลดข้อมูลตอนเริ่มต้น
+import { useEffect, useState } from "react";
 import {
   fetchNews,      // ดึงข่าวทั้งหมด (รวม mock + localStorage)
   addNews,        // เพิ่มข่าวใหม่
@@ -128,9 +128,7 @@ export default function NewsAdmin() {
          NEWS ADMIN PANEL
       </h1>
 
-      {/* ================================
-           FORM เพิ่มและแก้ไขข่าว
-         ================================ */}
+      {/*FORM เพิ่มและแก้ไขข่าว */}
       <div className="bg-[#111111] border border-gray-700 rounded-3xl shadow-[0_0_30px_rgba(255,255,255,0.1)] p-8 w-full max-w-5xl">
 
         {/* Layout แบ่ง Grid 2 คอลัมน์ */}
@@ -197,9 +195,7 @@ export default function NewsAdmin() {
         </div>
       </div>
 
-      {/* ================================
-           แสดงรายการข่าวทั้งหมด
-         ================================ */}
+      {/*แสดงรายการข่าวทั้งหมด */}
       <div className="mt-10 w-full max-w-6xl">
         <h2 className="text-2xl font-bold mb-6 text-gray-100 border-b border-gray-700 pb-2">
            All News ({newsList.length}) {/* จำนวนข่าว */}

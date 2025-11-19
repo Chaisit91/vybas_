@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-// import hook useEffect และ useState จาก React
-
 import { fetchNews } from "../api/news";
 // import ฟังก์ชโหลดข่าวจาก API
-
 import type { News } from "../types/News";
 // import type News เพื่อกำหนดโครงสร้างข้อมูลให้ชัดเจน
 

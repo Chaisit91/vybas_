@@ -1,12 +1,7 @@
 import { useEffect, useState } from "react"; 
-// import hook useState และ useEffect จาก React
-
 import CarSlider from "../models/CarSlider";
-// import component CarSlider มาใช้แสดงสไลด์รถ
-
 import type { Car } from "../types/carall";
 // import type Car เพื่อใช้กำหนดชนิดข้อมูล
-
 import defaultCarsData from "../assets/data.json";
 
 const defaultCars = defaultCarsData as Car[];

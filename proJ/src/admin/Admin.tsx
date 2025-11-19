@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"; // นำเข้า Link สำหรับสร้างลิงก์ภายในเว็บโดยไม่รีเฟรชหน้า
+import { Link } from "react-router-dom"; 
 
 // สร้าง component หลักชื่อ Admin และ export ออกไปให้ไฟล์อื่นนำไปใช้
 export default function Admin() {

@@ -1,9 +1,5 @@
 import { useState } from "react"; 
-// นำเข้า useState เพื่อใช้จัดการ state ใน React
-
 import { uploadImageToCloudinary } from "../services/cloudinary"; 
-// ฟังก์ชันจัดการอัปโหลดภาพไปยัง Cloudinary
-
 import { addOptionToCar, deleteOptionFromCar } from "../services/carOptionsService"; 
 // ฟังก์ชันเพิ่มและลบของแต่งสำหรับรถแต่ละคัน
 
@@ -20,15 +16,14 @@ export default function CustomizationAdmin() {
   const [image, setImage] = useState<string | null>(null); 
   // เก็บ URL รูปภาพหลังอัปโหลดเสร็จ (หรือ null หากยังไม่มี)
 
-  // ===============================
+
   //  ฟังก์ชันอัปโหลดภาพขึ้น Cloudinary
-  // ===============================
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; 
     // หยิบไฟล์แรกที่ผู้ใช้เลือก (ถ้ามี)
 
     if (!file) return; 
-    // ถ้าไม่ได้เลือกไฟล์อะไร → หยุดทำงาน
+    // ถ้าไม่ได้เลือกไฟล์อะไร  หยุดทำงาน
 
     const url = await uploadImageToCloudinary(file); 
     // อัปโหลดไฟล์ขึ้น Cloudinary และรับ URL กลับมา
@@ -37,9 +32,7 @@ export default function CustomizationAdmin() {
     // ถ้าอัปโหลดสำเร็จ  เก็บ URL ไว้ใน state เพื่อนำไปใช้งาน
   };
 
-  // ===============================
   //  ฟังก์ชันเพิ่มของแต่งเข้ารถ
-  // ===============================
   const handleAdd = () => {
     if (!carId || !optionName || !image) {
       // ตรวจสอบว่ามีข้อมูลจำเป็นครบหรือไม่
@@ -63,9 +56,8 @@ export default function CustomizationAdmin() {
     // เคลียร์รูปภาพหลังเพิ่มสำเร็จ
   };
 
-  // ===============================
+
   //  ฟังก์ชันลบของแต่งออกจากรถ
-  // ===============================
   const handleDeleteOption = () => {
     if (!carId || !optionName) {
       // ต้องมี Car ID + ชื่อของแต่ง
@@ -147,7 +139,7 @@ export default function CustomizationAdmin() {
             <label className="block mb-2 text-gray-300">Upload Image:</label>
 
             <input type="file" onChange={handleUpload} className="w-full" />
-            {/* เมื่อเลือกไฟล์ → handleUpload จะทำงาน */}
+            {/* เมื่อเลือกไฟล์  handleUpload จะทำงาน */}
 
             {image && (
               <img

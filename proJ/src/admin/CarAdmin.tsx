@@ -1,9 +1,6 @@
 // React hooks: useState (เก็บข้อมูล), useEffect (รันตอนโหลดหน้า), useRef (ใช้เลื่อน scroll)
 import { useState, useEffect, useRef } from "react";
-
-// นำเข้ารถ default จากไฟล์ JSON ภายในโปรเจกต์
 import defaultCars from "../assets/data.json";
-
 // ฟังก์ชันอัปโหลดภาพไป Cloudinary
 import { uploadImageToCloudinary } from "../services/cloudinary";
 
@@ -35,10 +32,10 @@ export default function CarAdmin() {
     // ดึงข้อมูลรถที่เพิ่มใหม่จาก localStorage (ถ้ามี)
     const saved = localStorage.getItem("car_list_data");
 
-    // รถที่เคยถูกลบ → จะไม่ดึงกลับมาอีก
+    // รถที่เคยถูกลบ  จะไม่ดึงกลับมาอีก
     const deleted = JSON.parse(localStorage.getItem("deleted_cars") || "[]");
 
-    // ถ้ามีข้อมูลใน localStorage → ใช้ค่านั้น
+    // ถ้ามีข้อมูลใน localStorage  ใช้ค่านั้น
     const base = saved ? JSON.parse(saved) : [];
 
     // ตัด defaultCars ที่ถูกลบออก
@@ -111,7 +108,7 @@ export default function CarAdmin() {
     const updatedCars = cars.filter((c) => c.publicId !== publicId);
     setCars(updatedCars);
 
-    // เก็บรถที่ถูกลบไว้ → ป้องกันให้ defaultCars กลับมาอีก
+    // เก็บรถที่ถูกลบไว้  ป้องกันให้ defaultCars กลับมาอีก
     const deleted = JSON.parse(localStorage.getItem("deleted_cars") || "[]");
 
     if (!deleted.includes(publicId)) {
