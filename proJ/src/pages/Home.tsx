@@ -53,7 +53,7 @@ const Home: React.FC = () => {
         {/* ปุ่มลิงก์ไปหน้าอื่น */}
         <Link
           to={content.buttonLink} // link ไป URL จาก content
-          className="inline-block bg-[#1c2a44] text-white px-10 py-4 rounded-full"
+          className="bg-gradient-to-r from-[#1c2a44] to-[#223355] hover:from-[#223355] hover:to-[#2C3E60] text-white px-10 py-3 rounded-full font-semibold tracking-wide transition-all duration-300 shadow-lg hover:shadow-blue-900/40"
         >
           {content.buttonText}
         </Link>
