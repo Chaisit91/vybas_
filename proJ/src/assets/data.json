@@ -2,22 +2,23 @@
   {
     "id": 1,
     "name": "LAMBORGHINI",
-    "tagline": "YOU CAN'T HIDE WHO YOU ARE",
+    "tagline": "FIERCE AND FEARLESS",
     "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763451663/edx4lpx3jcltazunimig.png",
     "publicId": "lambo"
   },
   {
     "id": 2,
     "name": "AUDI R8",
-    "tagline": "THE FUTURE OFdS",
+    "tagline": "DBEAUTIFUL AND FIERCE",
     "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763458525/nxrwbtormdmcabcqei13.png",
     "publicId": "r8" 
   },
   {
     "id": 3,
     "name": "PORCHE 911",
-    "tagline": "DARE TO LIVE MORE",
+    "tagline": "POWERFUL AND STYLISH",
     "image": "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763451567/lhqlv1lry71d3looj4lc.png",
     "publicId": "porche"
   }
 ]
+
