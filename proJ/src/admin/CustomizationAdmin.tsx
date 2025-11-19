@@ -34,7 +34,7 @@ export default function CustomizationAdmin() {
     // อัปโหลดไฟล์ขึ้น Cloudinary และรับ URL กลับมา
 
     if (url) setImage(url); 
-    // ถ้าอัปโหลดสำเร็จ → เก็บ URL ไว้ใน state เพื่อนำไปใช้งาน
+    // ถ้าอัปโหลดสำเร็จ  เก็บ URL ไว้ใน state เพื่อนำไปใช้งาน
   };
 
   // ===============================

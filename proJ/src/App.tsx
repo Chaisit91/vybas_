@@ -1,6 +1,4 @@
-// นำเข้าเครื่องมือ routing ต่าง ๆ จาก react-router-dom
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 // นำเข้า Navbar ที่แสดงบนทุกหน้า
 import Navbar from "./components/Navbar";
 
@@ -28,7 +26,7 @@ export default function App() {
       {/* Navbar แสดงทุกหน้า */}
       <Navbar />
       <Routes>
-        {/* 🌐 เส้นทางสำหรับผู้ใช้ทั่วไป */}
+        {/*  เส้นทางสำหรับผู้ใช้ทั่วไป */}
         {/* หน้าแรก */}
         <Route path="/" element={<Home />} />
         {/* หน้าเลือกดูรุ่นรถ */}

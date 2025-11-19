@@ -1,7 +1,5 @@
 import CarSlider from "./CarSlider";
-
 import carsData from "../assets/data.json";
-
 import type { Car } from "../types/carall";
 // import ชนิดข้อมูล Car เพื่อใช้กำหนด type ให้ชัดเจน
 
