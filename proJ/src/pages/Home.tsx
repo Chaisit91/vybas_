@@ -17,7 +17,7 @@ const defaultContent: HomeContent = {
   subtitle: "Discover the future of performance and design.",
   buttonText: "View Models",
   buttonLink: "/models",
-  background: "", // ไม่มีภาพพื้นหลังเริ่มต้น
+  background: "https://res.cloudinary.com/dlp0q39ua/image/upload/v1763561507/ebbijjqfxrb8pknoxy71.jpg", // ไม่มีภาพพื้นหลังเริ่มต้น
 };
 
 // key สำหรับ localStorage
